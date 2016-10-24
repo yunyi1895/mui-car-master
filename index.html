@@ -8,9 +8,43 @@
     <link href="css/mui.min.css" rel="stylesheet"/>
     <script type="text/javascript" charset="utf-8">
       	mui.init();
+      	mui.plusReady(function() {
+      		var Userinfo = plus.storage.getItem("userinfo");
+      		if(Userinfo){
+					//有值，说明已经登录过了，无需显示，跳转主界面；
+					//关闭splash页面；
+				//	plus.navigator.closeSplashscreen();
+					//plus.navigator.setFullscreen(false);
+					//初始化模板
+					//initTemplates(); 
+					//预加载
+					//preload();
+				}else{
+					mui.openWindow({
+						id:'login',
+						url:'./component/signin.html',
+						show:{
+							aniShow:'none'
+						},
+						waiting:{
+							autoShow:false
+						}
+					});
+					
+				}
+      		
+      		
+      	})
     </script>
 </head>
 <body>
+	<div>2222222</div>
+	<div>2222222</div>
+	<div>2222222</div>
+	
+	<div>2222222</div><div>2222222</div>
+	<div>2222222</div>
+	<div>2222222</div>
 	
 </body>
 </html>

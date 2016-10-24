@@ -1,0 +1,259 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<!--<link href="../css/mui.min.css" rel="stylesheet" />-->
+		<script src="../js/setrem.js" type="text/javascript" charset="utf-8"></script>
+		<style type="text/css">
+			body{
+				height: 100%;
+				width: 100%;
+				font-size: 0.12rem;
+			}
+			.content{
+				height: 100%;
+				width: 100%;
+				background: url(../image/login_01.png) repeat;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				position: absolute;
+				left: 0;
+				top: 0;
+				bottom: 0;
+				right: 0;
+			}
+			.con{
+				background: #fff;
+				width: 2.8rem;
+				height: 4.41rem;
+				border: 1px solid #ccc;
+				border-radius: 3px;
+				 box-shadow:0 0 10px #bbb;  
+			}
+			.showimg{
+				height: 1.5rem;
+				width: 100%;
+				position: relative;
+			}
+			.showimg #logo1{
+				position: absolute;
+				width: 0.975rem;
+				height: 0.96rem;
+				left: 0.9125rem;
+				top:-0.48rem;
+				
+			}
+			.showimg #logo2{
+				position: absolute;
+				width: 1.35rem;
+				height: 0.31rem;
+				left: 0.725rem;
+				top:0.58rem;
+				
+			}
+			.showimg #logo3{
+				position: absolute;
+				width: 1.35rem;
+				
+				left: 0.725rem;
+				top:0.98rem;
+				
+			}
+			.inputtext{
+				height: 1.61rem;
+				width: 100%;
+				
+				text-align: center;
+			
+			}
+			.inputtext span{
+				color:#625239 ;
+				text-align: center;
+				flex: 2;
+			}
+			.inputtext input{
+				height: 0.15rem;
+				border: 1px solid #beac94;
+				border-radius: 2px;
+				padding: 4px;
+				flex: 4;
+			
+				
+			}
+			.username{
+				height: 0.375rem;
+				line-height: 0.375rem;
+				display: flex;
+				margin: 0 auto;
+				width: 90%;
+				justify-content: center;
+				align-items: center;
+			}
+			
+			.password{
+				height: 0.375rem;
+				line-height: 0.375rem;
+			}
+			.signin{
+				height: 1.3rem;
+				width: 100%;
+				text-align: center;
+				padding-top: 0.4rem;
+			}
+			.signin span{
+				height:0.29rem;
+				width: 1.12rem;
+				display: inline-block;
+				
+				z-index: 2;
+			}
+			#signin{
+				
+				background: url(../image/denglu_03.jpg) no-repeat;
+				background-size: cover;
+			}
+			#signup{
+				background: url(../image/denglu_05.jpg) no-repeat;
+				background-size: cover;
+			}
+		</style>
+		<script type="text/javascript">
+		
+		
+		
+		
+		</script>
+	</head>
+	
+	<body>
+		<div class="content">
+			<div class="con">
+				<div class="showimg">
+					<img id="logo1" src="../image/logo@2x.png"/>
+					
+					<img id="logo2" src="../image/huangjiaclubzhongwen@2x.png"/>
+					<img id="logo3" src="../image/HUANGJIACLUB@2x.png"/>
+				</div>
+				<div class="inputtext">
+					<div class="username">
+						<span>   账 号    </span>
+						<input type="text" name="" id="userinfo" value="" placeholder="请输入登录名" />
+					</div>
+					<div class="username">
+						<span> 设置密码</span>
+						<input type="text" name="" id="password1" value="" placeholder="请输入密码" />
+					</div>
+					<div class="username">
+						<span> 确认密码</span>
+						<input type="text" name="" id="password2" value="" placeholder="请输入密码" />
+					</div>
+					<div class="username">
+						<span> 邀 请 码</span>
+						<input type="text" name="" id="invitation" value="" placeholder="请输入密码" />
+					</div>
+				</div>
+				<div class="signin">
+					<span id="signin">
+						
+					</span>
+					<span id="signup">
+						
+					</span>
+				</div>
+			</div>
+			
+			
+		</div>
+		
+		
+		
+		<script src="../js/mui.min.js"></script>
+		<script src="../public/public.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			mui.init()
+			var doc=document
+			
+			
+			mui.plusReady(function() {
+				var signinButton = doc.getElementById('signin');
+				var signupButton = doc.getElementById('signup');
+				//var passwordBox = doc.getElementById('password');
+				
+				signupButton.addEventListener('tap', function(event) {
+					var userinfoval = doc.getElementById('userinfo').value;
+					var password1val = doc.getElementById('password1').value;
+					var password2val = doc.getElementById('password1').value;
+					var invitationval=doc.getElementById('invitation').value;
+//					if(!isChineseChar(userinfoval)){
+//						dialoginfo('用户名只能为2到6位中文字符')
+//						return
+//					}
+//					if(!isPasswd(password1val)){
+//						dialoginfo('密码只能输入6-12个字母、数字、下划线')
+//						return
+//					}
+//					if(password1val!=password2val){
+//						dialoginfo('请输入相同的密码')
+//						return
+//					}
+//					mui.ajax('http://runjs.cn/action/echo/',{
+//						data:{
+//							username:'userinfoval',
+//							password:'password1val'
+//						},
+//						dataType:'json',//服务器返回json格式数
+//						type:'post',//HTTP请求类型
+//						//timeout:10000,//超时时间设置为10秒；
+//					//	headers:{'Content-Type':'application/json'},	              
+//						success:function(data){
+//							console.log(22)
+//							console.log(data)
+//						},
+//						error:function(xhr,type,errorThrown){
+//							//异常处理；
+//							console.log(11222)
+//							console.log(JSON.stringify(xhr));
+//						}
+//					});
+//					
+					mui.post('http://192.168.1.111/apptest/index.php/admin/index/login',{
+							username:userinfoval,
+							password:password1val
+						},function(data){
+							console.log(JSON.stringify(data));
+							//服务器返回响应，根据响应结果，分析是否登录成功；
+							//...
+						},'json'
+					);
+					
+					//console.log(userinfoval+'|'+passwordval)
+					
+				},false)
+				signinButton.addEventListener('tap', function(event) {
+						mui.openWindow({
+							url: 'signin.html',
+							id: 'signin',
+							preload: true,
+							show: {
+								aniShow: 'pop-in'
+							},
+							styles: {
+								popGesture: 'hide'
+							},
+							waiting: {
+								autoShow: false
+							}
+						});
+				},false)
+				
+			})
+			
+			
+		</script>
+	</body>
+
+</html>

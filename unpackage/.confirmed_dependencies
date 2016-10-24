@@ -1,0 +1,51 @@
+{
+	"index.html": {
+		"resources": [
+			"js/mui.min.js",
+			"css/mui.min.css"
+		],
+		"refer": [
+			"compoment/login/signin.html",
+			"compoment/signin.html",
+			"component/signin.html"
+		]
+	},
+	"compoment/signin.html": {
+		"resources": [
+			"image/login_05.png",
+			"js/setrem.js",
+			"image/login_03.png",
+			"image/login_01.png",
+			"js/mui.min.js"
+		]
+	},
+	"component/signin.html": {
+		"resources": [
+			"image/login_05.png",
+			"js/setrem.js",
+			"image/login_03.png",
+			"image/login_01.png",
+			"js/mui.min.js",
+			"public/public.js"
+		],
+		"refer": [
+			"component/singup.html"
+		]
+	},
+	"component/singup.html": {
+		"resources": [
+			"image/denglu_03.jpg",
+			"image/denglu_05.jpg",
+			"js/setrem.js",
+			"js/mui.min.js",
+			"image/login_01.png",
+			"public/public.js",
+			"image/logo@2x.png",
+			"image/HUANGJIACLUB@2x.png",
+			"image/huangjiaclubzhongwen@2x.png"
+		],
+		"refer": [
+			"component/signin.html"
+		]
+	}
+}

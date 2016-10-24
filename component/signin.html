@@ -29,7 +29,7 @@
 			.con{
 				background: #fff;
 				width: 2.8rem;
-				height: 4.41rem;
+				height: 3.55rem;
 				border: 1px solid #ccc;
 				border-radius: 3px;
 				 box-shadow:0 0 10px #bbb;  
@@ -40,7 +40,7 @@
 				
 			}
 			.inputtext{
-				height: 1.61rem;
+				height: 0.75rem;
 				width: 100%;
 				
 				text-align: center;
@@ -48,20 +48,26 @@
 			}
 			.inputtext span{
 				color:#625239 ;
+				text-align: center;
+				flex: 1;
 			}
 			.inputtext input{
 				height: 0.15rem;
 				border: 1px solid #beac94;
 				border-radius: 2px;
 				padding: 4px;
+				flex: 4;
+			
+				
 			}
-			.username{
+			.username,.password{
 				height: 0.375rem;
 				line-height: 0.375rem;
-			}
-			.password{
-				height: 0.375rem;
-				line-height: 0.375rem;
+				display: flex;
+				margin: 0 auto;
+				width: 80%;
+				justify-content: center;
+				align-items: center;
 			}
 			.signin{
 				height: 1.3rem;
@@ -78,22 +84,14 @@
 			}
 			#signin{
 				
-				background: url(../image/denglu_03.jpg) no-repeat;
+				background: url(../image/login_03.png) no-repeat;
 				background-size: cover;
 			}
 			#signup{
-				background: url(../image/denglu_05.jpg) no-repeat;
+				background: url(../image/login_05.png) no-repeat;
 				background-size: cover;
 			}
 		</style>
-		<script type="text/javascript">
-		
-			function wwa(this){
-				console.log(this)
-			}
-		
-		
-		</script>
 	</head>
 	
 	<body>
@@ -102,24 +100,16 @@
 				<div class="showimg"></div>
 				<div class="inputtext">
 					<div class="username">
-						<span> 账  &nbsp 号</span>
-						<input type="text" name="" id="" value="" placeholder="请输入登录名" />
+						<span> 账 号</span>
+						<input type="text" name="" id="userinfo" value="" placeholder="请输入登录名" />
 					</div>
 					<div class="password">
-						<span> 设置密码</span>
-						<input type="text" name="" id="" value="" placeholder="请输入密码" />
-					</div>
-					<div class="password">
-						<span> 确认密码</span>
-						<input type="text" name="" id="" value="" placeholder="请输入密码" />
-					</div>
-					<div class="password">
-						<span> 邀 请 码</span>
-						<input type="text" name="" id="" value="" placeholder="请输入密码" />
+						<span> 密 码</span>
+						<input type="text" name="" id="password" value="" placeholder="请输入密码" />
 					</div>
 				</div>
 				<div class="signin">
-					<span id="signin" onclick="wwa(111)">
+					<span id="signin">
 						
 					</span>
 					<span id="signup">
@@ -134,8 +124,45 @@
 		
 		
 		<script src="../js/mui.min.js"></script>
+		<script src="../public/public.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
-			//mui.init()
+			mui.init()
+			var doc=document
+			//校验密码：只能输入6-20个字母、数字、下划线
+			
+			mui.plusReady(function() {
+				var signinButton = doc.getElementById('signin');
+				var signupButton = doc.getElementById('signup');
+				//var passwordBox = doc.getElementById('password');
+				
+				signinButton.addEventListener('tap', function(event) {
+					var userinfoval = doc.getElementById('userinfo').value;
+					var passwordval = doc.getElementById('password').value;
+					if(!isChineseChar(userinfoval)){
+						dialoginfo('用户名只能为2到6位中文字符')
+					}
+					
+					//console.log(userinfoval+'|'+passwordval)
+					
+				},false)
+				signupButton.addEventListener('tap', function(event) {
+						mui.openWindow({
+							url: 'singup.html',
+							id: 'singup',
+							preload: true,
+							show: {
+								aniShow: 'pop-in'
+							},
+							styles: {
+								popGesture: 'hide'
+							},
+							waiting: {
+								autoShow: false
+							}
+						});
+				},false)
+				
+			})
 		</script>
 	</body>
 

@@ -29,7 +29,8 @@
 			"public/public.js"
 		],
 		"refer": [
-			"component/singup.html"
+			"component/singup.html",
+			"component/home/hall.html"
 		]
 	},
 	"component/singup.html": {
@@ -46,6 +47,20 @@
 		],
 		"refer": [
 			"component/signin.html"
+		]
+	},
+	"component/home/hall.html": {
+		"resources": [
+			"js/setrem.js",
+			"js/mui.min.js",
+			"css/mui.min.css",
+			"fonts/mui.ttf",
+			"image/qichepeitu@2x.png",
+			"image/bg@2x.png",
+			"image/touxiang@2x.png",
+			"image/showus.png",
+			"image/kongbaiicon@2x.png",
+			"image/qichetubiao@2x.png"
 		]
 	}
 }

@@ -5,39 +5,603 @@
 		<meta charset="UTF-8">
 		<title></title>
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
-		<!--<link href="../../css/mui.min.css" rel="stylesheet" />-->
+		<link href="../../css/mui.min.css" rel="stylesheet" />
 		<script src="../../js/setrem.js" type="text/javascript" charset="utf-8"></script>
 		<style type="text/css">
 			body{
 				height: 100%;
 				width: 100%;
 				font-size: 0.12rem;
+				background: url(../../image/bg@2x.png) no-repeat;
+				background-size:cover ;
+				height: 0.22 rem;
+				position: relative;
 			}
+			.hidden{
+				/*z-index: 22;
+				position: absolute;
+				left: 0;
+				right: 0;
+				bottom: 0.49rem;
+				top: 0;
+				background: rgba(0,0,0,0.4);*/
+			}
+			ul,li{
+				list-style: none;
+				margin: 0;
+				padding: 0;
+			}
+			
 			header{
-				height: 64px;
+				background: #f6a635 !important;
+				border: none !important;
+				
+			}
+			header h1{
+				color: #fff !important;
+			}
+			header a{
+				color: #fff;
+			}
+			.content{
+				padding-top: 0.22rem;
+			}
+			.showimg{
+				height: 1.35rem;
 				width: 100%;
+				background: url(../../image/qichepeitu@2x.png) no-repeat;
+				background-size: cover;
+			}
+			.gamelist{
+				width: 100%;
+				height: 3.22rem;
+				padding: 0.3rem 0rem;
+			}
+			.gamelist table{
+				width: 100%;
+				height: 100%;
+				padding: 0;
+				margin: 0;
+				border: 0;
+			}
+			.gamelist td{
+				margin: 0;
+				padding: 0;
+				border: 0;
+				text-align: center;
+			}
+			
+			.itemgame{
+				
+				height:0.6rem ;
+				width: 0.6rem;
+				display: inline-block;
+			}
+			.qitagame{
+				background: url(../../image/kongbaiicon@2x.png) no-repeat;
+				background-size:cover ;
+			}
+			.saiche{
+				background: url(../../image/qichetubiao@2x.png)  no-repeat;
+				background-size:cover;
+			}
+			.itemtext{
+				color: #fff;
+			}
+			.mui-slider-indicator{
+				
+			}
+			footer{
+				height: 0.49rem;
+				width: 100%;
+				background: #fefefe;
+				position: fixed;
+				bottom: 0;
+				left: 0;
+				display: flex;
+			}
+			footer div{
+				flex: 1;
+				line-height: 0.49rem;
+				color: #615138;
+			}
+			.userinfo{
+				display: flex;
+			}
+			.userinfo #userimage{
+				flex: 1;
+				display: inline-block;
+				
+			}
+			.userinfo #userimage img{
+				display: block;
+				margin: 0 auto;
+				margin-top: 0.13rem;
+			}
+			.userinfo #username{
+				color: #615138;
+				flex: 1;
+			}
+			.money{
+				text-align: center;
+			}
+			.userCenter{
+				position: relative;
+				text-align: center;
+			}
+			.userCenter .userCenterBtn{
+				display: block;
+				width: 100%;
+				height: 100%;
+				border-radius:3px ;
+				line-height: 0.49rem;
+				background: #ff9e00;
+				color: #feffff;
+			}
+			.showuserCenter{
+				position: absolute;
+				height: 2.4rem;
+				width: 1.39rem;
+				/*top: -2.4rem;
+				left: -0.32334rem;*/
+				right: 0;
+				bottom: -0.41rem;
+				text-align: center;
+				background: #f60;
+				z-index: 888;
+				opacity: 1;
+			}
+			.showuserCenter ul{
+				display: block;
+				height: 2.4rem;
+				overflow: hidden;
+			}
+			.showuserCenter li:nth-child(odd){/*奇数*/
+				height: 0.4rem;
+				display: block;
+				width: 100%;
+				background: #ac9573;
+			}
+			.showuserCenter li:nth-child(even){/*偶数*/
+				height: 0.4rem;
+				display: block;
+				width: 100%;
+				background: #cdb593;
+			}
+			.showuserCenter li a{
+				text-align: center;
+				color: #feffff;
+				line-height: 0.4rem;
+			}
+			.userCenter .userCenterBtn:after{
+				position: absolute;
+				top: 0.22rem;
+				right: 0.1rem;
+				z-index: 22;
+				width: 0.1rem;
+				height: 0.07rem;
+				content: '';
+				background: url(../../image/showus.png) no-repeat;
+				background-size:cover ;
 			}
 		</style>
 	</head>
 
 	<body>
-		<header>
-			<div class="headtop"></div>
-			<div class="headtit"></div>
+		<div class="hidden">
+			
+		</div>
+		<header class="mui-bar ">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">皇家大厅</h1>
+			<a class="mui-icon-info-filled mui-icon mui-icon-left-nav mui-pull-right"></a>
 		</header>
 		<div class="content">
 			<div class="showimg"></div>
-			<div class="gamelist"></div>
+			<div class="gamelist mui-slider">
+				<div class="mui-slider-group mui-slider-loop">
+						<div class="mui-slider-item mui-slider-item-duplicate">
+							<table border="" cellspacing="" cellpadding="">
+							<tr>
+								<td>
+									<span class="itemgame saiche"></span>
+									<br/>
+									<span class="itemtext ">北京赛车</span>
+								</td>
+								<td>
+									<span class="itemgame qitagame"></span>
+									<br/>
+									<span class="itemtext">北京赛车</span>
+								</td>
+								<td>
+									<span class="itemgame qitagame"></span>
+									<br/>
+									<span class="itemtext">北京赛车</span>
+								</td>
+								<td>
+									<span class="itemgame qitagame"></span>
+									<br/>
+									<span class="itemtext">北京赛车</span>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<span class="itemgame qitagame"></span>
+									<br/>
+									<span class="itemtext">北京赛车</span>
+								</td>
+								<td>
+									<span class="itemgame qitagame"></span>
+									<br/>
+									<span class="itemtext">北京赛车</span>
+								</td>
+								<td>
+									<span class="itemgame qitagame"></span>
+									<br/>
+									<span class="itemtext">北京赛车</span>
+								</td>
+								<td>
+									<span class="itemgame qitagame"></span>
+									<br/>
+									<span class="itemtext">北京赛车</span>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<span class="itemgame qitagame"></span>
+									<br/>
+									<span class="itemtext">北京赛车</span>
+								</td>
+								<td>
+									<span class="itemgame qitagame"></span>
+									<br/>
+									<span class="itemtext">北京赛车</span>
+								</td>
+								<td>
+									<span class="itemgame qitagame"></span>
+									<br/>
+									<span class="itemtext">北京赛车</span>
+								</td>
+								<td>
+									<span class="itemgame qitagame"></span>
+									<br/>
+									<span class="itemtext">北京赛车</span>
+								</td>
+							</tr>
+						</table>
+					</div>
+					<div class="mui-slider-item">
+							<table border="" cellspacing="" cellpadding="">
+							<tr>
+								<td>
+									<span class="itemgame saiche"></span>
+									<br/>
+									<span class="itemtext ">北京赛车</span>
+								</td>
+								<td>
+									<span class="itemgame qitagame"></span>
+									<br/>
+									<span class="itemtext">北京赛车</span>
+								</td>
+								<td>
+									<span class="itemgame qitagame"></span>
+									<br/>
+									<span class="itemtext">北京赛车</span>
+								</td>
+								<td>
+									<span class="itemgame qitagame"></span>
+									<br/>
+									<span class="itemtext">北京赛车</span>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<span class="itemgame qitagame"></span>
+									<br/>
+									<span class="itemtext">北京赛车</span>
+								</td>
+								<td>
+									<span class="itemgame qitagame"></span>
+									<br/>
+									<span class="itemtext">北京赛车</span>
+								</td>
+								<td>
+									<span class="itemgame qitagame"></span>
+									<br/>
+									<span class="itemtext">北京赛车</span>
+								</td>
+								<td>
+									<span class="itemgame qitagame"></span>
+									<br/>
+									<span class="itemtext">北京赛车</span>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<span class="itemgame qitagame"></span>
+									<br/>
+									<span class="itemtext">北京赛车</span>
+								</td>
+								<td>
+									<span class="itemgame qitagame"></span>
+									<br/>
+									<span class="itemtext">北京赛车</span>
+								</td>
+								<td>
+									<span class="itemgame qitagame"></span>
+									<br/>
+									<span class="itemtext">北京赛车</span>
+								</td>
+								<td>
+									<span class="itemgame qitagame"></span>
+									<br/>
+									<span class="itemtext">北京赛车</span>
+								</td>
+							</tr>
+						</table>
+					</div>
+					<div class="mui-slider-item">
+							<table border="" cellspacing="" cellpadding="">
+							<tr>
+								<td>
+									<span class="itemgame saiche"></span>
+									<br/>
+									<span class="itemtext ">北京赛车</span>
+								</td>
+								<td>
+									<span class="itemgame qitagame"></span>
+									<br/>
+									<span class="itemtext">北京赛车</span>
+								</td>
+								<td>
+									<span class="itemgame qitagame"></span>
+									<br/>
+									<span class="itemtext">北京赛车</span>
+								</td>
+								<td>
+									<span class="itemgame qitagame"></span>
+									<br/>
+									<span class="itemtext">北京赛车</span>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<span class="itemgame qitagame"></span>
+									<br/>
+									<span class="itemtext">北京赛车</span>
+								</td>
+								<td>
+									<span class="itemgame qitagame"></span>
+									<br/>
+									<span class="itemtext">北京赛车</span>
+								</td>
+								<td>
+									<span class="itemgame qitagame"></span>
+									<br/>
+									<span class="itemtext">北京赛车</span>
+								</td>
+								<td>
+									<span class="itemgame qitagame"></span>
+									<br/>
+									<span class="itemtext">北京赛车</span>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<span class="itemgame qitagame"></span>
+									<br/>
+									<span class="itemtext">北京赛车</span>
+								</td>
+								<td>
+									<span class="itemgame qitagame"></span>
+									<br/>
+									<span class="itemtext">北京赛车</span>
+								</td>
+								<td>
+									<span class="itemgame qitagame"></span>
+									<br/>
+									<span class="itemtext">北京赛车</span>
+								</td>
+								<td>
+									<span class="itemgame qitagame"></span>
+									<br/>
+									<span class="itemtext">北京赛车</span>
+								</td>
+							</tr>
+						</table>
+					</div>
+					<div class="mui-slider-item">
+							<table border="" cellspacing="" cellpadding="">
+							<tr>
+								<td>
+									<span class="itemgame saiche"></span>
+									<br/>
+									<span class="itemtext ">北京赛车</span>
+								</td>
+								<td>
+									<span class="itemgame qitagame"></span>
+									<br/>
+									<span class="itemtext">北京赛车</span>
+								</td>
+								<td>
+									<span class="itemgame qitagame"></span>
+									<br/>
+									<span class="itemtext">北京赛车</span>
+								</td>
+								<td>
+									<span class="itemgame qitagame"></span>
+									<br/>
+									<span class="itemtext">北京赛车</span>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<span class="itemgame qitagame"></span>
+									<br/>
+									<span class="itemtext">北京赛车</span>
+								</td>
+								<td>
+									<span class="itemgame qitagame"></span>
+									<br/>
+									<span class="itemtext">北京赛车</span>
+								</td>
+								<td>
+									<span class="itemgame qitagame"></span>
+									<br/>
+									<span class="itemtext">北京赛车</span>
+								</td>
+								<td>
+									<span class="itemgame qitagame"></span>
+									<br/>
+									<span class="itemtext">北京赛车</span>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<span class="itemgame qitagame"></span>
+									<br/>
+									<span class="itemtext">北京赛车</span>
+								</td>
+								<td>
+									<span class="itemgame qitagame"></span>
+									<br/>
+									<span class="itemtext">北京赛车</span>
+								</td>
+								<td>
+									<span class="itemgame qitagame"></span>
+									<br/>
+									<span class="itemtext">北京赛车</span>
+								</td>
+								<td>
+									<span class="itemgame qitagame"></span>
+									<br/>
+									<span class="itemtext">北京赛车</span>
+								</td>
+							</tr>
+						</table>
+					</div>
+					<div class="mui-slider-item ">
+							<table border="" cellspacing="" cellpadding="">
+							<tr>
+								<td>
+									<span class="itemgame saiche"></span>
+									<br/>
+									<span class="itemtext ">北京赛车</span>
+								</td>
+								<td>
+									<span class="itemgame qitagame"></span>
+									<br/>
+									<span class="itemtext">北京赛车</span>
+								</td>
+								<td>
+									<span class="itemgame qitagame"></span>
+									<br/>
+									<span class="itemtext">北京赛车</span>
+								</td>
+								<td>
+									<span class="itemgame qitagame"></span>
+									<br/>
+									<span class="itemtext">北京赛车</span>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<span class="itemgame qitagame"></span>
+									<br/>
+									<span class="itemtext">北京赛车</span>
+								</td>
+								<td>
+									<span class="itemgame qitagame"></span>
+									<br/>
+									<span class="itemtext">北京赛车</span>
+								</td>
+								<td>
+									<span class="itemgame qitagame"></span>
+									<br/>
+									<span class="itemtext">北京赛车</span>
+								</td>
+								<td>
+									<span class="itemgame qitagame"></span>
+									<br/>
+									<span class="itemtext">北京赛车</span>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<span class="itemgame qitagame"></span>
+									<br/>
+									<span class="itemtext">北京赛车</span>
+								</td>
+								<td>
+									<span class="itemgame qitagame"></span>
+									<br/>
+									<span class="itemtext">北京赛车</span>
+								</td>
+								<td>
+									<span class="itemgame qitagame"></span>
+									<br/>
+									<span class="itemtext">北京赛车</span>
+								</td>
+								<td>
+									<span class="itemgame qitagame"></span>
+									<br/>
+									<span class="itemtext">北京赛车</span>
+								</td>
+							</tr>
+						</table>
+					</div>
+				</div>
+				<div class="mui-slider-indicator">
+					<div class="mui-indicator mui-active"></div>
+					<div class="mui-indicator"></div>
+					<div class="mui-indicator"></div>
+					<div class="mui-indicator"></div>
+				</div>
+			</div><!--  mui-slider-->
+			
 		</div>
+              <!--
+              	作者：cmf18255063763@163.com
+              	时间：2016-10-24
+              	描述：
+              -->
 		<footer>
-			<div class="userinfo"></div>
-			<div class="money"></div>
-			<div class="userCenter"></div>
+			<div class="userinfo">
+				<span id="userimage">
+					<img id="" src="../../image/touxiang@2x.png"/>
+				</span>
+				<span id="username">
+					我是会员1
+				</span>
+			</div>
+			<div class="money">
+				<span id="money">
+					9881.24
+				</span>
+			</div>
+			<div class="userCenter">
+				
+				<div class="userCenterBtn">
+					用户中心
+				</div>
+			</div>
 		</footer>
-		
+		<div class="showuserCenter">
+					<ul>
+						<li><a href="">邀请好友</a></li>
+						<li><a href="">修改游戏</a></li>
+						<li><a href="">修改头像</a></li>
+						<li><a href="">修改密码</a></li>
+						<li><a href="">退出账户</a></li>
+						<li><a href="">客服中心</a></li>
+					</ul>
+					
+		</div>
 		<script src="../../js/mui.min.js"></script>
 		<script type="text/javascript">
-			mui.init()
+			mui.init(
+				swipeBack:true //启用右滑关闭功能
+			)
 		</script>
 	</body>
 

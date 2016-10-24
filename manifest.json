@@ -225,7 +225,8 @@
 					"public/public.js"
 				],
 				"refer": [
-					"component/singup.html"
+					"component/singup.html",
+					"component/home/hall.html"
 				],
 				"priority": 0
 			},
@@ -245,12 +246,27 @@
 					"component/signin.html"
 				],
 				"priority": 0
+			},
+			"component/home/hall.html": {
+				"resources": [
+					"js/setrem.js",
+					"js/mui.min.js",
+					"css/mui.min.css",
+					"fonts/mui.ttf",
+					"image/qichepeitu@2x.png",
+					"image/bg@2x.png",
+					"image/touxiang@2x.png",
+					"image/showus.png",
+					"image/kongbaiicon@2x.png",
+					"image/qichetubiao@2x.png"
+				],
+				"refer": [],
+				"priority": 0
 			}
 		},
 		"idle": {
 			"resources": [
 				"compoment/singup.html",
-				"fonts/mui.ttf",
 				"image/denglu.jpg",
 				"js/mui.js",
 				"css/mui.css",

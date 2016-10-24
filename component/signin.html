@@ -108,6 +108,7 @@
 						<input type="text" name="" id="password" value="" placeholder="请输入密码" />
 					</div>
 				</div>
+				<div  style="height: 40px;width: 80px;"> <img id="codeimg" style="height:100%;width: 100%;" src="http://192.168.1.111/apptest/index.php/Admin/index/code.html"/></div>
 				<div class="signin">
 					<span id="signin">
 						
@@ -131,11 +132,39 @@
 			//校验密码：只能输入6-20个字母、数字、下划线
 			
 			mui.plusReady(function() {
+				
+				
+				
 				var signinButton = doc.getElementById('signin');
 				var signupButton = doc.getElementById('signup');
+				var codeimgid=doc.getElementById('codeimg')
+				codeimgid.addEventListener('tap', function(event) {
+					var tar=event.target
+					var t=Math.floor(Math.random()*100)
+			
+					tar.src=tar.src+t
+					
+				})
+				
 				//var passwordBox = doc.getElementById('password');
 				
 				signinButton.addEventListener('tap', function(event) {
+//					mui.openWindow({
+//							url: './home/hall.html',
+//							id: 'hall',
+//							preload: true,
+//							show: {
+//								aniShow: 'pop-in'
+//							},
+//							styles: {
+//								popGesture: 'hide'
+//							},
+//							waiting: {
+//								autoShow: false
+//							}
+//						});
+//						
+//						return
 					var userinfoval = doc.getElementById('userinfo').value;
 					var passwordval = doc.getElementById('password').value;
 					if(!isChineseChar(userinfoval)){
@@ -146,6 +175,7 @@
 					
 				},false)
 				signupButton.addEventListener('tap', function(event) {
+					
 						mui.openWindow({
 							url: 'singup.html',
 							id: 'singup',

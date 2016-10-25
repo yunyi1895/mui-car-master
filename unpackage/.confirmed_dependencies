@@ -60,7 +60,11 @@
 			"image/touxiang@2x.png",
 			"image/showus.png",
 			"image/kongbaiicon@2x.png",
-			"image/qichetubiao@2x.png"
+			"image/qichetubiao@2x.png",
+			"js/zepto_1.1.3.js",
+			"js/jquery-2.1.0.js",
+			"js/vue1.0.js",
+			"image/touxiang@2x.png/"
 		]
 	}
 }

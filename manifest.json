@@ -222,7 +222,10 @@
 					"image/login_03.png",
 					"image/login_01.png",
 					"js/mui.min.js",
-					"public/public.js"
+					"public/public.js",
+					"image/HUANGJIACLUB@2x.png",
+					"image/huangjiaclubzhongwen@2x.png",
+					"image/logo@2x.png"
 				],
 				"refer": [
 					"component/singup.html",
@@ -243,7 +246,8 @@
 					"image/huangjiaclubzhongwen@2x.png"
 				],
 				"refer": [
-					"component/signin.html"
+					"component/signin.html",
+					"component/home/hall.html"
 				],
 				"priority": 0
 			},
@@ -262,9 +266,12 @@
 					"js/zepto_1.1.3.js",
 					"js/jquery-2.1.0.js",
 					"js/vue1.0.js",
-					"image/touxiang@2x.png/"
+					"image/touxiang@2x.png/",
+					"public/public.css"
 				],
-				"refer": [],
+				"refer": [
+					"component/game/car.html"
+				],
 				"priority": 0
 			}
 		},

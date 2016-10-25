@@ -91,13 +91,48 @@
 				background: url(../image/login_05.png) no-repeat;
 				background-size: cover;
 			}
+			.showimg{
+				height: 1.5rem;
+				width: 100%;
+				position: relative;
+			}
+			.showimg #logo1{
+				position: absolute;
+				width: 0.975rem;
+				height: 0.96rem;
+				left: 0.9125rem;
+				top:-0.48rem;
+				
+			}
+			.showimg #logo2{
+				position: absolute;
+				width: 1.35rem;
+				height: 0.31rem;
+				left: 0.725rem;
+				top:0.58rem;
+				
+			}
+			.showimg #logo3{
+				position: absolute;
+				width: 1.35rem;
+				
+				left: 0.725rem;
+				top:0.98rem;
+				
+			}
+			
 		</style>
 	</head>
 	
 	<body>
 		<div class="content">
 			<div class="con">
-				<div class="showimg"></div>
+				<div class="showimg">
+					<img id="logo1" src="../image/logo@2x.png"/>
+					
+					<img id="logo2" src="../image/huangjiaclubzhongwen@2x.png"/>
+					<img id="logo3" src="../image/HUANGJIACLUB@2x.png"/>
+				</div>
 				<div class="inputtext">
 					<div class="username">
 						<span> 账 号</span>
@@ -133,6 +168,7 @@
 			
 			mui.plusReady(function() {
 				
+
 				
 				
 				var signinButton = doc.getElementById('signin');

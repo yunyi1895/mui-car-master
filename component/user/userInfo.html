@@ -1,0 +1,252 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<script src="../../js/vue1.0.js" type="text/javascript" charset="utf-8"></script>
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../../public/public.css"/>
+		<script src="../../js/jquery-2.1.0.js" type="text/javascript" charset="utf-8"></script>
+		<!--<script src="../../js/zepto_1.1.3.js" type="text/javascript" charset="utf-8"></script>-->
+		
+		<script src="../../js/setrem.js" type="text/javascript" charset="utf-8"></script>
+		<style type="text/css">
+			.hidden{
+				z-index: 22;
+				position: absolute;
+				left: 0;
+				right: 0;
+				bottom: 0.49rem;
+				top: 0.44rem;
+				background: rgba(0,0,0,0.4);
+				display: none;
+			}
+			.center{
+				
+			}
+			
+			
+			header{
+				background: #f6a635 !important;
+				border: none !important;
+				position: relative !important; 
+				height: 0.44rem !important;
+			}
+			header h1{
+				color: #fff !important;
+			}
+			header a{
+				color: #fff;
+			}
+			.portrait{
+				height: 1.19rem;
+				width: 100%;
+				background: url(../../image/login_01.png) repeat;
+				
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				font-size: 0.16rem;
+			}
+			.portrait .setportrait{
+				height: 0.87rem;
+				width: 100%;
+				display: flex;
+				background: #fff;
+			}
+			.portrait #portrait{
+				flex: 5;
+				text-align: left;
+				padding-left: 0.15rem;
+				line-height: 0.87rem;
+				color: #61523a;
+			}
+			.portrait #userportrait{
+				flex: 2;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+			}
+			.portrait #userportrait img{
+				height: 0.65rem;
+				width: 0.65rem;
+				display: inline-block;
+				border-radius: 0.1rem;
+			}
+			.portrait a{
+				line-height: 0.87rem;
+				text-align: center;
+				flex: 1;
+				color: #ababab;
+			}
+			.seticon{
+				color: #ABABAB;
+			}
+			.infoContent{
+				height: 3.05rem;
+				width: 100%;
+				
+			}
+			.infoContent li{
+				display: flex;
+				height: 0.42rem;
+				width: 100%;
+				border-bottom: 1px solid #d9d9d9 ;
+				line-height: 0.42rem;
+			}
+			.infoContent li .setkey{
+				flex: 4;
+				padding-left:0.15rem ;
+				color: #615138;
+				font-size: 0.16rem;
+			}
+			.infoContent li .consd{
+				flex: 12;
+				color: #D9D9D9;
+				font-size: 0.13rem;
+			}
+			.infoContent li a{
+				line-height: 0.42rem;
+				text-align: center;
+				flex: 1;
+			}
+			.infoContent li .muisd{
+				flex: 4;
+			}
+			.infoContent li .tagmusic{
+				flex: 4;
+				
+			}
+			.tagmusic .tag{
+				display: inline-block;
+				height: 0.26rem;
+				width: 0.52rem;
+				background: url(../../image/RoundedRectangle8copy4@2x.png) no-repeat;
+				background-size:cover ;
+				left: 0;
+				top: 0.08rem;
+				position: relative;
+			}
+			.tagmusic .tag .taginoc{
+				
+			}
+			.infoContent .setpassword{
+				
+			}
+			footer{
+				height: 0.81rem;
+				background: url(../../image/login_01.png) repeat;
+				width: 100%;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+			}
+			footer .out{
+				background: #fe9900;
+				height: 0.47rem;
+				width: 2.9rem;
+				border-radius: 0.02rem;
+				font-size: 0.18rem;
+				text-align: center;
+				line-height: 0.47rem;
+				color: #fff;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="vuedom" class="center">
+		<div @click="vuehidd" class="hidden">
+			
+		</div>
+		<header class="mui-bar ">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">用户资料</h1>
+			
+		</header>
+		<div class="portrait">
+			<div class="setportrait">
+				<div id="portrait">
+					头像
+				</div>
+				<div id="userportrait">
+					<img  src="../../image/touxiang.png"/>
+				</div>
+				
+				<a class=" mui-icon mui-icon-arrowright seticon"></a>
+			</div>
+		</div>
+		<div class="infoContent">
+			<ul>
+				<li>
+					<div class="setkey">修改密码</div>
+					<div class="consd"></div>
+					<a href="setpassword.html" class=" mui-icon mui-icon-arrowright seticon"></a>
+				</li>
+				<li>
+					<div class="setkey">手机号</div>
+					<div class="consd">
+						添加手机号，仅填一次，不可修改
+					</div>
+					<a class=" mui-icon mui-icon-arrowright seticon"></a>
+				</li>
+				<li>
+					<div class="setkey">手机号</div>
+					<div class="consd">
+						添加手机号，仅填一次，不可修改
+					</div>
+					<a class=" mui-icon mui-icon-arrowright seticon"></a>
+				</li>
+				<li>
+					<div class="setkey">手机号</div>
+					<div class="consd">
+						添加手机号，仅填一次，不可修改
+					</div>
+					<a class=" mui-icon mui-icon-arrowright seticon"></a>
+				</li>
+				<li>
+					<div class="setkey">手机号</div>
+					<div class="consd">
+						添加手机号，仅填一次，不可修改
+					</div>
+					<a class=" mui-icon mui-icon-arrowright seticon"></a>
+				</li>
+				<li>
+					<div class="setkey">手机号</div>
+					<div class="consd">
+						添加手机号，仅填一次，不可修改
+					</div>
+					<a class=" mui-icon mui-icon-arrowright seticon"></a>
+				</li>
+				<li>
+					<div class="setkey">音乐开关</div>
+					<div class="muisd">
+						
+					</div>
+					<div class="tagmusic">
+						<span class="tagtext">On</span>
+						<span class="tag">
+							<span class="taginoc">
+								
+							</span>
+						</span>
+					</div>
+					<!--<a class=" mui-icon mui-icon-arrowright seticon"></a>-->
+				</li>
+			</ul>
+		</div>
+		<footer>
+			<div class="out">
+				退出登录
+			</div>
+			
+		</footer>
+		
+		<script src="../../js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init()
+		</script>
+	</body>
+
+</html>

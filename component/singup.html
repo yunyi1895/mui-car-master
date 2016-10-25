@@ -220,15 +220,44 @@
 //						}
 //					});
 //					
-					mui.post('http://192.168.1.111/apptest/index.php/admin/index/login',{
+					
+					mui.post('http://192.168.1.111/apptest/index.php/admin/user/login',{
 							username:userinfoval,
 							password:password1val
 						},function(data){
-							console.log(JSON.stringify(data));
+							if(data.code==-200){
+								dialoginfo('注册失败请重新注册')
+								return
+							}
+							var username=data.info
+							localStorage.setItem('username',username)
+							mui.openWindow({
+								url: './home/hall.html',
+								id: 'hall',
+								preload: true,
+								show: {
+									aniShow: 'pop-in'
+								},
+								styles: {
+									popGesture: 'hide'
+								},
+								waiting: {
+									autoShow: false
+								},
+								extras:{
+									name: username //扩展参数
+							}
+						});
+							
+							//console.log(JSON.stringify(data));
+							//
 							//服务器返回响应，根据响应结果，分析是否登录成功；
 							//...
 						},'json'
 					);
+					
+					
+					
 					
 					//console.log(userinfoval+'|'+passwordval)
 					
@@ -246,6 +275,9 @@
 							},
 							waiting: {
 								autoShow: false
+							},
+							extras:{
+								name:'mui'  //扩展参数
 							}
 						});
 				},false)

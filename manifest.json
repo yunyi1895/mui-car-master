@@ -316,7 +316,8 @@
 			},
 			"component/user/FAQ.html": {
 				"resources": [
-					"component/home/hall.html"
+					"component/home/hall.html",
+					"image/bg.png"
 				],
 				"refer": [],
 				"priority": 0
@@ -340,7 +341,23 @@
 				"resources": [
 					"image/jfbg@2x.png",
 					"component/home/hall.html",
-					"image/bg.png"
+					"image/bg.png",
+					"component/user/fluctuaterecord.html",
+					"component/user/saferecord.html"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"component/user/fluctuaterecord.html": {
+				"resources": [
+					"component/user/integral.html"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"component/user/saferecord.html": {
+				"resources": [
+					"component/user/integral.html"
 				],
 				"refer": [],
 				"priority": 0

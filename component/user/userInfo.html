@@ -160,7 +160,7 @@
 					头像
 				</div>
 				<div id="userportrait">
-					<img  src="../../image/touxiang.png"/>
+					<img id="mainImage" src="../../image/touxiang.png"/>
 				</div>
 				
 				<a id="headImage" class=" mui-icon mui-icon-arrowright seticon"></a>
@@ -236,12 +236,13 @@
 		<script type="text/javascript">
 			mui.init()
 			mui.plusReady(function(){
-				function getImage() { 
+				
+		function getImage() { 
 		            var c = plus.camera.getCamera(); 
 		            c.captureImage(function(e) { 
 		                plus.io.resolveLocalFileSystemURL(e, function(entry) { 
 		                    var s = entry.toLocalURL() + "?version=" + new Date().getTime(); 
-		                    uploadHead(s); /*上传图片*/ 
+		                    uploadImg(s); /*上传图片*/ 
 		                }, function(e) { 
 		                    console.log("读取拍照文件错误：" + e.message); 
 		                }); 
@@ -262,7 +263,7 @@
                                 console.log("file remove success"); 
                                 entry.copyTo(root, 'head.png', function(e) { 
                                         var e = e.fullPath + "?version=" + new Date().getTime(); 
-                                        uploadHead(e); /*上传图片*/ 
+                                        uploadImg(e); /*上传图片*/ 
                                         //变更大图预览的src 
                                         //目前仅有一张图片，暂时如此处理，后续需要通过标准组件实现 
                                     }, 
@@ -276,7 +277,7 @@
                             //文件不存在 
                             entry.copyTo(root, 'head.png', function(e) { 
                                     var path = e.fullPath + "?version=" + new Date().getTime(); 
-                                    uploadHead(path); /*上传图片*/ 
+                                    uploadImg(path); /*上传图片*/ 
                                 }, 
                                 function(e) { 
                                     console.log('copy image fail:' + e.message); 
@@ -292,32 +293,68 @@
                 filter: "image" 
             }) 
         }; 
+        function uploadImg(src) {
+        	console.log(src)
+		  var task = plus.uploader.createUpload('http://192.168.1.111/apptest/index.php/admin/index/upload', {
+		    method: 'post', 
+		    blocksize:204800,
+		    timeout: 10
+		  });
+		
+		  task.addFile(src, {key: 'headImg'});
+		
+		  task.addData('type', 'uploadImg');
+		  task.addData('userId', );
+		  task.addEventListener('statechanged', stateChanged, false);
+		  task.start();
+		
+		  function stateChanged(upload, status) {
+		    if ( upload.state == 4 && status == 200 ) {
+		      plus.uploader.clear();  //清除上传
+		      console.log(upload.responseText);  //服务器返回存在这里
+		    }
+		  }
+		}
+        
 		function uploadHead(imgPath) { //图片上传和压缩
 
             console.log("imgPath = " + imgPath); 
+           	var mainImage=document.getElementById('mainImage')
             mainImage.src = imgPath; 
-            mainImage.style.width = "60px"; 
-            mainImage.style.height = "60px"; 
- 
+          
+ 			
             var image = new Image(); 
             image.src = imgPath; 
             image.onload = function() { 
                 var imgData = getBase64Image(image); 
+                console.log(JSON.stringify(imgData))
+//              mui.post('http://192.168.1.111/apptest/index.php/admin/index/upload',{
+//							id:'22',
+//							photo:imgData
+//						},function(data){
+//							//服务器返回响应，根据响应结果，分析是否登录成功；
+//							console.log(JSON.stringify(data))
+//						},'json'
+//					);
                 /*在这里调用上传接口*/ 
-//              mui.ajax("图片上传接口", { 
-//                  data: { 
-//                       
-//                  }, 
-//                  dataType: 'json', 
-//                  type: 'post', 
-//                  timeout: 10000, 
-//                  success: function(data) { 
-//                      console.log('上传成功'); 
-//                  }, 
-//                  error: function(xhr, type, errorThrown) { 
-//                      mui.toast('网络异常，请稍后再试！'); 
-//                  } 
-//              }); 
+               mui.ajax("http://192.168.1.111/apptest/index.php/admin/index/upload", { 
+                    data: { 
+                         id:22,
+                         photo:imgData
+                    }, 
+                    dataType: 'json', 
+                    type: 'post', 
+                    timeout: 10000, 
+                    headers:{'enctype':'multipart/form-data'},
+                    success: function(data) { 
+                    	console.log(data)
+                        console.log('上传成功'); 
+                    }, 
+                    error: function(xhr, type, errorThrown) { 
+                    	console.log(data)
+                        //mui.toast('网络异常，请稍后再试！'); 
+                    } 
+                }); 
             } 
     } 
         //将图片压缩转成base64 

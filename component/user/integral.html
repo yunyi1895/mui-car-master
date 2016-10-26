@@ -1,0 +1,139 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<script src="../../js/vue1.0.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/jquery-2.1.0.js" type="text/javascript" charset="utf-8"></script>
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../../public/public.css"/>
+		<script src="../../js/setrem.js" type="text/javascript" charset="utf-8"></script>
+		<style type="text/css">
+			header{
+				background: #f6a635 !important;
+				border: none !important;
+				position: relative !important; 
+				height: 0.44rem !important;
+			}
+			header h1{
+				color: #fff !important;
+				font-size: 0.16rem !important;
+				font-weight: 600 !important;
+			}
+			header a{
+				color: #fff;
+			}
+			body{
+				background: url(../../image/bg.png) repeat;
+				width: 100%;
+				height: 100%;
+			}
+			
+			 .cont{
+				
+				width: 90%;
+				margin: 0 auto;
+				
+			}
+			.showintegral{
+				height: 1.2rem;
+				width: 100%;
+				background: url(../../image/jfbg@2x.png) no-repeat;
+				background-size: cover;
+				color: #fff;
+				display: flex;
+				flex-direction:column ;
+			}
+			.showintegral>div{
+				width: 100%;
+				flex: 1;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+			}
+			.showintegral .cunfen{
+				font-size: 0.13rem;
+			}
+			.showintegral .cunfennum{
+				font-size: 0.23rem;
+			}
+			.record{
+				margin: 0.1rem 0;
+				height: 0.86rem;
+				background: #fff;
+				border-bottom:1px solid #e5e5e5 ;
+			}
+			.record>div{
+				border-top:1px solid #e5e5e5 ;
+				height: 0.43rem;
+				width: 100%;
+				line-height: 0.43rem;
+			}
+			.record .cont{
+				color: #61523A;
+				line-height: 0.43rem !important;
+			}
+			.record .cont a{
+				color: #ababab;
+				line-height: 0.43rem !important;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar ">
+				<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+				<h1 class="mui-title">我的积分</h1>
+		</header>
+		<div class="showintegral">
+			
+				<div class="mesa">
+					<div class="cont">
+						<div class="cunfen">
+							台面上的存分：
+						</div>
+						<div class="cunfennum">
+							5616
+						</div>
+					</div>
+				</div>
+				<div class="safe">
+					<div class="cont">
+						<div class="cunfen">
+							保险柜的存分：	
+						</div>
+						<div class="cunfennum">
+							4616165
+						</div>
+					</div>
+				</div>
+			
+		</div>
+		<div class="record">
+			
+			<div class="fluctuate">
+				<div class="cont">
+					<span id="">
+						上下分记录
+					</span>
+					<a  class="mui-icon mui-icon-arrowright mui-pull-right"></a>
+				</div>
+			</div>
+			<div class="saferecord">
+				<div class="cont">
+					<span>保险柜记录</span>
+					<a  class="mui-icon mui-icon-arrowright mui-pull-right"></a>
+				</div>
+			</div>
+			
+		</div>
+		
+		<script src="../../js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init()
+		</script>
+	</body>
+
+</html>

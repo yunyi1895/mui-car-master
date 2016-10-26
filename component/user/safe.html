@@ -1,0 +1,123 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<script src="../../js/vue1.0.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/jquery-2.1.0.js" type="text/javascript" charset="utf-8"></script>
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../../public/public.css"/>
+		<script src="../../js/setrem.js" type="text/javascript" charset="utf-8"></script>
+		<style type="text/css">
+			header{
+				background: #f6a635 !important;
+				border: none !important;
+				position: relative !important; 
+				height: 0.44rem !important;
+			}
+			header h1{
+				color: #fff !important;
+				font-size: 0.16rem !important;
+				font-weight: 600 !important;
+			}
+			header a{
+				color: #fff;
+			}
+			
+			.bck{
+				width: 100%;
+				height: 0.15rem;
+				background:#eae2d5;
+			}
+			.integral{
+				height: 2.35rem;
+				width: 100%;
+				background: #fff;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				flex-direction: column;
+			}
+			.integral #integralimg{
+				display: block;
+				width: 1.04rem;
+				height: 1.04rem;
+				
+				
+			}
+			.integral #integralnum{
+				color: #61523a;
+				font-size: 0.31rem;
+				text-align: center;
+				display: block;
+				width: 1.04rem;
+				
+			}
+			.integralcon1{
+				flex: 4;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+			}
+			.integralcon2{
+				flex: 2;
+				
+			}
+			.access{
+				background: #eae2d5;
+				
+			}
+			.access .deposit{
+				margin-top: 0.2rem;
+				margin-bottom:0.2rem ;
+			}
+			.access .takeout>div{
+				background:#e5ceac;
+				color: #61523A;
+			}
+		</style>
+	</head>
+		
+	<body>
+		<header class="mui-bar ">
+					<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+				<h1 class="mui-title">保险柜</h1>
+		</header>
+		<div class="bck">
+			
+		</div>
+		<div class="integral">
+			<div class="integralcon1">
+				<img id="integralimg" src="../../image/jifenicon@2x.png"/>
+			</div>
+			<div class="integralcon2">
+				<span id="integralnum">
+					264244
+				</span>
+			</div>
+		</div>
+		<div class="access">
+			<a href="./deposit.html">
+				<div class="deposit commonbtn">
+					<div class="commonbtnz">
+						存入
+					</div>
+				</div>
+			</a>
+			<a href="./takeout.html">
+				<div class="takeout commonbtn">
+					<div class="commonbtnz">
+						提出
+					</div>
+				</div>
+			</a>
+		</div> 
+		<script src="../../js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init()
+		</script>
+	</body>
+
+</html>

@@ -11,3 +11,34 @@ ul,li{
 				margin: 0;
 				padding: 0;
 			}
+			
+header{
+				background: #f6a635 !important;
+				border: none !important;
+				position: relative !important; 
+				height: 0.44rem !important;
+			}
+			header h1{
+				color: #fff !important;
+			}
+			header a{
+				color: #fff;
+			}
+/*公共样式*/
+
+			.commonbtn{
+				width: 100%;
+			}
+			.commonbtn .commonbtnz{
+				height: 0.47rem;
+				width: 94%;
+				margin:0 auto;
+				background: #F6A635;
+				text-align: center;
+				line-height: 0.47rem;
+				border-radius:0.02rem ;
+				font-size: 0.17rem;
+				font-weight: 600;
+				color: #fff;
+			}
+			

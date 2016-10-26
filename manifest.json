@@ -267,11 +267,45 @@
 					"js/jquery-2.1.0.js",
 					"js/vue1.0.js",
 					"image/touxiang@2x.png/",
-					"public/public.css"
+					"public/public.css",
+					"component/user/safe.html"
 				],
 				"refer": [
 					"component/game/car.html"
 				],
+				"priority": 0
+			},
+			"component/user/safe.html": {
+				"resources": [
+					"image/jifenicon@2x.png",
+					"component/user/deposit.html",
+					"component/home/hall.html",
+					"component/user/takeout.html"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"component/user/deposit.html": {
+				"resources": [
+					"image/bg.png",
+					"component/user/safe.html"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"component/user/takeout.html": {
+				"resources": [
+					"js/setrem.js",
+					"js/vue1.0.js",
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"css/mui.min.css",
+					"js/jquery-2.1.0.js",
+					"image/bg.png",
+					"public/public.css",
+					"component/user/safe.html"
+				],
+				"refer": [],
 				"priority": 0
 			}
 		},

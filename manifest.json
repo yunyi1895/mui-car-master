@@ -225,7 +225,8 @@
 					"public/public.js",
 					"image/HUANGJIACLUB@2x.png",
 					"image/huangjiaclubzhongwen@2x.png",
-					"image/logo@2x.png"
+					"image/logo@2x.png",
+					null
 				],
 				"refer": [
 					"component/singup.html",
@@ -268,7 +269,12 @@
 					"js/vue1.0.js",
 					"image/touxiang@2x.png/",
 					"public/public.css",
-					"component/user/safe.html"
+					"component/user/safe.html",
+					"component/user/FAQ.html",
+					"component/user/complaints.html",
+					"component/user/service.html",
+					"component/user/integral.html",
+					"image/erweima.png"
 				],
 				"refer": [
 					"component/game/car.html"
@@ -304,6 +310,37 @@
 					"image/bg.png",
 					"public/public.css",
 					"component/user/safe.html"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"component/user/FAQ.html": {
+				"resources": [
+					"component/home/hall.html"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"component/user/complaints.html": {
+				"resources": [
+					"component/home/hall.html",
+					"image/bg.png"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"component/user/service.html": {
+				"resources": [
+					"component/home/hall.html"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"component/user/integral.html": {
+				"resources": [
+					"image/jfbg@2x.png",
+					"component/home/hall.html",
+					"image/bg.png"
 				],
 				"refer": [],
 				"priority": 0

@@ -30,6 +30,8 @@
 				top: 0.44rem;
 				background: rgba(0,0,0,0.4);
 				display: none;
+				justify-content: center;
+				align-content: center;
 			}
 			.center{
 				
@@ -147,7 +149,7 @@
 			}
 			.showuserCenter{
 				position: absolute;
-				height: 2.4rem;
+				height: 2.8rem;
 				width: 1.39rem;
 				display:none;
 				/*top: -2.4rem;
@@ -161,7 +163,7 @@
 			}
 			.showuserCenter ul{
 				display: block;
-				height: 2.4rem;
+				height: 2.8rem;
 				overflow: hidden;
 				
 			}
@@ -247,14 +249,28 @@
 			.inform .active-icons{
 				background: #f6a635;
 			}
+			#share{
+				
+				justify-content: center;
+				align-items: center;
+			}
+			#share img{
+				height: 1.63rem;
+				width: 1.63rem;
+				
+			}
 		</style>
 	</head>
 
 	<body>
 		<div id="vuedom" class="center">
-		<div @click="vuehidd" class="hidden">
+		<div @click="vuehidd" id="hiddenq" class="hidden">
 			
 		</div>
+		<div id="share" @click="vuehidd"  class="hidden">
+			<img src="../../image/erweima.png"/>
+		</div>
+		
 		<header class="mui-bar ">
 			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
 			<h1 class="mui-title">皇家大厅</h1>
@@ -627,7 +643,7 @@
               <!--
               	作者：cmf18255063763@163.com
               	时间：2016-10-24
-              	描述：
+              	描述：1
               -->
 		<footer>
 			<div class="userinfo">
@@ -741,12 +757,13 @@
 					el:'#vuedom',
 					data:{
 						showuserCenter:[
-							{tit:'邀请好友',lk:'qqq',ke:'userinfo'},
+							{tit:'邀请好友',lk:'#',ke:'share'},
 							{tit:'用户资料',lk:'../user/userinfo.html',ke:'userinfo'},
+							{tit:'我的积分',lk:'../user/integral.html',ke:'integral'},
 							{tit:'保险柜',lk:'../user/safe.html',ke:'safe'},
-							{tit:'客户中心',lk:'qqq',ke:'userinfo'},
+							{tit:'客户中心',lk:'../user/service.html',ke:'userinfo'},
 							{tit:'投诉',lk:'../user/complaints.html',ke:'complaints'},
-							{tit:'FAQ',lk:'qqq',ke:'userinfo'},
+							{tit:'FAQ',lk:'../user/FAQ.html',ke:'FAQ'},
 						],
 						vueuserinfo:{//用户信息
 							name:'vue测试',
@@ -766,19 +783,20 @@
 					methods:{
 						showuserCentervue:function(){//展现用户中心
 							J('.showuserCenter').slideToggle("400");
-							J('.hidden').toggle()
+							J('#hiddenq').toggle()
 						},
 						showinform:function(){//展现举报内容
 							J('.inform').slideToggle("400");
-							J('.hidden').toggle()
+							J('#hiddenq').toggle()
 						},
 						vuehidd:function(){//隐藏
-							J('.hidden').hide()
+							J('#hiddenq').hide()
 							J('.showuserCenter').hide();	
-							J('.inform').hide();	
+							J('.inform').hide();
+							J('#share').hide();
 						},
 						vuesubinform:function(){//提交举报内容
-							J('.hidden').hide();
+							J('#hiddenq').hide();
 							J('.inform').hide();
 							alert('举报内容已经提交')
 							
@@ -798,6 +816,16 @@
 							
 						},
 						vuegourl:function(l,k){
+							console.log(k)
+							if(k=='share'){
+								
+								J('#share').css({
+									'display':'flex',
+									'justifyContent':'center',
+									'alignContent':'center'
+								})
+								J('.showuserCenter').hide();
+							}
 							
 							//goganme(l,k)
 						},

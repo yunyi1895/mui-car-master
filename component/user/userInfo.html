@@ -242,7 +242,7 @@
 		            c.captureImage(function(e) { 
 		                plus.io.resolveLocalFileSystemURL(e, function(entry) { 
 		                    var s = entry.toLocalURL() + "?version=" + new Date().getTime(); 
-		                    uploadImg(s); /*上传图片*/ 
+		                    appendFile(s); /*上传图片*/ 
 		                }, function(e) { 
 		                    console.log("读取拍照文件错误：" + e.message); 
 		                }); 
@@ -252,6 +252,64 @@
 		                filename: "_doc/head.png" 
 		            }) 
 		        } 
+		    var f1=null;
+				function appendFile(path){
+				
+				  var img = new Image();
+				        img.src = path;        // 传过来的图片路径在这里用。
+				        img.onload = function () {
+				            var that = this;
+				            //生成比例 
+				            var w = that.width,
+				                h = that.height,
+				                scale = w / h; 
+				                w = 480 || w;              //480  你想压缩到多大，改这里
+				                h = w / scale;
+				
+				            //生成canvas
+				            var canvas = document.createElement('canvas');
+				
+				            var ctx = canvas.getContext('2d');
+				
+				            $(canvas).attr({width : w, height : h});
+				
+				            ctx.drawImage(that, 0, 0, w, h);
+				
+				            var base64 = canvas.toDataURL('image/jpeg', 1 || 0.8 );   //1最清晰，越低越模糊。有一点不清楚这里明明设置的是jpeg。弹出 base64 开头的一段 data：image/png;却是png。哎开心就好，开心就好
+				//              alert(base64);      
+				
+				           f1 =base64;   // 把base64数据丢过去，上传要用。
+				
+				            var pic = document.getElementById("mainImage");   
+				           // console.log(JSON.stringify(pic))
+				            pic.src = base64; 
+				            uploadss()//这里丢到img 的 src 里面就能看到效果了
+				    }
+				
+				}
+		        
+		    function uploadss(){ 
+			
+			     var wt=plus.nativeUI.showWaiting();
+			     var url = 'http://192.168.1.111/apptest/index.php/admin/index/upload';
+			            var dataType ='json';
+			            //发送数据  
+			            var data = { 
+			                Uploads:f1       //base64数据        
+			            };    
+			            $.post(url, data, success, dataType);                          
+			}
+			        //成功响应的回调函数
+			        var success = function(response) {   
+			        	console.log(response)
+			            plus.nativeUI.closeWaiting();
+			            if(response != null){
+			                alert("上传成功"); 
+			            }
+			
+			     }     
+		        
+		        
 			//本地相册选择 
         function galleryImg() { 
             plus.gallery.pick(function(a) { 
@@ -263,9 +321,9 @@
                                 console.log("file remove success"); 
                                 entry.copyTo(root, 'head.png', function(e) { 
                                         var e = e.fullPath + "?version=" + new Date().getTime(); 
-                                        uploadImg(e); /*上传图片*/ 
+                                        appendFile(e); /*上传图片*/ 
                                         //变更大图预览的src 
-                                        //目前仅有一张图片，暂时如此处理，后续需要通过标准组件实现 
+                                        //目前仅有一张图片，暂时如此处理，后续需要通过标准组件实现 1
                                     }, 
                                     function(e) { 
                                         console.log('copy image fail:' + e.message); 
@@ -277,7 +335,7 @@
                             //文件不存在 
                             entry.copyTo(root, 'head.png', function(e) { 
                                     var path = e.fullPath + "?version=" + new Date().getTime(); 
-                                    uploadImg(path); /*上传图片*/ 
+                                    appendFile(path); /*上传图片*/ 
                                 }, 
                                 function(e) { 
                                     console.log('copy image fail:' + e.message); 
@@ -292,95 +350,102 @@
             }, function(a) {}, { 
                 filter: "image" 
             }) 
-        }; 
-        function uploadImg(src) {
-        	console.log(src)
-		  var task = plus.uploader.createUpload('http://192.168.1.111/apptest/index.php/admin/index/upload', {
-		    method: 'post', 
-		    blocksize:204800,
-		    timeout: 10
-		  });
-		
-		  task.addFile(src, {key: 'headImg'});
-		
-		  task.addData('type', 'uploadImg');
-		  task.addData('userId', );
-		  task.addEventListener('statechanged', stateChanged, false);
-		  task.start();
-		
-		  function stateChanged(upload, status) {
-		    if ( upload.state == 4 && status == 200 ) {
-		      plus.uploader.clear();  //清除上传
-		      console.log(upload.responseText);  //服务器返回存在这里
-		    }
-		  }
-		}
-        
-		function uploadHead(imgPath) { //图片上传和压缩
-
-            console.log("imgPath = " + imgPath); 
-           	var mainImage=document.getElementById('mainImage')
-            mainImage.src = imgPath; 
-          
- 			
-            var image = new Image(); 
-            image.src = imgPath; 
-            image.onload = function() { 
-                var imgData = getBase64Image(image); 
-                console.log(JSON.stringify(imgData))
-//              mui.post('http://192.168.1.111/apptest/index.php/admin/index/upload',{
-//							id:'22',
-//							photo:imgData
-//						},function(data){
-//							//服务器返回响应，根据响应结果，分析是否登录成功；
-//							console.log(JSON.stringify(data))
-//						},'json'
-//					);
-                /*在这里调用上传接口*/ 
-               mui.ajax("http://192.168.1.111/apptest/index.php/admin/index/upload", { 
-                    data: { 
-                         id:22,
-                         photo:imgData
-                    }, 
-                    dataType: 'json', 
-                    type: 'post', 
-                    timeout: 10000, 
-                    headers:{'enctype':'multipart/form-data'},
-                    success: function(data) { 
-                    	console.log(data)
-                        console.log('上传成功'); 
-                    }, 
-                    error: function(xhr, type, errorThrown) { 
-                    	console.log(data)
-                        //mui.toast('网络异常，请稍后再试！'); 
-                    } 
-                }); 
-            } 
-    } 
+        };
+//      
+//      function uploadImg(src) {
+//      	console.log(src)
+//      	 	var mainImage=document.getElementById('mainImage')
+//          mainImage.src = src; 
+//		  var task = plus.uploader.createUpload('http://192.168.1.111/apptest/index.php/admin/index/upload', {
+//		    method: 'post', 
+//		    blocksize:204800,
+//		    timeout: 10
+//		  },function(t,s){
+//		  
+//		  });
+//		
+//		  task.addFile(src, {key: 'headImg'});
+//		
+//		  task.addData('type','uploadImg')
+//		  task.addData('id', 22);
+//		  task.addEventListener('statechanged', stateChanged, false);
+//		  task.start();
+//		
+//		  function stateChanged(upload, status) {
+//		  	console.log(JSON.stringify(upload));
+//		  	 console.log(upload.responseText); 
+//		  	console.log(status);
+//		    if ( upload.state == 4 && status == 200 ) {
+//		      plus.uploader.clear();  //清除上传
+//		      console.log(upload.responseText);  //服务器返回存在这里
+//		    }
+//		  }
+//		}
+//      
+//		function uploadHead(imgPath) { //图片上传和压缩
+//
+//          console.log("imgPath = " + imgPath); 
+//        
+//        
+// 			
+//          var image = new Image(); 
+//          image.src = imgPath; 
+//          image.onload = function() { 
+//              var imgData = getBase64Image(image); 
+//              console.log(JSON.stringify(imgData))
+////              mui.post('http://192.168.1.111/apptest/index.php/admin/index/upload',{
+////							id:'22',
+////							photo:imgData
+////						},function(data){
+////							//服务器返回响应，根据响应结果，分析是否登录成功；
+////							console.log(JSON.stringify(data))
+////						},'json'
+////					);
+//              /*在这里调用上传接口*/ 
+//             mui.ajax("http://192.168.1.111/apptest/index.php/admin/index/upload", { 
+//                  data: { 
+//                       id:22,
+//                       photo:imgData
+//                  }, 
+//                  dataType: 'json', 
+//                  type: 'post', 
+//                  timeout: 10000, 
+//                  headers:{'enctype':'multipart/form-data'},
+//                  success: function(data) { 
+//                  	console.log(data)
+//                      console.log('上传成功'); 
+//                  }, 
+//                  error: function(xhr, type, errorThrown) { 
+//                  	console.log(data)
+//                      //mui.toast('网络异常，请稍后再试！'); 
+//                  } 
+//              }); 
+//          } 
+//  } 
         //将图片压缩转成base64 
-        function getBase64Image(img) { 
-            var canvas = document.createElement("canvas"); 
-            var width = img.width; 
-            var height = img.height; 
-            // calculate the width and height, constraining the proportions 
-            if (width > height) { 
-                if (width > 100) { 
-                    height = Math.round(height *= 100 / width); 
-                    width = 100; 
-                } 
-            } else { 
-                if (height > 100) { 
-                    width = Math.round(width *= 100 / height); 
-                    height = 100; 
-                } 
-            } 
-            canvas.width = width;   /*设置新的图片的宽度*/ 
-            canvas.height = height; /*设置新的图片的长度*/ 
-            var ctx = canvas.getContext("2d"); 
-            ctx.drawImage(img, 0, 0, width, height); /*绘图*/ 
-            var dataURL = canvas.toDataURL("image/png", 0.8); 
-            return dataURL.replace("data:image/png;base64,", ""); 
-        }    
+//      function getBase64Image(img) { 
+//          var canvas = document.createElement("canvas"); 
+//          var width = img.width; 
+//          var height = img.height; 
+//          // calculate the width and height, constraining the proportions 
+//          if (width > height) { 
+//              if (width > 100) { 
+//                  height = Math.round(height *= 100 / width); 
+//                  width = 100; 
+//              } 
+//          } else { 
+//              if (height > 100) { 
+//                  width = Math.round(width *= 100 / height); 
+//                  height = 100; 
+//              } 
+//          } 
+//          canvas.width = width;   /*设置新的图片的宽度*/ 
+//          canvas.height = height; /*设置新的图片的长度*/ 
+//          var ctx = canvas.getContext("2d"); 
+//          ctx.drawImage(img, 0, 0, width, height); /*绘图*/ 
+//          var dataURL = canvas.toDataURL("image/png", 0.8); 
+//          return dataURL.replace("data:image/png;base64,", ""); 
+//      }    
 
 				
 				

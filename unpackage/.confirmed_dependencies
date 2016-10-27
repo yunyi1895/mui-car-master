@@ -29,7 +29,8 @@
 			"public/public.js",
 			"image/HUANGJIACLUB@2x.png",
 			"image/huangjiaclubzhongwen@2x.png",
-			"image/logo@2x.png"
+			"image/logo@2x.png",
+			"image/Forgotpassword.png"
 		],
 		"refer": [
 			"component/singup.html",

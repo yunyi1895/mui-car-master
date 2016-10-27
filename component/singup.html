@@ -141,7 +141,7 @@
 				<div class="inputtext">
 					<div class="username">
 						<span>   账 号    </span>
-						<input type="text" name="" id="userinfo" value="" placeholder="请输入登录名" />
+						<input  type="text" name="" id="userinfo" value="" placeholder="请输入登录名" />
 					</div>
 					<div class="username">
 						<span> 设置密码</span>
@@ -175,31 +175,63 @@
 		<script src="../public/public.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
 			mui.init()
-			var doc=document
+			
 			
 			
 			mui.plusReady(function() {
+				var doc=document
 				var signinButton = doc.getElementById('signin');
 				var signupButton = doc.getElementById('signup');
 				//var passwordBox = doc.getElementById('password');
 				
+				 doc.getElementById('userinfo').addEventListener('blur',function(e){
+				 	var val=this.value
+				 	if(val==''){
+				 		mui.alert('用户名不能为空')
+				 		this.focus()
+				 		return
+				 	}
+				 	mui.post('http://192.168.1.111/apptest/index.php/admin/user/Detect_username',{
+							username:val,
+							
+						},function(data){
+							
+							if(data.code==200){
+								mui.alert('用户名已经注册')
+								doc.getElementById('userinfo').focus()
+								return
+							}
+							//console.log(JSON.stringify(data))
+							
+							
+						},'json'
+					);
+				 	
+				 	
+				 	
+				 },'false')
+				
+				
+				
+				
 				signupButton.addEventListener('tap', function(event) {
+				
 					var userinfoval = doc.getElementById('userinfo').value;
 					var password1val = doc.getElementById('password1').value;
-					var password2val = doc.getElementById('password1').value;
+					var password2val = doc.getElementById('password2').value;
 					var invitationval=doc.getElementById('invitation').value;
-//					if(!isChineseChar(userinfoval)){
-//						dialoginfo('用户名只能为2到6位中文字符')
-//						return
-//					}
-//					if(!isPasswd(password1val)){
-//						dialoginfo('密码只能输入6-12个字母、数字、下划线')
-//						return
-//					}
-//					if(password1val!=password2val){
-//						dialoginfo('请输入相同的密码')
-//						return
-//					}
+					if(!isChineseChar(userinfoval)){
+						dialoginfo('用户名只能为2到6位中文字符')
+						return
+					}
+					if(!isPasswd(password1val)){
+						dialoginfo('密码只能输入6-12个字母、数字、下划线')
+						return
+					}
+					if(password1val!=password2val){
+						dialoginfo('请输入相同的密码')
+						return
+					}
 //					mui.ajax('http://runjs.cn/action/echo/',{
 //						data:{
 //							username:'userinfoval',
@@ -220,17 +252,20 @@
 //						}
 //					});
 //					
-					
-					mui.post('http://192.168.1.111/apptest/index.php/admin/user/login',{
+				
+					mui.post('http://192.168.1.111/apptest/index.php/admin/User/login',{
 							username:userinfoval,
 							password:password1val
 						},function(data){
+							console.log(JSON.stringify(data))
 							if(data.code==-200){
 								dialoginfo('注册失败请重新注册')
 								return
 							}
-							var username=data.info
+							var username=data.userinfo.username
+							var userid=data.userinfo.id
 							localStorage.setItem('username',username)
+							localStorage.setItem('userid',userid)
 							mui.openWindow({
 								url: './home/hall.html',
 								id: 'hall',
@@ -244,9 +279,7 @@
 								waiting: {
 									autoShow: false
 								},
-								extras:{
-									name: username //扩展参数
-							}
+							
 						});
 							
 							//console.log(JSON.stringify(data));

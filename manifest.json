@@ -226,7 +226,8 @@
 					"image/HUANGJIACLUB@2x.png",
 					"image/huangjiaclubzhongwen@2x.png",
 					"image/logo@2x.png",
-					null
+					null,
+					"image/Forgotpassword.png"
 				],
 				"refer": [
 					"component/singup.html",

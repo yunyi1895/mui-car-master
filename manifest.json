@@ -364,6 +364,37 @@
 				],
 				"refer": [],
 				"priority": 0
+			},
+			"component/game/car.html": {
+				"resources": [
+					"js/setrem.js",
+					"js/vue1.0.js",
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"css/mui.min.css",
+					"js/jquery-2.1.0.js",
+					"image/bg.png",
+					"public/public.css",
+					"component/game/OpeningRecord.html",
+					"component/game/gamerecord.html"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"component/game/OpeningRecord.html": {
+				"resources": [
+					"fonts/mui.ttf",
+					"component/game/car.html"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"component/game/gamerecord.html": {
+				"resources": [
+					"component/game/car.html"
+				],
+				"refer": [],
+				"priority": 0
 			}
 		},
 		"idle": {

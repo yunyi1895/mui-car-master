@@ -1,0 +1,251 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<script src="../../js/vue1.0.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/jquery-2.1.0.js" type="text/javascript" charset="utf-8"></script>
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../../public/public.css" />
+		<script src="../../js/setrem.js" type="text/javascript" charset="utf-8"></script>
+		<style type="text/css">
+			header {
+				background: #f6a635 !important;
+				border: none !important;
+				position: relative !important;
+				height: 0.44rem !important;
+			}
+			
+			header h1 {
+				color: #fff !important;
+				font-size: 0.16rem !important;
+				font-weight: 600 !important;
+			}
+			
+			header a {
+				color: #fff;
+			}
+			
+			body {
+				background: url(../../image/bg.png) repeat;
+				width: 100%;
+				height: 100%;
+			}
+			
+			.lotterynum {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				width: 100%;
+				height: 0.68rem;
+				border-bottom: 1px solid #ccc;
+				background: #fff;
+			}
+			
+			.lotterynum .information {
+				color: #8c857b;
+				font-size: 0.11rem;
+				text-align: center;
+			}
+			
+			#shownum span {
+				display: inline-block;
+				height: 0.23rem;
+				width: 0.23rem;
+				color: #fff;
+				text-align: center;
+				line-height: 0.23rem;
+			}
+			
+			.mui-control-content {
+				background-color: white;
+				min-height: 4.1rem;
+			}
+			
+			.mui-control-content .mui-loading {
+				margin-top: 50px;
+			}
+			
+			.sle {
+				height: 0.31rem;
+				background: #fff;
+			}
+			
+			.sle .mui-active {
+				color: #f6a635 !important;
+			}
+			
+			.sle a {
+				font-weight: 600;
+				color: #333;
+			}
+			
+			.sco {
+				background: #f6a635 !important;
+			}
+			
+			.bet,
+			.week {
+				width: 100%;
+				text-align: center;
+			}
+			
+			.bet th,
+			.week th {
+				height: 0.3rem;
+				background: #F6A635;
+				color: #fff;
+				font-size: 0.13rem;
+				font-weight: 500;
+			}
+			
+			.bet td {
+				height: 0.2rem;
+				font-size: 0.11rem;
+			}
+			
+			.bet td:nth-child(1),
+			.bet td:nth-child(2) {
+				color: #333;
+			}
+			
+			.bet tr:nth-child(odd),
+			.week tr:nth-child(odd) {
+				background: #f7f4ef;
+			}
+			
+			.bet .periods {
+				width: 0.57rem;
+				border-right: 1px solid #e28116;
+			}
+			
+			.bet .play {
+				width: 0.915rem;
+				border-left: 1px solid #ffbd55;
+				border-right: 1px solid #e28116;
+			}
+			
+			.bet .quiz {
+				width: 0.53rem;
+				border-left: 1px solid #ffbd55;
+				border-right: 1px solid #e28116;
+			}
+			
+			.bet .results {
+				width: 0.755rem;
+				border-left: 1px solid #ffbd55;
+				border-right: 1px solid #e28116;
+			}
+			
+			.bet .showu span {
+				display: inline-block;
+				width: 0.15rem;
+				text-align: center;
+			}
+			
+			.bet td:nth-child(4) {
+				color: #4700fe;
+			}
+			
+			.week .date {
+				width: 1.5rem;
+				border-left: 1px solid #ffbd55;
+				border-right: 1px solid #e28116;
+			}
+			
+			.week .quiz {
+				width: 0.84rem;
+				border-left: 1px solid #ffbd55;
+				border-right: 1px solid #e28116;
+			}
+			
+			.week td {
+				height: 0.4rem;
+				font-size: 0.11rem;
+				color: #333;
+			}
+			
+			.thisweek {
+				width: 100%;
+				text-align: center;
+			}
+			
+			.thisweek .crown {
+				width: 1rem;
+				border-left: 1px solid #ffbd55;
+				border-right: 1px solid #e28116;
+			}
+			
+			.thisweek .spiritessence {}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar ">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">投注明细</h1>
+		</header>
+		<div id="scroll1" class="">
+			<div class="mui-scroll">
+				<table class="bet" border="0" cellspacing="" cellpadding="">
+					<tr>
+						<th class="periods">期数</th>
+						<th class="play">玩法</th>
+						<th class="quiz">竞猜</th>
+						<th class="results">结果</th>
+						<th class="state">状态</th>
+					</tr>
+					<tr>
+						<td>5841544</td>
+						<td>10.17 12:54</td>
+						<td class="showu" id="test1">Data</td>
+						<td>10.17 12:54</td>
+						<td class="showu" id="test1">Data</td>
+					</tr>
+					<tr>
+						<td>5841544</td>
+						<td>10.17 12:54</td>
+						<td class="showu" id="test1">Data</td>
+						<td>10.17 12:54</td>
+						<td class="showu" id="test1">Data</td>
+					</tr>
+					<tr>
+						<td>5841544</td>
+						<td>10.17 12:54</td>
+						<td class="showu" id="test1">Data</td>
+						<td>10.17 12:54</td>
+						<td class="showu" id="test1">Data</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+
+		<script src="../../js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init()
+				(function($) {
+					$('.mui-scroll-wrapper').scroll({
+						indicators: true //是否显示滚动条
+					});
+					var html2 = '<ul class="mui-table-view"><li class="mui-table-view-cell">第二个选项卡子项-1</li><li class="mui-table-view-cell">第二个选项卡子项-2</li><li class="mui-table-view-cell">第二个选项卡子项-3</li><li class="mui-table-view-cell">第二个选项卡子项-4</li><li class="mui-table-view-cell">第二个选项卡子项-5</li></ul>';
+					//var html3 = '<ul class="mui-table-view"><li class="mui-table-view-cell">第三个选项卡子项-1</li><li class="mui-table-view-cell">第三个选项卡子项-2</li><li class="mui-table-view-cell">第三个选项卡子项-3</li><li class="mui-table-view-cell">第三个选项卡子项-4</li><li class="mui-table-view-cell">第三个选项卡子项-5</li></ul>';
+					var item2 = document.getElementById('item2mobile');
+					//var item3 = document.getElementById('item3mobile');
+					//				document.getElementById('slider').addEventListener('slide', function(e) {
+					//					if (e.detail.slideNumber === 1) {
+					//						if (item2.querySelector('.mui-loading')) {
+					//							setTimeout(function() {
+					//								item2.querySelector('.mui-scroll').innerHTML = html2;
+					//							}, 500);
+					//						}
+					//					} 
+					//				});
+					var sliderSegmentedControl = document.getElementById('sliderSegmentedControl');
+
+				})(mui);
+		</script>
+	</body>
+
+</html>

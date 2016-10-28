@@ -74,52 +74,82 @@
 			.sco{
 				background: #f6a635 !important;
 			}
-			.results,.longdragon{
+			.bet,.week{
 				width: 100%;
 				text-align: center;
 			}
-			.results th ,.longdragon th{
+			.bet th ,.week th{
 				height: 0.3rem;
 				background: #F6A635;
 				color: #fff;
 				font-size: 0.13rem;
 				font-weight: 500;
 			}
-			.results td,.longdragon td{
+			.bet td{
 				height: 0.2rem;
 				font-size: 0.11rem;
 			}
-			.results td:nth-child(1),.results td:nth-child(2){
+			.bet td:nth-child(1),.bet td:nth-child(2){
 				color: #333;
 			}
-			.results tr:nth-child(odd),.longdragon tr:nth-child(odd){
+			.bet tr:nth-child(odd),.week tr:nth-child(odd){
 				background: #f7f4ef;
 				
 			}
-			.results .periods,.longdragon .periods{
-				width: 0.69rem;
+			.bet .periods{
+				width: 0.57rem;
 				border-right: 1px solid #e28116;
 			}
-			.results .time{
-				width: 0.69rem;
+			.bet .play{
+				width: 0.915rem;
 				border-left: 1px solid #ffbd55;
 				border-right: 1px solid #e28116;
 			}
-			.results .showu span{
+			.bet .quiz{
+				width: 0.53rem;
+				border-left: 1px solid #ffbd55;
+				border-right: 1px solid #e28116;
+			}
+			.bet .results{
+				width: 0.755rem;
+				
+				border-left: 1px solid #ffbd55;
+				border-right: 1px solid #e28116;
+			}
+			
+			.bet .showu span{
 				display: inline-block;
 				width: 0.15rem;
 				text-align: center;
 			}
-			.longdragon {
+			.bet td:nth-child(4){
+				color: #4700fe;
+			}
+			.week .date{
+				width: 1.5rem;
+				border-left: 1px solid #ffbd55;
+				border-right: 1px solid #e28116;
+			}
+			.week .quiz{
+				width: 0.84rem;
+				border-left: 1px solid #ffbd55;
+				border-right: 1px solid #e28116;
+			}
+			.week td{
+				height: 0.4rem;
+				font-size: 0.11rem;
+				color: #333;
+			}
+			.thisweek {
 				width: 100%;
 				text-align: center;
 			}
-			.longdragon .crown{
+			.thisweek .crown{
 				width: 1rem;
 				border-left: 1px solid #ffbd55;
 				border-right: 1px solid #e28116;
 			}
-			.longdragon .spiritessence{
+			.thisweek .spiritessence{
 				
 			}
 		</style>
@@ -132,50 +162,50 @@
 		</header>
 		
 		<div id="slider" class="mui-slider">
-				<div id="sliderSegmentedControl" class="sle mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
-					<a class="mui-control-item mui-active" href="#item1mobile">
-				开奖结果
-			</a>
-					<a class="mui-control-item" href="#item2mobile">
-				冠亚/长龙
-			</a>
-					
+			<div id="sliderSegmentedControl" class="sle mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+				<a class="mui-control-item mui-active" href="#item1mobile">
+					本期下注
+				</a>
+				<a class="mui-control-item" href="#item2mobile">
+					本周记录
+				</a>
+				<a class="mui-control-item" href="#item3mobile">
+					上周记录
+				</a>	
 				</div>
-				<div id="sliderProgressBar" class="sco mui-slider-progress-bar mui-col-xs-6"></div>
+				<div id="sliderProgressBar" class="sco mui-slider-progress-bar mui-col-xs-4"></div>
 				<div class="mui-slider-group">
 					<div id="item1mobile" class="mui-slider-item mui-control-content mui-active">
 						<div id="scroll1" class="mui-scroll-wrapper">
 							<div class="mui-scroll">
-								<table class="results" border="0" cellspacing="" cellpadding="">
+								<table class="bet" border="0" cellspacing="" cellpadding="">
 									<tr>
 										<th class="periods">期数</th>
-										<th class="time">时间</th>
-										<th class="num">开奖号码</th>
+										<th class="play">玩法</th>
+										<th class="quiz">竞猜</th>
+										<th class="results">结果</th>
+										<th class="state">状态</th>
 									</tr>
 									<tr>
 										<td>5841544</td>
 										<td>10.17 12:54</td>
 										<td class="showu" id="test1">Data</td>
+										<td>10.17 12:54</td>
+										<td class="showu" id="test1">Data</td>
 									</tr>
 									<tr>
-										<td>Data</td>
-										<td>Data</td>
-										<td>Data</td>
+										<td>5841544</td>
+										<td>10.17 12:54</td>
+										<td class="showu" id="test1">Data</td>
+										<td>10.17 12:54</td>
+										<td class="showu" id="test1">Data</td>
 									</tr>
 									<tr>
-										<td>Data</td>
-										<td>Data</td>
-										<td>Data</td>
-									</tr>
-									<tr>
-										<td>Data</td>
-										<td>Data</td>
-										<td>Data</td>
-									</tr>
-									<tr>
-										<td>Data</td>
-										<td>Data</td>
-										<td>Data</td>
+										<td>5841544</td>
+										<td>10.17 12:54</td>
+										<td class="showu" id="test1">Data</td>
+										<td>10.17 12:54</td>
+										<td class="showu" id="test1">Data</td>
 									</tr>
 								</table>
 							</div>
@@ -184,11 +214,11 @@
 					<div id="item2mobile" class="mui-slider-item mui-control-content">
 						<div id="scroll2" class="mui-scroll-wrapper">
 							<div class="mui-scroll">
-								<table class="longdragon" border="0" cellspacing="" cellpadding="">
+								<table class="thisweek week" border="0" cellspacing="" cellpadding="">
 									<tr>
-										<th class="periods">期数</th>
-										<th class="crown">冠亚</th>
-										<th class="spiritessence">龙虎</th>
+										<th class="date">日期</th>
+										<th class="quiz">竞猜</th>
+										<th class="results">结果</th>
 									</tr>
 									<tr>
 										<td>5841544</td>
@@ -225,7 +255,50 @@
 						</div>
 
 					</div>
-				
+					<div id="item3mobile" class="mui-slider-item mui-control-content">
+						<div id="scroll3" class="mui-scroll-wrapper">
+							<div class="mui-scroll">
+								<table class="thisweek week" border="0" cellspacing="" cellpadding="">
+									<tr>
+										<th class="date">日期</th>
+										<th class="quiz">竞猜</th>
+										<th class="results">结果</th>
+									</tr>
+									<tr>
+										<td>5841544</td>
+										<td>10.17 12:54</td>
+										<td class="showu" id="test1">Data</td>
+									</tr>
+									<tr>
+										<td>Data</td>
+										<td>Data</td>
+										<td>Data</td>
+									</tr>
+									<tr>
+										<td>Data</td>
+										<td>Data</td>
+										<td>Data</td>
+									</tr>
+									<tr>
+										<td>Data</td>
+										<td>Data</td>
+										<td>Data</td>
+									</tr>
+									<tr>
+										<td>Data</td>
+										<td>Data</td>
+										<td>Data</td>
+									</tr>
+								</table>
+								
+								<!--<div class="mui-loading">
+									<div class="mui-spinner">
+									</div>
+								</div>-->
+							</div>
+						</div>
+
+					</div>
 				</div>
 			</div>
 		<script src="../../js/mui.min.js"></script>

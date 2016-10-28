@@ -40,6 +40,8 @@
 			}
 			.tackoutintegral #tackoutintegralinput{
 				margin: 0;
+				height: 0.5rem;
+				line-height: 0.5rem;
 				width: 90%;
 			}
 			.showintegral{
@@ -71,6 +73,20 @@
 				background: #e9d8bc;
 				color: #ab9573;
 			}
+			.verificationcode{
+				width: 100%;
+			}
+			.verificationcode input{
+				margin: 0;
+				height: 0.47rem;
+				line-height: 0.47rem;
+				width: 90%;
+				flex: 2;
+			}
+			.verificationcode .commonbtn{
+				flex: 2;
+				
+			}
 		</style>
 	</head>
 
@@ -80,9 +96,18 @@
 				<h1 class="mui-title">密码验证</h1>
 		</header>
 		<div class="tackoutintegral">
-			<input id="tackoutintegralinput" type="text" name="" id="" value="" placeholder="请输入账号密码" />
+			<input id="tackoutintegralinput" type="text" name="" id="" value="" placeholder="请输入您的手机号" />
 		</div>
-		
+		<div class="verificationcode">
+			<div class="cont">
+				<input type="text" name="" id="" value="" />
+				<div class="commonbtn">
+					<div class="subcode commonbtnz">
+						获取验证码
+					</div>
+				</div>
+			</div>
+		</div> 
 		<div class="operation">
 			<div class="cont">
 				

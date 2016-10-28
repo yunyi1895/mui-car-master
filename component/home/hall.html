@@ -682,7 +682,7 @@
 				<li>举报</li>
 				<li style="display: flex;" v-for="it in vueinform">
 					<div class="inform-content"  >{{it.ty}}</div>
-					<div><span class="inform-icons" type=it.id @click="vuegetinform($event,$index,it.id)" ></span></div>
+					<div><span class="inform-icons" type=it.id @click="vuegetinform($event,$index,it.ty)" ></span></div>
 				</li>
 				
 				<!--<li style="display: flex;">
@@ -741,6 +741,7 @@
 								url: u,
 								id: k,
 								preload: true,
+								
 								show: {
 									aniShow: 'pop-in'
 								},
@@ -774,11 +775,12 @@
 							{ty:'赌博',id:'gambling'},
 							{ty:'色情低俗',id:'pornographic'},
 							{ty:'谣言',id:'rumor'},
-							{ty:'赌博',id:'a'},
-							{ty:'赌博',id:'b'},
-							{ty:'赌博',id:'c'}
+							{ty:'诱导分享',id:'a'},
+							{ty:'政治敏感',id:'b'},
+							{ty:'其他',id:'c'}
 						],
 						informarr:[],//举报数据
+						userid:'',
 					},
 					methods:{
 						showuserCentervue:function(){//展现用户中心
@@ -798,6 +800,18 @@
 						vuesubinform:function(){//提交举报内容
 							J('#hiddenq').hide();
 							J('.inform').hide();
+							var userid=this.userid
+							var cont=this.informarr.join(',')
+							//console.log(cont)
+							mui.post('http://192.168.1.111/apptest/index.php/admin/index/Report',{
+								content:cont,
+								id:userid
+							},function(data){
+								mui.alert(data.info)
+								//	console.log(JSON.stringify(data))
+							})	
+							
+							
 							alert('举报内容已经提交')
 							
 						},
@@ -816,7 +830,7 @@
 							
 						},
 						vuegourl:function(l,k){
-							console.log(k)
+							//console.log(k)
 							if(k=='share'){
 								
 								J('#share').css({
@@ -837,7 +851,8 @@
 					},
 					ready:function(){
 						var username=localStorage.getItem('username')
-						console.log(username)
+						var userid=localStorage.getItem('userid')
+						this.userid=userid
 						this.vueuserinfo.name=username
 					},
 					compontment:{

@@ -17,6 +17,7 @@ header{
 				border: none !important;
 				position: relative !important; 
 				height: 0.44rem !important;
+				line-height: 0.44rem !important;
 			}
 			header h1{
 				color: #fff !important;
@@ -42,3 +43,12 @@ header{
 				color: #fff;
 			}
 			
+			/*switch*/
+			
+.switch .mui-active{
+				border-color:#f6a635 !important;
+				background-color:#f6a635 !important;
+			}
+.switch .mui-switch:before{
+	top:-10px;
+}

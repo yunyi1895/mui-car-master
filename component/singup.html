@@ -195,7 +195,7 @@
 							username:val,
 							
 						},function(data){
-							
+							console.log(JSON.stringify(data))
 							if(data.code==200){
 								mui.alert('用户名已经注册')
 								doc.getElementById('userinfo').focus()
@@ -220,18 +220,18 @@
 					var password1val = doc.getElementById('password1').value;
 					var password2val = doc.getElementById('password2').value;
 					var invitationval=doc.getElementById('invitation').value;
-					if(!isChineseChar(userinfoval)){
-						dialoginfo('用户名只能为2到6位中文字符')
-						return
-					}
-					if(!isPasswd(password1val)){
-						dialoginfo('密码只能输入6-12个字母、数字、下划线')
-						return
-					}
-					if(password1val!=password2val){
-						dialoginfo('请输入相同的密码')
-						return
-					}
+//					if(!isChineseChar(userinfoval)){
+//						dialoginfo('用户名只能为2到6位中文字符')
+//						return
+//					}
+//					if(!isPasswd(password1val)){
+//						dialoginfo('密码只能输入6-12个字母、数字、下划线')
+//						return
+//					}
+//					if(password1val!=password2val){
+//						dialoginfo('请输入相同的密码')
+//						return
+//					}
 //					mui.ajax('http://runjs.cn/action/echo/',{
 //						data:{
 //							username:'userinfoval',
@@ -316,7 +316,7 @@
 				},false)
 				
 			})
-			
+			mui.addBack('qqq')
 			
 		</script>
 	</body>

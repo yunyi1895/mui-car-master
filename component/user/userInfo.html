@@ -10,7 +10,7 @@
 		<link rel="stylesheet" type="text/css" href="../../public/public.css"/>
 		<script src="../../js/jquery-2.1.0.js" type="text/javascript" charset="utf-8"></script>
 		<!--<script src="../../js/zepto_1.1.3.js" type="text/javascript" charset="utf-8"></script>-->
-		
+		<script src="../../public/public.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../../js/setrem.js" type="text/javascript" charset="utf-8"></script>
 		<style type="text/css">
 			.hidden{
@@ -95,6 +95,7 @@
 				flex: 12;
 				color: #D9D9D9;
 				font-size: 0.13rem;
+				line-height: 0.42rem;
 			}
 			.infoContent li a{
 				line-height: 0.42rem;
@@ -106,7 +107,20 @@
 			}
 			.infoContent li .tagmusic{
 				flex: 4;
-				
+				display: flex;
+				justify-content: center;
+				align-items: center;
+			}
+			.infoContent li input{
+				margin: 0;
+				padding: 0;
+				border: none;
+				height: 0.38rem;
+				line-height: 0.38rem;
+				width: 100%;
+				font-size: 0.12rem;
+				color: #000;
+				background: #EFEFF4;
 			}
 			.tagmusic .tag{
 				display: inline-block;
@@ -142,17 +156,25 @@
 				line-height: 0.47rem;
 				color: #fff;
 			}
+			#subinfo{
+				font-size: 0.12rem;
+				display: block;
+				line-height: 0.44rem;
+				height: 0.44rem;
+				float: right;
+			}
+			
 		</style>
 	</head>
 	<body>
 		<div id="vuedom" class="center">
-		<div @click="vuehidd" class="hidden">
+		<div class="hidden">
 			
 		</div>
 		<header class="mui-bar ">
 			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
 			<h1 class="mui-title">用户资料</h1>
-			
+			<a @click="setuserinfo" id="subinfo" class="">完成</a>
 		</header>
 		<div class="portrait">
 			<div class="setportrait">
@@ -160,7 +182,7 @@
 					头像
 				</div>
 				<div id="userportrait">
-					<img id="mainImage" src="../../image/touxiang.png"/>
+					<img id="mainImage" />
 				</div>
 				
 				<a id="headImage" class=" mui-icon mui-icon-arrowright seticon"></a>
@@ -176,37 +198,44 @@
 				<li>
 					<div class="setkey">手机号</div>
 					<div class="consd">
-						添加手机号，仅填一次，不可修改
+						
+						<input v-if="userinfo.Tel==''" type="" name="" id=""  v-model="setuserinfoobj.Tel"  placeholder="添加手机号，仅填一次，不可修改"/>
+						<span v-if="userinfo.Tel!=''">{{userinfo.Tel}}</span>
 					</div>
-					<a class=" mui-icon mui-icon-arrowright seticon"></a>
+					
+				</li>
+				
+				<li>
+					<div class="setkey">微信号</div>
+					<div class="consd">
+						<input v-if="userinfo.WeChat==''" type="" name="" id=""  v-model="setuserinfoobj.WeChat"   placeholder="添加微信号，仅填一次，不可修改"/>
+						<span v-if="userinfo.WeChat!=''">{{userinfo.WeChat}}</span>
+					</div>
+					
 				</li>
 				<li>
-					<div class="setkey">手机号</div>
+					<div class="setkey">支付宝</div>
 					<div class="consd">
-						添加手机号，仅填一次，不可修改
+						<input v-if="userinfo.alipay==''" type="" name="" id="" v-model="setuserinfoobj.alipay"   placeholder="添加支付宝，仅填一次，不可修改"/>
+						<span v-if="userinfo.alipay!=''">{{userinfo.alipay}}</span>
 					</div>
-					<a class=" mui-icon mui-icon-arrowright seticon"></a>
+					
 				</li>
 				<li>
-					<div class="setkey">手机号</div>
+					<div class="setkey">银行卡</div>
 					<div class="consd">
-						添加手机号，仅填一次，不可修改
+						<input v-if="userinfo.bankcard==''" type="" name="" id="" v-model="setuserinfoobj.bankcard"   placeholder="添加银行卡，仅填一次，不可修改"/>
+						<span v-if="userinfo.bankcard!=''">{{userinfo.bankcard}}</span>
 					</div>
-					<a class=" mui-icon mui-icon-arrowright seticon"></a>
+					
 				</li>
 				<li>
-					<div class="setkey">手机号</div>
+					<div class="setkey">QQ号</div>
 					<div class="consd">
-						添加手机号，仅填一次，不可修改
+						<input v-if="userinfo.qq==''" type="" name="" id="" v-model="setuserinfoobj.qq"  placeholder="添加QQ号，仅填一次，不可修改"/>
+						<span v-if="userinfo.qq!=''">{{userinfo.qq}}</span>
 					</div>
-					<a class=" mui-icon mui-icon-arrowright seticon"></a>
-				</li>
-				<li>
-					<div class="setkey">手机号</div>
-					<div class="consd">
-						添加手机号，仅填一次，不可修改
-					</div>
-					<a class=" mui-icon mui-icon-arrowright seticon"></a>
+				
 				</li>
 				<li>
 					<div class="setkey">音乐开关</div>
@@ -214,30 +243,35 @@
 						
 					</div>
 					<div class="tagmusic">
-						<span class="tagtext">On</span>
+						<div class="switch">
+							<div id="mySwitch" class=" mui-switch mui-active">
+							  <div class="mui-switch-handle"></div>
+							</div>
+						</div>
+						<!--<span class="tagtext">On</span>
 						<span class="tag">
 							<span class="taginoc">
 								
 							</span>
-						</span>
+						</span>-->
 					</div>
 					<!--<a class=" mui-icon mui-icon-arrowright seticon"></a>-->
 				</li>
 			</ul>
 		</div>
 		<footer>
-			<div class="out">
+			<div @click="out" class="out">
 				退出登录
 			</div>
 			
 		</footer>
-		
+		</div>
 		<script src="../../js/mui.min.js"></script>
 		<script type="text/javascript">
 			mui.init()
 			mui.plusReady(function(){
-				
-		function getImage() { 
+			var f1=null;	
+			function getImage() { 
 		            var c = plus.camera.getCamera(); 
 		            c.captureImage(function(e) { 
 		                plus.io.resolveLocalFileSystemURL(e, function(entry) { 
@@ -252,8 +286,7 @@
 		                filename: "_doc/head.png" 
 		            }) 
 		        } 
-		    var f1=null;
-				function appendFile(path){
+		   	function appendFile(path){//压缩图片
 				
 				  var img = new Image();
 				        img.src = path;        // 传过来的图片路径在这里用。
@@ -288,7 +321,7 @@
 				
 				}
 		        
-		    function uploadss(){ 
+		    function uploadss(){ //上传图片
 			
 			     var wt=plus.nativeUI.showWaiting();
 			     var url = 'http://192.168.1.111/apptest/index.php/admin/index/upload';
@@ -300,11 +333,14 @@
 			            $.post(url, data, success, dataType);                          
 			}
 			        //成功响应的回调函数
-			        var success = function(response) {   
-			        	console.log(response)
+			        var success = function(data) {   
+			        	console.log(JSON.stringify(data))
 			            plus.nativeUI.closeWaiting();
-			            if(response != null){
-			                alert("上传成功"); 
+			            if(data.code==200){
+			            	localStorage.setItem('headimg',data.imPath)
+			                dialoginfo("上传成功"); 
+			            }else{
+			            	 dialoginfo("上传失败");
 			            }
 			
 			     }     
@@ -351,105 +387,8 @@
                 filter: "image" 
             }) 
         };
-//      
-//      function uploadImg(src) {
-//      	console.log(src)
-//      	 	var mainImage=document.getElementById('mainImage')
-//          mainImage.src = src; 
-//		  var task = plus.uploader.createUpload('http://192.168.1.111/apptest/index.php/admin/index/upload', {
-//		    method: 'post', 
-//		    blocksize:204800,
-//		    timeout: 10
-//		  },function(t,s){
-//		  
-//		  });
-//		
-//		  task.addFile(src, {key: 'headImg'});
-//		
-//		  task.addData('type','uploadImg')
-//		  task.addData('id', 22);
-//		  task.addEventListener('statechanged', stateChanged, false);
-//		  task.start();
-//		
-//		  function stateChanged(upload, status) {
-//		  	console.log(JSON.stringify(upload));
-//		  	 console.log(upload.responseText); 
-//		  	console.log(status);
-//		    if ( upload.state == 4 && status == 200 ) {
-//		      plus.uploader.clear();  //清除上传
-//		      console.log(upload.responseText);  //服务器返回存在这里
-//		    }
-//		  }
-//		}
-//      
-//		function uploadHead(imgPath) { //图片上传和压缩
-//
-//          console.log("imgPath = " + imgPath); 
-//        
-//        
-// 			
-//          var image = new Image(); 
-//          image.src = imgPath; 
-//          image.onload = function() { 
-//              var imgData = getBase64Image(image); 
-//              console.log(JSON.stringify(imgData))
-////              mui.post('http://192.168.1.111/apptest/index.php/admin/index/upload',{
-////							id:'22',
-////							photo:imgData
-////						},function(data){
-////							//服务器返回响应，根据响应结果，分析是否登录成功；
-////							console.log(JSON.stringify(data))
-////						},'json'
-////					);
-//              /*在这里调用上传接口*/ 
-//             mui.ajax("http://192.168.1.111/apptest/index.php/admin/index/upload", { 
-//                  data: { 
-//                       id:22,
-//                       photo:imgData
-//                  }, 
-//                  dataType: 'json', 
-//                  type: 'post', 
-//                  timeout: 10000, 
-//                  headers:{'enctype':'multipart/form-data'},
-//                  success: function(data) { 
-//                  	console.log(data)
-//                      console.log('上传成功'); 
-//                  }, 
-//                  error: function(xhr, type, errorThrown) { 
-//                  	console.log(data)
-//                      //mui.toast('网络异常，请稍后再试！'); 
-//                  } 
-//              }); 
-//          } 
-//  } 
-        //将图片压缩转成base64 
-//      function getBase64Image(img) { 
-//          var canvas = document.createElement("canvas"); 
-//          var width = img.width; 
-//          var height = img.height; 
-//          // calculate the width and height, constraining the proportions 
-//          if (width > height) { 
-//              if (width > 100) { 
-//                  height = Math.round(height *= 100 / width); 
-//                  width = 100; 
-//              } 
-//          } else { 
-//              if (height > 100) { 
-//                  width = Math.round(width *= 100 / height); 
-//                  height = 100; 
-//              } 
-//          } 
-//          canvas.width = width;   /*设置新的图片的宽度*/ 
-//          canvas.height = height; /*设置新的图片的长度*/ 
-//          var ctx = canvas.getContext("2d"); 
-//          ctx.drawImage(img, 0, 0, width, height); /*绘图*/ 
-//          var dataURL = canvas.toDataURL("image/png", 0.8); 
-//          return dataURL.replace("data:image/png;base64,", ""); 
-//      }    
-
-				
-				
-				document.getElementById('headImage').addEventListener('tap', function() { 
+ 		document.getElementById('headImage').addEventListener('tap', function() { 
+ 			
 	            if (mui.os.plus) { 
 	                var a = [{ 
 	                    title: "拍照" 
@@ -476,7 +415,115 @@
 	                }) 
 	            } 
 	        }, false); 
-			
+	        
+	    document.getElementById("mySwitch").addEventListener("toggle",function(event){
+			  if(event.detail.isActive){
+			    console.log("你启动了开关");
+			  }else{
+			    console.log("你关闭了开关");  
+			  }
+			})    
+	    
+			var vuedom=new Vue({
+				el:'#vuedom',
+				data:{
+					userid:'',
+					userinfo:{},
+					userheadimg:'',
+					setuserinfoobj:{
+						qq:'',
+						WeChat:'',
+						alipay:'',
+						bankcard:'',
+						Tel:''
+					}
+					
+				},
+				methods:{
+					getuserinfo:function(){
+						var vm=this
+						console.log(vm.userid)
+						mui.post('http://192.168.1.111/apptest/index.php/admin/index/SelectUserInfo',{
+								id:vm.userid,
+							},function(data){
+								vm.userinfo=data.userinfo
+								vm.setextend()
+								//
+							},'json'
+						);
+					},
+					setextend:function(){
+						var vm=this
+						var userinfo=this.userinfo
+					//	console.log(JSON.stringify(userinfo))
+						for ( i in userinfo){
+							if(userinfo[i]!=''&&userinfo[i]!=null){
+							
+								vm.setuserinfoobj[i]=userinfo[i]
+							}
+						}
+						//console.log(JSON.stringify(vm.setuserinfoobj))
+					},
+					setuserinfo:function(){
+					//	console.log(JSON.stringify(this.setuserinfoobj))
+//						if(!isMobile(this.setuserinfoobj.Tel)){
+//							dialoginfo('请输入正确的手机号')
+//							return
+//						}
+//						if(!isQQ(this.setuserinfoobj.qq)){
+//							dialoginfo('请输入正确的qq号')
+//							return
+//						}
+//						if(!isbankcard(this.setuserinfoobj.bankcard)){
+//							dialoginfo('请输入正确的银行号码')
+//							return
+//						}
+						
+						var userinfo=this.setuserinfoobj
+						userinfo.id=this.userid
+						console.log(JSON.stringify(userinfo))
+						var vm=this
+						mui.post('http://192.168.1.111/apptest/index.php/admin/index/UpdateInfo',userinfo,function(data){
+								//vm.userinfo=data.userinfo
+								vm.getuserinfo()
+								//console.log(JSON.stringify(data))
+							},'json'
+						);
+						
+					},
+					out:function(){
+						
+						var backButtonPress = 0;
+						var isout=mui.confirm('确认退出皇家会所？',function(s){
+							if(s.index){
+								plus.runtime.quit();
+								return
+							}else{
+								return
+							}
+						})
+					
+						
+							
+	
+					}
+				},
+				ready:function(){
+					this.userid=localStorage.getItem('userid')
+				
+					this.getuserinfo()
+					var heaimg=''
+					if(localStorage.getItem('headimg')){
+						heaimg=localStorage.getItem('headimg')
+					}else{
+						heaimg='../../image/touxiang.png'
+					}
+					document.getElementById('mainImage').src=heaimg
+					
+					
+					
+				}
+			})
 			
 			
 			

@@ -5,8 +5,7 @@
 		<meta charset="UTF-8">
 		<title></title>
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
-		<script src="../../js/vue1.0.js" type="text/javascript" charset="utf-8"></script>
-		<script src="../../js/jquery-2.1.0.js" type="text/javascript" charset="utf-8"></script>
+		
 		<link href="../../css/mui.min.css" rel="stylesheet" />
 		<link rel="stylesheet" type="text/css" href="../../public/public.css"/>
 		<script src="../../js/setrem.js" type="text/javascript" charset="utf-8"></script>
@@ -33,7 +32,7 @@
 			.complaintscontent{
 				margin: 0.2rem 0;
 			}
-			.complaintscontent #content{
+			.complaintscontent #content1{
 				height: 1rem;
 			}
 			 .cont{
@@ -59,7 +58,7 @@
 		</header>
 		<div class="complaintscontent">
 			<div class="cont">
-				<textarea id="content" name="" rows="" cols="" placeholder="每天仅限投诉1条，请谨慎考虑"></textarea>
+				<textarea id="content1" name="" rows="" cols="" placeholder="每天仅限投诉1条，请谨慎考虑"></textarea>
 			</div>
 		</div>
 		
@@ -68,7 +67,7 @@
 				
 					
 					<div class="commonbtn">
-						<div class="commonbtnz">
+						<div id='sub' class="commonbtnz">
 							确认投诉
 						</div>
 					</div>
@@ -78,6 +77,30 @@
 		<script src="../../js/mui.min.js"></script>
 		<script type="text/javascript">
 			mui.init()
+			mui.plusReady(function(){
+				var userid=localStorage.getItem('userid')
+				var content=document.getElementById('content1')
+				
+				var sub=document.getElementById('sub')
+				sub.addEventListener('tap',function(){
+					console.log(userid)
+					mui.post('http://192.168.1.111/apptest/index.php/admin/index/complain',{
+						content:content.value,
+						id:userid
+					},function(data){
+						mui.alert(data.info)
+							//console.log(JSON.stringify(data))
+					})	
+					
+				},false)
+			
+				
+				
+				
+				
+				
+				
+			})
 		</script>
 	</body>
 

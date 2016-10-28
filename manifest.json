@@ -1,6 +1,6 @@
 {
 	"@platforms": ["android", "iPhone", "iPad"],
-	"id": "",/*应用的标识，创建应用时自动生成，勿手动修改*/
+	"id": "H58CA67A5",/*应用的标识，创建应用时自动生成，勿手动修改*/
 	"name": "car",/*应用名称，程序桌面图标名称*/
 	"version": {
 		"name": "1.0.0",/*应用版本名称*/
@@ -245,7 +245,9 @@
 					"public/public.js",
 					"image/logo@2x.png",
 					"image/HUANGJIACLUB@2x.png",
-					"image/huangjiaclubzhongwen@2x.png"
+					"image/huangjiaclubzhongwen@2x.png",
+					null,
+					"js/jquery-2.1.0.js"
 				],
 				"refer": [
 					"component/signin.html",

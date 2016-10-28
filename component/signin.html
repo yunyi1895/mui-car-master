@@ -206,21 +206,40 @@
 				//var passwordBox = doc.getElementById('password');
 				
 				signinButton.addEventListener('tap', function(event) {
-					var userinfoval = doc.getElementById('userinfo').value;
-					var passwordval = doc.getElementById('passwordn').value;
+					var userinfoval = doc.getElementById('userinfo').value.toString();
+					var passwordval = doc.getElementById('passwordn').value.toString();
+//					if(!isChineseChar(userinfoval)){
+//						dialoginfo('用户名只能为2到6位中文字符')
+//						return
+//					}
+//					if(!isPasswd(passwordval)){
+//						dialoginfo('密码只能输入6-12个字母、数字、下划线')
+//						return
+//					}
+					
+					
 					mui.post('http://192.168.1.111/apptest/index.php/admin/user/log_in',{
 							username:userinfoval,
 							password:passwordval
 						},function(data){
-							console.log(JSON.stringify(data));
+							console.log(JSON.stringify(data))
+							if(data.code==400){
+								dialoginfo('用户名错误')
+								return
+							}
+							if(data.code==-200){
+								dialoginfo('密码错误')
+								return
+							}
+							
 							if(data.code==200){
 							var username=data.userinfo.username
-							var userid=data.userinfo.id
-							
+							var userid=data.userinfo.userid
+							console.log(userid)
 							localStorage.setItem('username',username)
 							localStorage.setItem('userid',userid)
 								
-							mui.openWindow({
+									mui.openWindow({
 									url: './home/hall.html',
 									id: 'hall',
 									preload: true,
@@ -231,8 +250,8 @@
 										popGesture: 'hide'
 									},
 									waiting: {
-										 autoShow:true,//自动显示等待框，默认为true
-      										title:'正在加载...',//等待对话框上显示的提示内容
+										autoShow:true,//自动显示等待框，默认为true
+      									title:'欢迎进入皇家会所...',//等待对话框上显示的提示内容
 									}
 								});
 							}
@@ -241,14 +260,6 @@
 							
 						},'json'
 					);
-					
-					
-					
-					
-				
-						
-					//console.log(userinfoval+'|'+passwordval)
-					
 				},false)
 				signupButton.addEventListener('tap', function(event) {
 					
@@ -268,6 +279,20 @@
 						});
 				},false)
 				
+					//$.oldBack = mui.back;
+					var backButtonPress = 0;
+					mui.back = function(event) {
+						backButtonPress++;
+						if (backButtonPress > 1) {
+							plus.runtime.quit();
+						} else {
+							plus.nativeUI.toast('再按一次退出皇家会所');
+						}
+						setTimeout(function() {
+							backButtonPress = 0;
+						}, 1000);
+						return false;
+					};
 			})
 		</script>
 	</body>

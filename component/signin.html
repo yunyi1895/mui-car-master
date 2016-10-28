@@ -206,6 +206,26 @@
 				//var passwordBox = doc.getElementById('password');
 				
 				signinButton.addEventListener('tap', function(event) {
+						localStorage.setItem('username','123')
+							localStorage.setItem('userid','21')
+								
+									mui.openWindow({
+									url: './home/hall.html',
+									id: 'hall',
+									preload: true,
+									show: {
+										aniShow: 'pop-in'
+									},
+									styles: {
+										popGesture: 'hide'
+									},
+									waiting: {
+										autoShow:true,//自动显示等待框，默认为true
+      									title:'欢迎进入皇家会所...',//等待对话框上显示的提示内容
+									}
+								});
+					
+					retrun
 					var userinfoval = doc.getElementById('userinfo').value.toString();
 					var passwordval = doc.getElementById('passwordn').value.toString();
 //					if(!isChineseChar(userinfoval)){

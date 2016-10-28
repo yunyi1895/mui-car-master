@@ -6,7 +6,7 @@
 		<title></title>
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		
-		<script src="../../js/jquery-2.1.0.js" type="text/javascript" charset="utf-8"></script>
+		<!--<script src="../../js/jquery-2.1.0.js" type="text/javascript" charset="utf-8"></script>-->
 		<link href="../../css/mui.min.css" rel="stylesheet" />
 		<link rel="stylesheet" type="text/css" href="../../public/public.css"/>
 		<script src="../../js/setrem.js" type="text/javascript" charset="utf-8"></script>
@@ -94,8 +94,8 @@
 						<div class="cunfen">
 							台面上的存分：
 						</div>
-						<div class="cunfennum">
-							5616
+						<div id="tai" class="cunfennum">
+							
 						</div>
 					</div>
 				</div>
@@ -104,8 +104,8 @@
 						<div class="cunfen">
 							保险柜的存分：	
 						</div>
-						<div class="cunfennum">
-							4616165
+						<div id="bao" class="cunfennum">
+							
 						</div>
 					</div>
 				</div>
@@ -137,14 +137,21 @@
 			mui.init()
 			
 			mui.plusReady(function(){
-					/*mui.post('http://192.168.1.111/apptest/index.php/admin/index/SelectUserInfo',{
-								id:vm.userid,
+				var userid=localStorage.getItem('userid')
+			//	console.log(userid)
+					mui.post('http://192.168.1.111/apptest/index.php/admin/index/usersafemoney',{
+								id:userid,
 							},function(data){
-								vm.userinfo=data.userinfo
-								vm.setextend()
+								if(data.code==200){
+									document.getElementById('bao').innerText=data.bao.safeintegral
+									document.getElementById('tai').innerText=data.tai.integral
+								}
+								
+								
+								//console.log(JSON.stringify(data))
 								//
 							},'json'
-						);*/
+						);
 				
 			})
 		</script>

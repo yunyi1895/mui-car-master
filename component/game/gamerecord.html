@@ -128,21 +128,9 @@
 	<body>
 		<header class="mui-bar ">
 				<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
-				<h1 class="mui-title">开局记录</h1>
+				<h1 class="mui-title">游戏记录</h1>
 		</header>
-		<div class="lotterynum">
-			
-			<div class="lotteryxin">
-				<div class="information">
-					<span>期号584144</span>
-					<span>开奖时间：2016.10.54 08:45</span>
-				</div>
-				<div id="shownum" class="num">
-					
-				</div>
-			</div>
-			
-		</div>
+		
 		<div id="slider" class="mui-slider">
 				<div id="sliderSegmentedControl" class="sle mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
 					<a class="mui-control-item mui-active" href="#item1mobile">
@@ -244,30 +232,6 @@
 		<script type="text/javascript">
 			mui.init()
 			(function($) {
-				var colortype={
-					'01':'#febf1c',
-					'02':'#0463fd',
-					'03':'#5e5d59',
-					'04':'#fd7b0b',
-					'05':'#1cd3fb',
-					'06':'#4008ff',
-					'07':'#9b9893',
-					'08':'#ff180a',
-					'09':'#ad1c07',
-					'10':'#00ed00'
-				}
-				var testnum=['01','02','07','09','08','06','04','10','05','03']
-				var teststr=''
-				var tablestr=''
-				for(var i=0;i<testnum.length;i++){
-					teststr+='<span style="background:'+colortype[testnum[i]]+'">'+testnum[i]+'</span>'
-					tablestr+='<span style="color:'+colortype[testnum[i]]+'">'+testnum[i]+'</span>'
-				}
-				document.getElementById('shownum').innerHTML=teststr
-				document.getElementById('test1').innerHTML=tablestr
-				
-				
-				
 				$('.mui-scroll-wrapper').scroll({
 					indicators: true //是否显示滚动条
 				});

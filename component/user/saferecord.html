@@ -5,8 +5,8 @@
 		<meta charset="UTF-8">
 		<title></title>
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
-		<script src="../../js/vue1.0.js" type="text/javascript" charset="utf-8"></script>
-		<script src="../../js/jquery-2.1.0.js" type="text/javascript" charset="utf-8"></script>
+		<!--<script src="../../js/vue1.0.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/jquery-2.1.0.js" type="text/javascript" charset="utf-8"></script>-->
 		<link href="../../css/mui.min.css" rel="stylesheet" />
 		<link rel="stylesheet" type="text/css" href="../../public/public.css"/>
 		<script src="../../js/setrem.js" type="text/javascript" charset="utf-8"></script>
@@ -82,7 +82,7 @@
 				<h1 class="mui-title">保险柜记录</h1>
 		</header>
 		<div class="recordlist">
-			<ul>
+			<ul id="recordlistul">
 				<li>
 					<div class="cont">
 						<div class="time">
@@ -211,6 +211,30 @@
 		<script src="../../js/mui.min.js"></script>
 		<script type="text/javascript">
 			mui.init()
+			mui.plusReady(function(){
+				var userid=localStorage.getItem('userid')
+				var recordlistul=document.getElementById('recordlistul')
+				//console.log(userid)
+					mui.post('http://192.168.1.111/apptest/index.php/admin/index/usersafe',{
+								id:userid,
+							},function(data){
+								if(data.code==200){
+									var str=''
+									var info=data.info
+									info.map(function(i,v){
+										
+									str+='<li><div class="cont"><div class="time"><div id="week">'+i.day+'</div>'
+										+'<div id="whattime">'+i.datetime+'</div></div><div class="num">'+i.credits+'</div></div></li>'
+									})
+									//alert(str)
+								//console.log(JSON.stringify(str))
+									recordlistul.innerHTML=str
+								}
+								
+								//
+							},'json'
+					);
+			})
 		</script>
 	</body>
 

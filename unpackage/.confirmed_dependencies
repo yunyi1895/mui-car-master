@@ -77,7 +77,8 @@
 			"component/user/complaints.html",
 			"component/user/service.html",
 			"component/user/integral.html",
-			"image/erweima.png"
+			"image/erweima.png",
+			"component/game/car.html"
 		],
 		"refer": [
 			"component/game/car.html",
@@ -193,11 +194,16 @@
 			"image/bg.png",
 			"public/public.css",
 			"component/game/OpeningRecord.html",
-			"component/game/gamerecord.html"
+			"component/game/gamerecord.html",
+			"image/1@2x.png",
+			"component/home/hall.html",
+			"image/2@2x.png",
+			"image/saidao@2x.png"
 		],
 		"refer": [
 			"component/game/OpeningRecord.html",
-			"component/game/gamerecord.html"
+			"component/game/gamerecord.html",
+			"component/home/hall.html"
 		]
 	},
 	"component/game/OpeningRecord.html": {
@@ -211,7 +217,8 @@
 	},
 	"component/game/gamerecord.html": {
 		"resources": [
-			"component/game/car.html"
+			"component/game/car.html",
+			"fonts/mui.ttf"
 		],
 		"refer": [
 			"component/game/car.html"

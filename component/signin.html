@@ -225,7 +225,7 @@
 									}
 								});
 					
-					retrun
+					return
 					var userinfoval = doc.getElementById('userinfo').value.toString();
 					var passwordval = doc.getElementById('passwordn').value.toString();
 //					if(!isChineseChar(userinfoval)){
@@ -255,7 +255,7 @@
 							if(data.code==200){
 							var username=data.userinfo.username
 							var userid=data.userinfo.userid
-						//	console.log(userid)
+							console.log(userid)
 							localStorage.setItem('username',username)
 							localStorage.setItem('userid',userid)
 								

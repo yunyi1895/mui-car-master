@@ -20,8 +20,19 @@
 			height: 1.4rem;
 			width: 100%;
 			background: #ccc;
+			overflow: hidden;
 		}
-		
+		.game .information{
+			height: 0.44rem;
+			width: 100%;
+			background: #F7F7F7;
+		}
+		.game .track{
+			background: url(../../image/saidao@2x.png) no-repeat;
+			background-size:cover ;
+			height: 0.96rem;
+			width: 100%;
+		}
 		.operations{
 			height: 0.4rem;
 			width: 100%;
@@ -48,12 +59,82 @@
 			width: 100%;
 			background: #eee;
 		}
+		
+		.car{
+			width:0.375rem;
+			height: 0.145rem;
+			position: absolute;
+			animation: carrun ease-in forwards;
+			-webkit-animation:carrun  ease-in forwards;
+			z-index: 22;
+		}
+		
+		#car1{
+			background:url(../../image/1@2x.png) no-repeat;
+			background-size:cover ;
+			top: 0.315rem;
+			right: 0.47rem;
+			animation-duration:4s;
+			-webkit-animation-duration:4s; 
+		}
+		#car2{
+			background:url(../../image/2@2x.png) no-repeat;
+			background-size:cover ;
+			top: 0.42rem;
+			right: 0.4rem;
+			animation-duration:4.5s;
+			-webkit-animation-duration:4.5s; 
+		}
+		.car3{
+			/*background:url(../../image/3@2x.png) no-repeat;
+			background-size:cover ;
+			top: 0.315rem;
+			right: 0.725rem;
+			animation-duration:4s;
+			-webkit-animation-duration:4s; */
+		}
+		
+		@keyframes carrun{
+			from{
+				transform: translateX(0);
+				-webkit-transform: translateX(0);
+			}
+			to{
+				transform: translateX(-2.2rem);
+				-webkit-transform: translateX(-2.2rem);
+			}
+		}
+		@-webkit-keyframes carrun 
+		{
+			from{
+				transform: translateX(0);
+				-webkit-transform: translateX(0);
+			}
+			to{
+				transform: translateX(-2.2rem);
+				-webkit-transform: translateX(-2.2rem);
+			}
+		}
+		
 		</style>
 	</head>
 
 	<body>
 		<div class="game">
-			
+			<div class="information">
+				
+			</div>
+			<div class="track">
+				<div id="car1" class=" car">
+					
+				</div>
+				<div id="car2" class=" car">
+					
+				</div>
+				<div id="car3" class=" car">
+					
+				</div>
+			</div>
 		</div>
 		<div class="operations">
 			<div class="operation" ><a href="OpeningRecord.html">开局记录</a></div>
@@ -67,7 +148,10 @@
 		<script src="../../js/mui.min.js"></script>
 		<script type="text/javascript">
 			mui.init()
-			mui.plusReady()
+			mui.plusReady(function(){
+				
+				
+			})
 		</script>
 	</body>
 

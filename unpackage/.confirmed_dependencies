@@ -86,7 +86,9 @@
 			"component/user/FAQ.html",
 			"component/user/complaints.html",
 			"component/user/service.html",
-			"component/user/integral.html"
+			"component/user/integral.html",
+			"component/user/passwordauthentification.html",
+			"component/user/photoauthentification.html"
 		]
 	},
 	"component/user/safe.html": {
@@ -121,10 +123,12 @@
 			"js/jquery-2.1.0.js",
 			"image/bg.png",
 			"public/public.css",
-			"component/user/safe.html"
+			"component/user/safe.html",
+			"component/user/passwordauthentification.html"
 		],
 		"refer": [
-			"component/user/safe.html"
+			"component/user/safe.html",
+			"component/user/passwordauthentification.html"
 		]
 	},
 	"component/user/FAQ.html": {
@@ -222,6 +226,35 @@
 		],
 		"refer": [
 			"component/game/car.html"
+		]
+	},
+	"component/user/passwordauthentification.html": {
+		"resources": [
+			"component/user/takeout.html",
+			"js/setrem.js",
+			"js/vue1.0.js",
+			"js/mui.min.js",
+			"fonts/mui.ttf",
+			"css/mui.min.css",
+			"js/jquery-2.1.0.js",
+			"image/bg.png",
+			"public/public.css",
+			"public/public.js"
+		],
+		"refer": [
+			"component/user/takeout.html",
+			"component/user/safe.html"
+		]
+	},
+	"component/user/photoauthentification.html": {
+		"resources": [
+			"js/setrem.js",
+			"js/mui.min.js",
+			"public/public.js",
+			"fonts/mui.ttf",
+			"css/mui.min.css",
+			"image/bg.png",
+			"public/public.css"
 		]
 	}
 }

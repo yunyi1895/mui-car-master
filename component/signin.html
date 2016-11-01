@@ -188,8 +188,25 @@
 			//校验密码：只能输入6-20个字母、数字、下划线
 			
 			mui.plusReady(function() {
-				
-
+				//document.addEventListener("netchange",onNetChange,false);
+				function onNetChange(){
+				　　//获取当前网络类型
+				　　var nt = plus.networkinfo.getCurrentType();
+				　　switch(nt){
+				　　　　case plus.networkinfo.CONNECTION_ETHERNET:
+				　　　　case plus.networkinfo.CONNECTION_WIFI:
+				　　　　　
+				　　　　　　break;
+				　　　　case plus.networkinfo.CONNECTION_CELL2G:
+				　　　　case plus.networkinfo.CONNECTION_CELL3G:
+				　　　　case plus.networkinfo.CONNECTION_CELL4G:
+				　　　　　
+				　　　　　　break;
+				　　　　default:
+				　　　　　　mui.toast("当前没有网络");
+				　　　　　　break;
+				　　}
+				}
 				
 				
 				var signinButton = doc.getElementById('signin');
@@ -206,26 +223,7 @@
 				//var passwordBox = doc.getElementById('password');
 				
 				signinButton.addEventListener('tap', function(event) {
-						localStorage.setItem('username','123')
-							localStorage.setItem('userid','21')
-								
-									mui.openWindow({
-									url: './home/hall.html',
-									id: 'hall',
-									preload: true,
-									show: {
-										aniShow: 'pop-in'
-									},
-									styles: {
-										popGesture: 'hide'
-									},
-									waiting: {
-										autoShow:true,//自动显示等待框，默认为true
-      									title:'欢迎进入皇家会所...',//等待对话框上显示的提示内容
-									}
-								});
-					
-					return
+							onNetChange()
 					var userinfoval = doc.getElementById('userinfo').value.toString();
 					var passwordval = doc.getElementById('passwordn').value.toString();
 //					if(!isChineseChar(userinfoval)){
@@ -237,8 +235,9 @@
 //						return
 //					}
 					
-					
-					mui.post('http://192.168.1.111/apptest/index.php/admin/user/log_in',{
+					//http://bjsc.bayuenet.com/index.php/admin/user/login
+					//http://192.168.1.111/apptest/index.php/admin/user/log_in
+					mui.post('http://bjsc.bayuenet.com/index.php/admin/user/login',{
 							username:userinfoval,
 							password:passwordval
 						},function(data){
@@ -254,7 +253,7 @@
 							
 							if(data.code==200){
 							var username=data.userinfo.username
-							var userid=data.userinfo.userid
+							var userid=data.userinfo.id
 							console.log(userid)
 							localStorage.setItem('username',username)
 							localStorage.setItem('userid',userid)

@@ -5,8 +5,9 @@
 		<meta charset="UTF-8">
 		<title></title>
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
-		<script src="../../js/vue1.0.js" type="text/javascript" charset="utf-8"></script>
-		<script src="../../js/jquery-2.1.0.js" type="text/javascript" charset="utf-8"></script>
+		<!--<script src="../../js/vue1.0.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/jquery-2.1.0.js" type="text/javascript" charset="utf-8"></script>-->
+		<script src="../../public/public.js" type="text/javascript" charset="utf-8"></script>
 		<link href="../../css/mui.min.css" rel="stylesheet" />
 		<link rel="stylesheet" type="text/css" href="../../public/public.css"/>
 		<script src="../../js/setrem.js" type="text/javascript" charset="utf-8"></script>
@@ -38,7 +39,7 @@
 				line-height: 0.99rem;
 				text-align: center;
 			}
-			.tackoutintegral #tackoutintegralinput{
+			.tackoutintegral #phpto{
 				margin: 0;
 				height: 0.5rem;
 				line-height: 0.5rem;
@@ -96,14 +97,14 @@
 				<h1 class="mui-title">密码验证</h1>
 		</header>
 		<div class="tackoutintegral">
-			<input id="tackoutintegralinput" type="text" name="" id="" value="" placeholder="请输入您的手机号" />
+			<input id="phpto" type="text" name="" id="" value="" placeholder="请输入您的手机号" />
 		</div>
 		<div class="verificationcode">
 			<div class="cont">
-				<input type="text" name="" id="" value="" />
+				<input id="youyzm" type="text" name="" placeholder="请输入6位验证码" />
 				<div class="commonbtn">
-					<div class="subcode commonbtnz">
-						获取验证码
+					<div id="yanzhema" class="subcode commonbtnz">
+						获取验证码<span id="yim" style="font-size:0.12rem ;"></span>
 					</div>
 				</div>
 			</div>
@@ -113,7 +114,7 @@
 				
 					
 					<div class="commonbtn">
-						<div class="commonbtnz">
+						<div id="takeout" class="commonbtnz">
 							确定提出
 						</div>
 					</div>
@@ -122,7 +123,96 @@
 		</div>
 		<script src="../../js/mui.min.js"></script>
 		<script type="text/javascript">
-			mui.init()
+			 mui.init();
+			 mui.plusReady(function() {
+			  	var yzm=''
+			   	var userid=localStorage.getItem('userid')
+				var phpto=document.getElementById('phpto')
+				var takeout=document.getElementById('takeout')
+				var yanzhema=document.getElementById('yanzhema')
+				var yim=document.getElementById('yim')
+			
+				yanzhema.addEventListener('tap',function(){
+					var val=phpto.value
+					var istr=yim.innerHTML
+					if(istr!=''){
+						mui.toast('60秒只能获取一次验证码')
+						return
+					}
+					if(!isMobile(val)){
+						mui.alert('请输入正确的手机号')
+						return
+					}
+					var ii=60
+					var valtime=setInterval(function(){
+						yim.innerHTML=ii+'s'
+						
+						ii=ii-1
+						if(ii<=0){
+							clearTimeout(valtime)
+							yim.innerHTML=''
+						}
+						
+					},1000)
+				
+					
+					mui.post('http://192.168.1.111/apptest/index.php/admin/index/Sendmessage',{
+						id:userid,
+						Tel:val
+					},function(data){
+						
+						yzm=data.yzm
+					
+					},'json')
+					
+					
+				},false)
+				
+				
+				
+				
+				
+				takeout.addEventListener('tap',function(){
+					var youyzmobj=document.getElementById('youyzm')
+					var val = localStorage.getItem('money')
+					
+					var youyzmstr=youyzmobj.value
+				
+					mui.post('http://192.168.1.111/apptest/index.php/admin/index/codesms',{
+								id:userid,
+								Code:youyzmstr,
+								money:val
+							},function(data){
+								
+								youyzmobj.value=''
+								if(data.code==-200){
+									mui.alert('验证码不正确')
+									return
+								}else if(data.code==200){
+									mui.toast('提取成功')
+									mui.openWindow({
+										url:'safe.html',
+			    						id:'safe',
+			    						preload: true,
+										show: {
+											aniShow: 'pop-in'
+										},
+										styles: {
+											popGesture: 'hide'
+										},
+										waiting: {
+											autoShow: false
+										}
+									})
+								}
+							
+						},'json'
+					);
+					
+					
+				},false)
+				
+			});
 		</script>
 	</body>
 

@@ -49,3 +49,6 @@ function isbankcard(b){
 			return true
 		}
 }
+function sj(obj){
+	console.log(JSON.stringify(obj))
+}

@@ -280,7 +280,10 @@
 					"image/erweima.png",
 					"component/game/car.html"
 				],
-				"refer": [],
+				"refer": [
+					"component/user/passwordauthentification.html",
+					"component/user/photoauthentification.html"
+				],
 				"priority": 0
 			},
 			"component/user/safe.html": {
@@ -311,7 +314,8 @@
 					"js/jquery-2.1.0.js",
 					"image/bg.png",
 					"public/public.css",
-					"component/user/safe.html"
+					"component/user/safe.html",
+					"component/user/passwordauthentification.html"
 				],
 				"refer": [],
 				"priority": 0
@@ -396,6 +400,37 @@
 				"resources": [
 					"component/game/car.html",
 					"fonts/mui.ttf"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"component/user/passwordauthentification.html": {
+				"resources": [
+					"component/user/takeout.html",
+					"js/setrem.js",
+					"js/vue1.0.js",
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"css/mui.min.css",
+					"js/jquery-2.1.0.js",
+					"image/bg.png",
+					"public/public.css",
+					"public/public.js"
+				],
+				"refer": [
+					"component/user/safe.html"
+				],
+				"priority": 0
+			},
+			"component/user/photoauthentification.html": {
+				"resources": [
+					"js/setrem.js",
+					"js/mui.min.js",
+					"public/public.js",
+					"fonts/mui.ttf",
+					"css/mui.min.css",
+					"image/bg.png",
+					"public/public.css"
 				],
 				"refer": [],
 				"priority": 0

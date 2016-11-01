@@ -99,6 +99,12 @@
 				background: #e9d8bc;
 				color: #ab9573;
 			}
+			.all .checkall{
+				color: #ac9f7f;
+			}
+			.all .checkall input:before{
+				color: #F6A635 !important;
+			}
 		</style>
 	</head>
 
@@ -108,21 +114,23 @@
 				<h1 class="mui-title">积分提出</h1>
 		</header>
 		<div class="tackoutintegral">
-			<input id="tackoutintegralinput" type="text" name="" id="" value="" placeholder="0.0515" />
+			<input id="tackoutintegralinput" type="text" name="" id="" value="" placeholder="只能填写数字" />
 		</div>
 		<div class="showintegral">
 			<div class="cont">
 				<div class="show">
 					<div class="safe">
-						保险柜存分:<span>0.15151</span>
+						保险柜存分:<span  id="baoxian"></span>
 					</div>
 					<div class="mesa">
-						台面上存分:<span>0.15151</span>
+						台面上存分:<span id="taimian"></span>
 					</div>
 				</div>
 				<div class="all">
-					<span id="checkall"><a class=" mui-icon mui-icon-checkmarkempty"></a></span>
-					<span id="checkname">全部提出</span>
+					<div id="checked" class="mui-checkbox checkall">
+						<label>全部提出</label>
+						<input id="checkboxn"  name="checkbox1" value="is" type="checkbox" >
+					</div>
 				</div>
 			</div>
 		</div>
@@ -131,21 +139,21 @@
 				<div class="Passwordauthentication">
 					
 					<div class="commonbtn">
-						<a href="passwordauthentification.html">
-						<div class="commonbtnz">
+						
+						<div id="typepassword" class="commonbtnz">
 							密码验证提出
 						</div>
-						</a>
+						
 					</div>
 				</div>
 				<div class="Phoneverification">
 					
 					<div class="commonbtn Phoneve">
-						<a href="photoauthentification.html">
-						<div class="commonbtnz">
+						
+						<div id="phototouk" class="commonbtnz">
 							手机验证提出
 						</div>
-						</a>
+						
 					</div>
 				</div>
 			</div>
@@ -153,6 +161,99 @@
 		<script src="../../js/mui.min.js"></script>
 		<script type="text/javascript">
 			mui.init()
+			
+			mui.plusReady(function(){
+				var userid=localStorage.getItem('userid')
+				var typepassword=document.getElementById('typepassword')	
+				var checked=document.getElementById('checked')
+				var checkboxn=document.getElementById('checkboxn')
+				var phototouk=document.getElementById('phototouk')
+				mui.post('http://192.168.1.111/apptest/index.php/admin/index/usersafemoney',{
+								id:userid,
+							},function(data){
+								if(data.code==200){
+									document.getElementById('baoxian').innerText=data.bao.safeintegral
+									document.getElementById('taimian').innerText=data.tai.integral
+								}
+							
+						},'json'
+					);
+			
+				checkboxn.addEventListener('tap',function(){
+					setTimeout(function(){
+						var ischecked=checkboxn.checked
+						if(ischecked){
+							document.getElementById('tackoutintegralinput').value=document.getElementById('baoxian').innerText
+						}else{
+							document.getElementById('tackoutintegralinput').value=0
+						}
+					
+					},100)
+				},false)
+				typepassword.addEventListener('tap',function(){
+					var val=document.getElementById('tackoutintegralinput').value-0
+					var taimian= document.getElementById('baoxian').innerText-0
+					if(isNaN(val)||val<=0){
+						mui.alert('数据输入错误')
+						return
+					}
+					if(val>taimian){
+						mui.alert('数据不能大于保险柜的积分')
+						return
+					}
+					localStorage.setItem('money',val.toString())
+					var webview=mui.openWindow({
+							url:'passwordauthentification.html',
+    						id:'passwordauthentification',
+    						preload: true,
+							show: {
+								aniShow: 'pop-in'
+							},
+							styles: {
+								popGesture: 'hide'
+							},
+							waiting: {
+								autoShow: false
+							},
+							extras:{
+								v:val
+							}
+						
+						})
+					
+				},false)
+				phototouk.addEventListener('tap',function(){
+					var val=document.getElementById('tackoutintegralinput').value-0
+					var taimian= document.getElementById('baoxian').innerText-0
+					if(isNaN(val)||val<=0){
+						mui.alert('数据输入错误')
+						return
+					}
+					if(val>taimian){
+						mui.alert('数据不能大于保险柜的积分')
+						return
+					}
+					localStorage.setItem('money',val.toString())
+					var webview=mui.openWindow({
+							url:'photoauthentification.html',
+    						id:'photoauthentification',
+    						preload: true,
+							show: {
+								aniShow: 'pop-in'
+							},
+							styles: {
+								popGesture: 'hide'
+							},
+							waiting: {
+								autoShow: false
+							}
+							
+						
+						})
+					
+				},false)
+				
+			})
 		</script>
 	</body>
 

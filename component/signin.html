@@ -224,8 +224,12 @@
 				
 				signinButton.addEventListener('tap', function(event) {
 							onNetChange()
+							
 					var userinfoval = doc.getElementById('userinfo').value.toString();
 					var passwordval = doc.getElementById('passwordn').value.toString();
+					localStorage.removeItem('username')
+					localStorage.removeItem('userid')
+					console.log(localStorage.getItem('username'))
 //					if(!isChineseChar(userinfoval)){
 //						dialoginfo('用户名只能为2到6位中文字符')
 //						return
@@ -237,7 +241,7 @@
 					
 					//http://bjsc.bayuenet.com/index.php/admin/user/login
 					//http://192.168.1.111/apptest/index.php/admin/user/log_in
-					mui.post('http://bjsc.bayuenet.com/index.php/admin/user/login',{
+					mui.post('http://bjsc.bayuenet.com/index.php/admin/user/log_in',{
 							username:userinfoval,
 							password:passwordval
 						},function(data){
@@ -253,12 +257,13 @@
 							
 							if(data.code==200){
 							var username=data.userinfo.username
-							var userid=data.userinfo.id
+							var userid=data.userinfo.userid
 							console.log(userid)
 							localStorage.setItem('username',username)
+							
 							localStorage.setItem('userid',userid)
 								
-									mui.openWindow({
+								mui.openWindow({
 									url: './home/hall.html',
 									id: 'hall',
 									preload: true,
@@ -273,6 +278,7 @@
       									title:'欢迎进入皇家会所...',//等待对话框上显示的提示内容
 									}
 								});
+							
 							}
 							
 							//console.log(JSON.stringify(data));

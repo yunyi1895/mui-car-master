@@ -182,7 +182,7 @@
 					头像
 				</div>
 				<div id="userportrait">
-					<img id="mainImage" />
+					<img id="mainImage" :src="userheadimg">
 				</div>
 				
 				<a id="headImage" class=" mui-icon mui-icon-arrowright seticon"></a>
@@ -315,7 +315,7 @@
 				
 				            var pic = document.getElementById("mainImage");   
 				           // console.log(JSON.stringify(pic))
-				            pic.src = base64; 
+				          //  pic.src = base64; 
 				            uploadss()//这里丢到img 的 src 里面就能看到效果了
 				    }
 				
@@ -324,7 +324,7 @@
 		    function uploadss(){ //上传图片
 			
 			     var wt=plus.nativeUI.showWaiting();
-			     var url = 'http://192.168.1.111/apptest/index.php/admin/index/upload';
+			     var url = 'http://bjsc.bayuenet.com/index.php/admin/index/upload';
 			            var dataType ='json';
 			            //发送数据  
 			            var data = { 
@@ -429,7 +429,7 @@
 				data:{
 					userid:'',
 					userinfo:{},
-					userheadimg:'',
+					userheadimg:'../../image/weishangchuantouxiang@2x.png',
 					setuserinfoobj:{
 						qq:'',
 						WeChat:'',
@@ -443,14 +443,25 @@
 					getuserinfo:function(){
 						var vm=this
 						console.log(vm.userid)
-						mui.post('http://192.168.1.111/apptest/index.php/admin/index/SelectUserInfo',{
+						mui.post('http://bjsc.bayuenet.com/index.php/admin/index/SelectUserInfo',{
 								id:vm.userid,
 							},function(data){
 								vm.userinfo=data.userinfo
 								vm.setextend()
-								//
+							
 							},'json'
 						);
+						mui.post('http://bjsc.bayuenet.com/index.php/admin/index/facepath',{
+								id:userid,
+							},function(data){
+								console.log(JSON.stringify(data))
+								if(data.code==200&&data.face!=''){
+									
+									vm.userheadimg=data.face
+								}
+								
+								},'json'
+							);
 					},
 					setextend:function(){
 						var vm=this
@@ -483,7 +494,7 @@
 						userinfo.id=this.userid
 						console.log(JSON.stringify(userinfo))
 						var vm=this
-						mui.post('http://192.168.1.111/apptest/index.php/admin/index/UpdateInfo',userinfo,function(data){
+						mui.post('http://bjsc.bayuenet.com/index.php/admin/index/UpdateInfo',userinfo,function(data){
 								//vm.userinfo=data.userinfo
 								vm.getuserinfo()
 								//console.log(JSON.stringify(data))
@@ -496,6 +507,8 @@
 						var backButtonPress = 0;
 						var isout=mui.confirm('确认退出皇家会所？',function(s){
 							if(s.index){
+								localStorage.removeItem('username')
+								localStorage.removeItem('userid')
 								plus.runtime.quit();
 								return
 							}else{
@@ -512,13 +525,7 @@
 					this.userid=localStorage.getItem('userid')
 				
 					this.getuserinfo()
-					var heaimg=''
-					if(localStorage.getItem('headimg')){
-						heaimg=localStorage.getItem('headimg')
-					}else{
-						heaimg='../../image/touxiang.png'
-					}
-					document.getElementById('mainImage').src=heaimg
+					
 					
 					
 					

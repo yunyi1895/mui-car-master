@@ -581,7 +581,7 @@
 		<footer>
 			<div class="userinfo">
 				<span id="userimage">
-					<img id="" src="../../image/touxiang@2x.png"/>
+					<img id="userhadeimg" :src="vueuserinfo.img"/>
 				</span>
 				<span id="username">
 					{{vueuserinfo.name}}
@@ -687,6 +687,22 @@
 								
 						});
 				}
+				var backButtonPress = 0;
+					mui.back = function(event) {
+						backButtonPress++;
+						if (backButtonPress > 1) {
+							localStorage.removeItem('username')
+							localStorage.removeItem('userid')
+							plus.runtime.quit();
+						} else {
+							plus.nativeUI.toast('再按一次退出皇家会所');
+						}
+						setTimeout(function() {
+							backButtonPress = 0;
+						}, 1000);
+						return false;
+					};
+				
 				var vm=new Vue({
 					el:'#vuedom',
 					data:{
@@ -700,9 +716,9 @@
 							{tit:'FAQ',lk:'../user/FAQ.html',ke:'FAQ'},
 						],
 						vueuserinfo:{//用户信息
-							name:'vue测试',
-							money:452284,
-							img:'../../image/touxiang@2x.png'
+							name:'',
+							money:0,
+							img:'../../image/weishangchuantouxiang@2x.png'
 						},
 						vueinform:[//举报内容
 							{ty:'赌博',id:'gambling'},
@@ -736,16 +752,14 @@
 							var userid=this.userid
 							var cont=this.informarr.join(',')
 							//console.log(cont)
-							mui.post('http://192.168.1.111/apptest/index.php/admin/index/Report',{
+							mui.post('http://bjsc.bayuenet.com/index.php/admin/index/Report',{
 								content:cont,
 								id:userid
 							},function(data){
 								mui.alert(data.info)
-								//	console.log(JSON.stringify(data))
+									console.log(JSON.stringify(data))
 							})	
-							
-							
-							alert('举报内容已经提交')
+//							mui.alert('举报内容已经提交')
 							
 						},
 						vuegetinform:function(event,i,id){//修改举报内容
@@ -765,7 +779,6 @@
 						vuegourl:function(l,k){
 							//console.log(k)
 							if(k=='share'){
-								
 								J('#share').css({
 									'display':'flex',
 									'justifyContent':'center',
@@ -774,17 +787,45 @@
 								J('.showuserCenter').hide();
 							}
 							
-							//goganme(l,k)
 						},
 						vuegogame:function(){
-							 goganme('../game/car.html','car')
+							goganme('../game/car.html','car')
+						},
+						getuserinfo:function(){
+						
+							var userid=localStorage.getItem('userid')
 							
+							var vm=this
+							mui.post('http://bjsc.bayuenet.com/index.php/admin/index/usersafemoney',{
+								id:userid,
+							},function(data){
+								
+								if(data.code==200){
+									//document.getElementById('bao').innerText=data.bao.safeintegral
+									vm.vueuserinfo.money=data.tai.integral
+								}
+								
+								},'json'
+							);
+							mui.post('http://bjsc.bayuenet.com/index.php/admin/index/facepath',{
+								id:userid,
+							},function(data){
+								console.log(JSON.stringify(data))
+								if(data.code==200&&data.face!=''){
+									//document.getElementById('bao').innerText=data.bao.safeintegral11
+									vm.vueuserinfo.img=data.face
+								}
+								
+								},'json'
+							);
 							
 						}
 					},
 					ready:function(){
 						var username=localStorage.getItem('username')
 						var userid=localStorage.getItem('userid')
+						console.log(username)
+						this.getuserinfo()
 						this.userid=userid
 						this.vueuserinfo.name=username
 					},

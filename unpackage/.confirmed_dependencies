@@ -78,7 +78,8 @@
 			"component/user/service.html",
 			"component/user/integral.html",
 			"image/erweima.png",
-			"component/game/car.html"
+			"component/game/car.html",
+			"image/weishangchuantouxiang@2x.png"
 		],
 		"refer": [
 			"component/game/car.html",
@@ -151,7 +152,13 @@
 	},
 	"component/user/service.html": {
 		"resources": [
-			"component/home/hall.html"
+			"component/home/hall.html",
+			"js/mui.imageViewer.js",
+			"css/app.css",
+			"css/mui.imageviewer.css",
+			"css/mui.css",
+			"js/arttmpl.js",
+			"image/180x180.png"
 		],
 		"refer": [
 			"component/home/hall.html"
@@ -163,7 +170,12 @@
 			"component/home/hall.html",
 			"image/bg.png",
 			"component/user/fluctuaterecord.html",
-			"component/user/saferecord.html"
+			"component/user/saferecord.html",
+			"js/setrem.js",
+			"js/mui.min.js",
+			"fonts/mui.ttf",
+			"css/mui.min.css",
+			"public/public.css"
 		],
 		"refer": [
 			"component/home/hall.html",
@@ -202,7 +214,10 @@
 			"image/1@2x.png",
 			"component/home/hall.html",
 			"image/2@2x.png",
-			"image/saidao@2x.png"
+			"image/saidao@2x.png",
+			"js/mui.imageViewer.js",
+			"image/180x180.png",
+			"js/arttmpl.js"
 		],
 		"refer": [
 			"component/game/OpeningRecord.html",

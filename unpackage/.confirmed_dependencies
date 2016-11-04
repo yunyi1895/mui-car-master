@@ -1,275 +1,284 @@
 {
-	"index.html": {
-		"resources": [
-			"js/mui.min.js",
-			"css/mui.min.css"
-		],
-		"refer": [
-			"compoment/login/signin.html",
-			"compoment/signin.html",
-			"component/signin.html"
-		]
-	},
-	"compoment/signin.html": {
-		"resources": [
-			"image/login_05.png",
-			"js/setrem.js",
-			"image/login_03.png",
-			"image/login_01.png",
-			"js/mui.min.js"
-		]
-	},
-	"component/signin.html": {
-		"resources": [
-			"image/login_05.png",
-			"js/setrem.js",
-			"image/login_03.png",
-			"image/login_01.png",
-			"js/mui.min.js",
-			"public/public.js",
-			"image/HUANGJIACLUB@2x.png",
-			"image/huangjiaclubzhongwen@2x.png",
-			"image/logo@2x.png",
-			"image/Forgotpassword.png"
-		],
-		"refer": [
-			"component/singup.html",
-			"component/home/hall.html"
-		]
-	},
-	"component/singup.html": {
-		"resources": [
-			"image/denglu_03.jpg",
-			"image/denglu_05.jpg",
-			"js/setrem.js",
-			"js/mui.min.js",
-			"image/login_01.png",
-			"public/public.js",
-			"image/logo@2x.png",
-			"image/HUANGJIACLUB@2x.png",
-			"image/huangjiaclubzhongwen@2x.png",
-			"js/jquery-2.1.0.js"
-		],
-		"refer": [
-			"component/signin.html",
-			"component/home/hall.html"
-		]
-	},
-	"component/home/hall.html": {
-		"resources": [
-			"js/setrem.js",
-			"js/mui.min.js",
-			"css/mui.min.css",
-			"fonts/mui.ttf",
-			"image/qichepeitu@2x.png",
-			"image/bg@2x.png",
-			"image/touxiang@2x.png",
-			"image/showus.png",
-			"image/kongbaiicon@2x.png",
-			"image/qichetubiao@2x.png",
-			"js/zepto_1.1.3.js",
-			"js/jquery-2.1.0.js",
-			"js/vue1.0.js",
-			"image/touxiang@2x.png/",
-			"public/public.css",
-			"component/user/safe.html",
-			"component/user/FAQ.html",
-			"component/user/complaints.html",
-			"component/user/service.html",
-			"component/user/integral.html",
-			"image/erweima.png",
-			"component/game/car.html",
-			"image/weishangchuantouxiang@2x.png"
-		],
-		"refer": [
-			"component/game/car.html",
-			"component/user/safe.html",
-			"component/user/FAQ.html",
-			"component/user/complaints.html",
-			"component/user/service.html",
-			"component/user/integral.html",
-			"component/user/passwordauthentification.html",
-			"component/user/photoauthentification.html"
-		]
-	},
-	"component/user/safe.html": {
-		"resources": [
-			"image/jifenicon@2x.png",
-			"component/user/deposit.html",
-			"component/home/hall.html",
-			"component/user/takeout.html"
-		],
-		"refer": [
-			"component/user/deposit.html",
-			"component/home/hall.html",
-			"component/user/takeout.html"
-		]
-	},
-	"component/user/deposit.html": {
-		"resources": [
-			"image/bg.png",
-			"component/user/safe.html"
-		],
-		"refer": [
-			"component/user/safe.html"
-		]
-	},
-	"component/user/takeout.html": {
-		"resources": [
-			"js/setrem.js",
-			"js/vue1.0.js",
-			"js/mui.min.js",
-			"fonts/mui.ttf",
-			"css/mui.min.css",
-			"js/jquery-2.1.0.js",
-			"image/bg.png",
-			"public/public.css",
-			"component/user/safe.html",
-			"component/user/passwordauthentification.html"
-		],
-		"refer": [
-			"component/user/safe.html",
-			"component/user/passwordauthentification.html"
-		]
-	},
-	"component/user/FAQ.html": {
-		"resources": [
-			"component/home/hall.html",
-			"image/bg.png"
-		],
-		"refer": [
-			"component/home/hall.html"
-		]
-	},
-	"component/user/complaints.html": {
-		"resources": [
-			"component/home/hall.html",
-			"image/bg.png"
-		],
-		"refer": [
-			"component/home/hall.html"
-		]
-	},
-	"component/user/service.html": {
-		"resources": [
-			"component/home/hall.html",
-			"js/mui.imageViewer.js",
-			"css/app.css",
-			"css/mui.imageviewer.css",
-			"css/mui.css",
-			"js/arttmpl.js",
-			"image/180x180.png"
-		],
-		"refer": [
-			"component/home/hall.html"
-		]
-	},
-	"component/user/integral.html": {
-		"resources": [
-			"image/jfbg@2x.png",
-			"component/home/hall.html",
-			"image/bg.png",
-			"component/user/fluctuaterecord.html",
-			"component/user/saferecord.html",
-			"js/setrem.js",
-			"js/mui.min.js",
-			"fonts/mui.ttf",
-			"css/mui.min.css",
-			"public/public.css"
-		],
-		"refer": [
-			"component/home/hall.html",
-			"component/user/fluctuaterecord.html",
-			"component/user/saferecord.html"
-		]
-	},
-	"component/user/fluctuaterecord.html": {
-		"resources": [
-			"component/user/integral.html"
-		],
-		"refer": [
-			"component/user/integral.html"
-		]
-	},
-	"component/user/saferecord.html": {
-		"resources": [
-			"component/user/integral.html"
-		],
-		"refer": [
-			"component/user/integral.html"
-		]
-	},
-	"component/game/car.html": {
-		"resources": [
-			"js/setrem.js",
-			"js/vue1.0.js",
-			"js/mui.min.js",
-			"fonts/mui.ttf",
-			"css/mui.min.css",
-			"js/jquery-2.1.0.js",
-			"image/bg.png",
-			"public/public.css",
-			"component/game/OpeningRecord.html",
-			"component/game/gamerecord.html",
-			"image/1@2x.png",
-			"component/home/hall.html",
-			"image/2@2x.png",
-			"image/saidao@2x.png",
-			"js/mui.imageViewer.js",
-			"image/180x180.png",
-			"js/arttmpl.js"
-		],
-		"refer": [
-			"component/game/OpeningRecord.html",
-			"component/game/gamerecord.html",
-			"component/home/hall.html"
-		]
-	},
-	"component/game/OpeningRecord.html": {
-		"resources": [
-			"fonts/mui.ttf",
-			"component/game/car.html"
-		],
-		"refer": [
-			"component/game/car.html"
-		]
-	},
-	"component/game/gamerecord.html": {
-		"resources": [
-			"component/game/car.html",
-			"fonts/mui.ttf"
-		],
-		"refer": [
-			"component/game/car.html"
-		]
-	},
-	"component/user/passwordauthentification.html": {
-		"resources": [
-			"component/user/takeout.html",
-			"js/setrem.js",
-			"js/vue1.0.js",
-			"js/mui.min.js",
-			"fonts/mui.ttf",
-			"css/mui.min.css",
-			"js/jquery-2.1.0.js",
-			"image/bg.png",
-			"public/public.css",
-			"public/public.js"
-		],
-		"refer": [
-			"component/user/takeout.html",
-			"component/user/safe.html"
-		]
-	},
-	"component/user/photoauthentification.html": {
-		"resources": [
-			"js/setrem.js",
-			"js/mui.min.js",
-			"public/public.js",
-			"fonts/mui.ttf",
-			"css/mui.min.css",
-			"image/bg.png",
-			"public/public.css"
-		]
-	}
+  "index.html": {
+    "resources": [
+      "js/mui.min.js",
+      "css/mui.min.css"
+    ],
+    "refer": [
+      "compoment/login/signin.html",
+      "compoment/signin.html",
+      "component/signin.html"
+    ]
+  },
+  "compoment/signin.html": {
+    "resources": [
+      "image/login_05.png",
+      "js/setrem.js",
+      "image/login_03.png",
+      "image/login_01.png",
+      "js/mui.min.js"
+    ]
+  },
+  "component/signin.html": {
+    "resources": [
+      "image/login_05.png",
+      "js/setrem.js",
+      "image/login_03.png",
+      "image/login_01.png",
+      "js/mui.min.js",
+      "public/public.js",
+      "image/HUANGJIACLUB@2x.png",
+      "image/huangjiaclubzhongwen@2x.png",
+      "image/logo@2x.png",
+      "image/Forgotpassword.png"
+    ],
+    "refer": [
+      "component/singup.html",
+      "component/home/hall.html"
+    ]
+  },
+  "component/singup.html": {
+    "resources": [
+      "image/denglu_03.jpg",
+      "image/denglu_05.jpg",
+      "js/setrem.js",
+      "js/mui.min.js",
+      "image/login_01.png",
+      "public/public.js",
+      "image/logo@2x.png",
+      "image/HUANGJIACLUB@2x.png",
+      "image/huangjiaclubzhongwen@2x.png",
+      "js/jquery-2.1.0.js"
+    ],
+    "refer": [
+      "component/signin.html",
+      "component/home/hall.html"
+    ]
+  },
+  "component/home/hall.html": {
+    "resources": [
+      "js/setrem.js",
+      "js/mui.min.js",
+      "css/mui.min.css",
+      "fonts/mui.ttf",
+      "image/qichepeitu@2x.png",
+      "image/bg@2x.png",
+      "image/touxiang@2x.png",
+      "image/showus.png",
+      "image/kongbaiicon@2x.png",
+      "image/qichetubiao@2x.png",
+      "js/zepto_1.1.3.js",
+      "js/jquery-2.1.0.js",
+      "js/vue1.0.js",
+      "image/touxiang@2x.png/",
+      "public/public.css",
+      "component/user/safe.html",
+      "component/user/FAQ.html",
+      "component/user/complaints.html",
+      "component/user/service.html",
+      "component/user/integral.html",
+      "image/erweima.png",
+      "component/game/car.html",
+      "image/weishangchuantouxiang@2x.png"
+    ],
+    "refer": [
+      "component/game/car.html",
+      "component/user/safe.html",
+      "component/user/FAQ.html",
+      "component/user/complaints.html",
+      "component/user/service.html",
+      "component/user/integral.html",
+      "component/user/passwordauthentification.html",
+      "component/user/photoauthentification.html"
+    ]
+  },
+  "component/user/safe.html": {
+    "resources": [
+      "image/jifenicon@2x.png",
+      "component/user/deposit.html",
+      "component/home/hall.html",
+      "component/user/takeout.html"
+    ],
+    "refer": [
+      "component/user/deposit.html",
+      "component/home/hall.html",
+      "component/user/takeout.html"
+    ]
+  },
+  "component/user/deposit.html": {
+    "resources": [
+      "image/bg.png",
+      "component/user/safe.html"
+    ],
+    "refer": [
+      "component/user/safe.html"
+    ]
+  },
+  "component/user/takeout.html": {
+    "resources": [
+      "js/setrem.js",
+      "js/vue1.0.js",
+      "js/mui.min.js",
+      "fonts/mui.ttf",
+      "css/mui.min.css",
+      "js/jquery-2.1.0.js",
+      "image/bg.png",
+      "public/public.css",
+      "component/user/safe.html",
+      "component/user/passwordauthentification.html"
+    ],
+    "refer": [
+      "component/user/safe.html",
+      "component/user/passwordauthentification.html"
+    ]
+  },
+  "component/user/FAQ.html": {
+    "resources": [
+      "component/home/hall.html",
+      "image/bg.png"
+    ],
+    "refer": [
+      "component/home/hall.html"
+    ]
+  },
+  "component/user/complaints.html": {
+    "resources": [
+      "component/home/hall.html",
+      "image/bg.png"
+    ],
+    "refer": [
+      "component/home/hall.html"
+    ]
+  },
+  "component/user/service.html": {
+    "resources": [
+      "component/home/hall.html",
+      "js/mui.imageViewer.js",
+      "css/app.css",
+      "css/mui.imageviewer.css",
+      "css/mui.css",
+      "js/arttmpl.js",
+      "image/180x180.png"
+    ],
+    "refer": [
+      "component/home/hall.html"
+    ]
+  },
+  "component/user/integral.html": {
+    "resources": [
+      "image/jfbg@2x.png",
+      "component/home/hall.html",
+      "image/bg.png",
+      "component/user/fluctuaterecord.html",
+      "component/user/saferecord.html",
+      "js/setrem.js",
+      "js/mui.min.js",
+      "fonts/mui.ttf",
+      "css/mui.min.css",
+      "public/public.css"
+    ],
+    "refer": [
+      "component/home/hall.html",
+      "component/user/fluctuaterecord.html",
+      "component/user/saferecord.html"
+    ]
+  },
+  "component/user/fluctuaterecord.html": {
+    "resources": [
+      "component/user/integral.html"
+    ],
+    "refer": [
+      "component/user/integral.html"
+    ]
+  },
+  "component/user/saferecord.html": {
+    "resources": [
+      "component/user/integral.html"
+    ],
+    "refer": [
+      "component/user/integral.html"
+    ]
+  },
+  "component/game/car.html": {
+    "resources": [
+      "js/setrem.js",
+      "js/vue1.0.js",
+      "js/mui.min.js",
+      "fonts/mui.ttf",
+      "css/mui.min.css",
+      "js/jquery-2.1.0.js",
+      "image/bg.png",
+      "public/public.css",
+      "component/game/OpeningRecord.html",
+      "component/game/gamerecord.html",
+      "image/1@2x.png",
+      "component/home/hall.html",
+      "image/2@2x.png",
+      "image/saidao@2x.png",
+      "js/mui.imageViewer.js",
+      "image/180x180.png",
+      "js/arttmpl.js",
+      "image/6@2x.png",
+      "image/7@2x.png",
+      "image/4@2x.png",
+      "image/8@2x.png",
+      "image/5@2x.png",
+      "image/9@2x.png",
+      "image/3@2x.png",
+      "image/10@2x.png",
+      "js/socket.io.js"
+    ],
+    "refer": [
+      "component/game/OpeningRecord.html",
+      "component/game/gamerecord.html",
+      "component/home/hall.html"
+    ]
+  },
+  "component/game/OpeningRecord.html": {
+    "resources": [
+      "fonts/mui.ttf",
+      "component/game/car.html"
+    ],
+    "refer": [
+      "component/game/car.html"
+    ]
+  },
+  "component/game/gamerecord.html": {
+    "resources": [
+      "component/game/car.html",
+      "fonts/mui.ttf"
+    ],
+    "refer": [
+      "component/game/car.html"
+    ]
+  },
+  "component/user/passwordauthentification.html": {
+    "resources": [
+      "component/user/takeout.html",
+      "js/setrem.js",
+      "js/vue1.0.js",
+      "js/mui.min.js",
+      "fonts/mui.ttf",
+      "css/mui.min.css",
+      "js/jquery-2.1.0.js",
+      "image/bg.png",
+      "public/public.css",
+      "public/public.js"
+    ],
+    "refer": [
+      "component/user/takeout.html",
+      "component/user/safe.html"
+    ]
+  },
+  "component/user/photoauthentification.html": {
+    "resources": [
+      "js/setrem.js",
+      "js/mui.min.js",
+      "public/public.js",
+      "fonts/mui.ttf",
+      "css/mui.min.css",
+      "image/bg.png",
+      "public/public.css"
+    ]
+  }
 }

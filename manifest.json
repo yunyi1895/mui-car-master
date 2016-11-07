@@ -402,7 +402,8 @@
 					"image/9@2x.png",
 					"image/3@2x.png",
 					"image/10@2x.png",
-					"js/socket.io.js"
+					"js/socket.io.js",
+					"public/public.js"
 				],
 				"refer": [],
 				"priority": 0

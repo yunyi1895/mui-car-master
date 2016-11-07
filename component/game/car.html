@@ -28,25 +28,37 @@
 			width: 100%;
 			background: #2f2f2f;
 			display: flex;
-			
+			display: -webkit-flex;     /* NEW - Chrome */
+				display: -webkit-box; 
 			
 		}
 		.back{
 			flex: 1;
+			  -webkit-box-flex: 1;      /* OLD - iOS 6-, Safari 3.1-6 */
+				 -webkit-flex: 1;          /* Chrome */
 			display: flex;
 			justify-content: center;
 				align-items: center;
+				-webkit-justify-content: center;
+			-webkit-align-items: center;
 		}
 		.back a{
 			color: #fff !important;
 		}
 		.lottery{
 			flex: 5;
+			-webkit-box-flex: 5;      /* OLD - iOS 6-, Safari 3.1-6 */
+				 -webkit-flex: 5;          /* Chrome */
 			display: flex;
+			 display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
+				  display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
+				  display: -ms-flexbox;      /* TWEENER - IE 10 */
+				  display: -webkit-flex;     /* NEW - Chrome */
 			justify-content: center;
 				align-items: center;
 			height: 0.44rem;
-			
+				-webkit-justify-content: center;
+			-webkit-align-items: center;
 		}
 		.lottery span{
 				display: inline-block;
@@ -58,16 +70,27 @@
 		}
 		.issue{
 			flex: 3;
+			-webkit-box-flex: 3;      /* OLD - iOS 6-, Safari 3.1-6 */
+				 -webkit-flex: 3;          /* Chrome */
 			display: flex;
+			 display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
+				  display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
+				  display: -ms-flexbox;      /* TWEENER - IE 10 */
+				  display: -webkit-flex;     /* NEW - Chrome */
 			justify-content: flex-start;
 			align-items: center;
+				-webkit-justify-content: flex-start;
+			-webkit-align-items: center;
 			color: #7b7b7b;
 			flex-direction:column;
+			-webkit-flex-direction: column;
 			font-size: 0.1rem;
 			text-align: left;
 		}
 		.issue div{
 			flex: 1;
+			-webkit-box-flex: 1;      /* OLD - iOS 6-, Safari 3.1-6 */
+				 -webkit-flex: 1;          /* Chrome */
 		}
 		.game .track{
 			background: url(../../image/saidao@2x.png) no-repeat;
@@ -82,12 +105,20 @@
 			height: 0.4rem;
 			width: 100%;
 			display: flex;
+			 display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
+				  display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
+				  display: -ms-flexbox;      /* TWEENER - IE 10 */
+				  display: -webkit-flex;     /* NEW - Chrome */
 			justify-content: center;
 			align-items: center;
+			-webkit-justify-content: center;
+			-webkit-align-items: center;
 			text-align: center;
 		}
 		.operation{
 			flex: 1;
+			-webkit-box-flex: 1;      /* OLD - iOS 6-, Safari 3.1-6 */
+			-webkit-flex: 1;          /* Chrome */
 			height: 0.4rem;
 			background: #ff8e01;
 			border-radius: 0.02rem;
@@ -98,6 +129,8 @@
 		}
 		.operation a{
 			color: #fff;
+			height: 0.4rem;
+			line-height: 0.4rem;
 		}
 		.chat{
 			height: 3.69rem;
@@ -113,9 +146,17 @@
 			color: #61523A;
 			font-size: 0.11rem;
 			display: flex;
+			z-index: 222;
+			 display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
+				  display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
+				  display: -ms-flexbox;      /* TWEENER - IE 10 */
+				  display: -webkit-flex;     /* NEW - Chrome */
+			
 		}
 		.chat .fen>span{
 			flex: 1;
+			-webkit-box-flex: 1;      /* OLD - iOS 6-, Safari 3.1-6 */
+			-webkit-flex: 1;          /* Chrome */
 			text-align: center;
 		}
 		.car{
@@ -651,9 +692,9 @@
 		</div>
 		<div class="chat">
 			<div class="fen">
-				<span>本期使用：<span>00</span></span>
-				<span>本期共用：<span>00</span></span>
-				<span>目前存分：<span>1100</span></span>
+				<span>本期使用：<span id="issueuse">00</span></span>
+				<span>本期共用：<span id="issuetotal">00</span></span>
+				<span>目前存分：<span id="present">1100</span></span>
 			</div>
 			<pre id='h'></pre>
 		<div class="mui-content">
@@ -672,8 +713,17 @@
 				<div class="mui-item-clear"></div>
 			</div>
 		</div>
+	
+		<!--<div id='sound-alert' class="rprogress">
+			<div class="rschedule"></div>
+			<div class="r-sigh">!</div>
+			<div id="audio_tips" class="rsalert">手指上滑，取消发送</div>
+		</div>-->
+		
+			
+		</div>
 		<footer>
-			<div id="testsend" class="footer-left">
+			<div @click="testcar" id="testsend" class="footer-left">
 				<i id='msg-image' class="mui-icon mui-icon-list" style="font-size: 28px;"></i>
 			</div>
 			<div class="footer-center">
@@ -684,14 +734,6 @@
 				<span id='msg-type' class="mui-icon-paperplane"></span>
 			</label>
 		</footer>
-		<!--<div id='sound-alert' class="rprogress">
-			<div class="rschedule"></div>
-			<div class="r-sigh">!</div>
-			<div id="audio_tips" class="rsalert">手指上滑，取消发送</div>
-		</div>-->
-		
-			
-		</div>
 		<div class="rules">
 			<ul>
 				<li><a>规则</a></li>
@@ -810,17 +852,41 @@
 							getuserimg:function(userid){
 								
 								var vm=this
-								mui.post('http://192.168.1.111/apptest/index.php/admin/index/facepath',{
+								mui.post('http://bjsc.bayuenet.com/index.php/admin/index/facepath',{
 								id:userid,
 								},function(data){
-								
-									if(data.code==200&&data.face!=''){
+									function CheckImgExists(imgurl) {
+										var ImgObj = new Image(); //判断图片是否存在
+										ImgObj.src = imgurl;
+										//没有图片，则返回-1
+										if (ImgObj.fileSize > 0 || (ImgObj.width > 0 && ImgObj.height > 0)) {
+										return true;
+										} else {
+										return false;
+										}
+									}
+									
+									if(data.code==200&&CheckImgExists(data.face)){
 									
 										vm.userinfo.img=data.face
 									}
 									
 									},'json'
 								);
+							},
+							getuserscore:function(userid){//获取用户存分
+							
+							  mui.post('http://bjsc.bayuenet.com/index.php/admin/index/usersafemoney',{
+								id:userid,
+								},function(data){
+									if(data.code==200){
+										//document.getElementById('bao').innerText=data.bao.safeintegral
+										document.getElementById('present').innerText=data.tai.integral
+									}
+									
+								},'json'
+							);
+				
 							},
 							testcar:function(){//测试车跑
 								var runcar=this.carrun
@@ -840,13 +906,28 @@
 									runcar[i].ranking=testnum[i]
 								}
 							//	console.log(jQuery('#car1').attr('class'))
-								jQuery('.lottery').html(teststr)
+							
+								
 								this.carrun=runcar
 								jQuery('.rules').slideToggle("400");
-								
+								setTimeout(function(){
+									jQuery('.lottery').html(teststr)
+								},6000)
 								//console.log(JSON.stringify(this.carrun))
 							},
 							vuerelease:function(){
+								if (mui.os.ios) {
+										var webView = plus.webview.currentWebview().nativeInstanceObject();
+										webView.plusCallMethod({
+											"setKeyboardDisplayRequiresUserAction": false
+										});
+									}
+								if (plus.os.name == 'iOS') {
+							    // 弹出软键盘时自动改变webview的高度
+							    plus.webview.currentWebview().setStyle({
+							        softinputMode: 'adjustResize'
+							    });
+							}
 								document.querySelector('#msg-text').focus();
 								setTimeout(function() {
 									document.querySelector('#msg-text').focus();
@@ -865,9 +946,14 @@
 							//	mui.trigger(this.ui.boxMsgText, 'input', null);
 							},
 							inputmsg:function(){
+							
 								this.ui.btnMsgType.setAttribute("for", this.ui.boxMsgText.value == '' ? '' : 'msg-text');
 								this.ui.h.innerText = this.ui.boxMsgText.value.replace(new RegExp('\n', 'gm'), '\n-') || '-';
-								
+								//console.log(document.querySelector('footer').style.left)
+							//	document.querySelector('footer').style.bottom='0px'
+							jQuery('footer').css('bottom','0px')
+							//	jQuery('footer').css('background','#f60')
+							//	console.log(JSON.stringify(document.querySelector('footer').style.bottom) )
 								this.ui.footer.style.height = (this.ui.h.offsetHeight + this.footerPadding) + 'px';
 								this.ui.content.style.paddingBottom = this.ui.footer.style.height;
 							},
@@ -900,21 +986,19 @@
 							}
 						},
 						ready:function(){
-						//	this.initWebSocket()
-							
-							
 							this.userinfo.id=localStorage.getItem('userid');
 							this.getuserimg(this.userinfo.id)
 							document.querySelector('#h').style.width = document.querySelector('#msg-text').offsetWidth + 'px';
 							window.addEventListener('resize', function() {
 								document.querySelector('#msg-list').scrollTop =document.querySelector('#msg-list').scrollHeight + document.querySelector('#msg-list').offsetHeight;
 							}, false);
+							
 						}
 					})
 					
 					
 					//初始话WebSocket
-				var  ws = new WebSocket('ws://192.168.1.111:8000');
+				var  ws = new WebSocket('ws://211.149.235.46:3999/');
 			
 					
 					ws.onerror = function() {
@@ -924,7 +1008,7 @@
 						//  ws.send("111222");
 					};
 					ws.onmessage=function(data){
-						alert(data.data)
+						sj(data)
 					}
 				
 				function sendmsg(msg){
@@ -934,7 +1018,10 @@
 				testsendd.addEventListener('tap',function(){
 					var msg=document.getElementById('msg-text').value
 					console.log(msg)
-					ws.send(msg)
+					var d='{"name":"'+123+'","speak":\"'+msg+'"}'
+					var s= '{"type":"'+'speak'+'","msg":'+d+'}'
+					console.log(d)
+					ws.send(s)
 					
 					
 					

@@ -21,10 +21,17 @@
 				justify-content: center;
 				align-items: center;
 				position: absolute;
+				-webkit-align-items: center;
 				left: 0;
 				top: 0;
 				bottom: 0;
 				right: 0;
+				 display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
+				  display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
+				  display: -ms-flexbox;      /* TWEENER - IE 10 */
+				  display: -webkit-flex;     /* NEW - Chrome */
+    			-webkit-justify-content: center;
+			
 			}
 			.con{
 				background: #fff;
@@ -156,7 +163,7 @@
 					</div>
 					<div class="password">
 						<span> 密 码</span>
-						<input type="text" name="" id="passwordn" value="" placeholder="请输入密码" />
+						<input type="password" name="" id="passwordn" value="" placeholder="请输入密码" />
 					</div>
 					<div class="forgotpassword">
 						<div></div>
@@ -223,13 +230,36 @@
 				//var passwordBox = doc.getElementById('password');
 				
 				signinButton.addEventListener('tap', function(event) {
+					
+//					localStorage.setItem('username','21')
+//							
+//							localStorage.setItem('userid','21')
+//								
+//								mui.openWindow({
+//									url: './home/hall.html',
+//									id: 'hall',
+//									preload: true,
+//									show: {
+//										aniShow: 'pop-in'
+//									},
+//									styles: {
+//										popGesture: 'hide'
+//									},
+//									waiting: {
+//										autoShow:true,//自动显示等待框，默认为true
+//    									title:'欢迎进入皇家会所...',//等待对话框上显示的提示内容
+//									}
+//								});
+					
+					
+					
 							onNetChange()
 							
 					var userinfoval = doc.getElementById('userinfo').value.toString();
 					var passwordval = doc.getElementById('passwordn').value.toString();
 					localStorage.removeItem('username')
 					localStorage.removeItem('userid')
-					console.log(localStorage.getItem('username'))
+				//	console.log(localStorage.getItem('username'))
 //					if(!isChineseChar(userinfoval)){
 //						dialoginfo('用户名只能为2到6位中文字符')
 //						return

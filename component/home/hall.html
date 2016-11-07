@@ -106,17 +106,23 @@
 				bottom: 0;
 				left: 0;
 				display: flex;
+				display: -webkit-flex;     /* NEW - Chrome */
+				display: -webkit-box; 
 			}
 			footer div{
 				flex: 1;
+				-webkit-flex: 1;          /* Chrome */
+				-webkit-box-flex: 1;      /* OLD - iOS 6-, Safari 3.1-6 */
 				line-height: 0.49rem;
 				color: #615138;
 			}
 			.userinfo{
 				display: flex;
+				 display: -webkit-box; 
 			}
 			.userinfo #userimage{
 				flex: 1;
+				-webkit-box-flex: 1;      /* OLD - iOS 6-, Safari 3.1-6 */
 				display: inline-block;
 				
 			}
@@ -130,6 +136,7 @@
 			.userinfo #username{
 				color: #615138;
 				flex: 2;
+				-webkit-box-flex: 2;      /* OLD - iOS 6-, Safari 3.1-6 */
 			}
 			.money{
 				text-align: center;
@@ -227,6 +234,8 @@
 			}*/
 			.inform div{
 				flex: 1;
+				  -webkit-box-flex: 1;      /* OLD - iOS 6-, Safari 3.1-6 */
+				 -webkit-flex: 1;          /* Chrome */
 			}
 			.inform .inform-icons{
 				border: 1px solid #fff;
@@ -253,6 +262,8 @@
 				
 				justify-content: center;
 				align-items: center;
+				-webkit-justify-content: center;
+			-webkit-align-items: center;
 			}
 			#share img{
 				height: 1.63rem;
@@ -613,7 +624,7 @@
 		<div class="inform">
 			<ul>
 				<li>举报</li>
-				<li style="display: flex;" v-for="it in vueinform">
+				<li style="display: flex; display: -webkit-box; " v-for="it in vueinform">
 					<div class="inform-content"  >{{it.ty}}</div>
 					<div><span class="inform-icons" type=it.id @click="vuegetinform($event,$index,it.ty)" ></span></div>
 				</li>
@@ -810,7 +821,7 @@
 							mui.post('http://bjsc.bayuenet.com/index.php/admin/index/facepath',{
 								id:userid,
 							},function(data){
-								console.log(JSON.stringify(data))
+							
 								if(data.code==200&&data.face!=''){
 									//document.getElementById('bao').innerText=data.bao.safeintegral11
 									vm.vueuserinfo.img=data.face

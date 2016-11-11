@@ -30,7 +30,8 @@
 			"image/HUANGJIACLUB@2x.png",
 			"image/huangjiaclubzhongwen@2x.png",
 			"image/logo@2x.png",
-			"image/Forgotpassword.png"
+			"image/Forgotpassword.png",
+			"image/bg.png"
 		],
 		"refer": [
 			"component/singup.html",
@@ -48,7 +49,8 @@
 			"image/logo@2x.png",
 			"image/HUANGJIACLUB@2x.png",
 			"image/huangjiaclubzhongwen@2x.png",
-			"js/jquery-2.1.0.js"
+			"js/jquery-2.1.0.js",
+			"image/bg.png"
 		],
 		"refer": [
 			"component/signin.html",
@@ -79,7 +81,9 @@
 			"component/user/integral.html",
 			"image/erweima.png",
 			"component/game/car.html",
-			"image/weishangchuantouxiang@2x.png"
+			"image/weishangchuantouxiang@2x.png",
+			"component/user/userinfo.html",
+			"public/public.js"
 		],
 		"refer": [
 			"component/game/car.html",
@@ -89,7 +93,8 @@
 			"component/user/service.html",
 			"component/user/integral.html",
 			"component/user/passwordauthentification.html",
-			"component/user/photoauthentification.html"
+			"component/user/photoauthentification.html",
+			"component/user/userinfo.html"
 		]
 	},
 	"component/user/safe.html": {
@@ -227,7 +232,8 @@
 			"image/3@2x.png",
 			"image/10@2x.png",
 			"js/socket.io.js",
-			"public/public.js"
+			"public/public.js",
+			"music/5888.mp3"
 		],
 		"refer": [
 			"component/game/OpeningRecord.html",
@@ -280,6 +286,14 @@
 			"css/mui.min.css",
 			"image/bg.png",
 			"public/public.css"
+		]
+	},
+	"component/user/userinfo.html": {
+		"resources": [
+			"component/home/hall.html"
+		],
+		"refer": [
+			"component/home/hall.html"
 		]
 	}
 }

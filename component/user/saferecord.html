@@ -38,6 +38,13 @@
 				display: flex;
 				justify-content: center;
 				align-items: center;
+				display: -webkit-box;     
+				display: -moz-box;        
+				display: -ms-flexbox;      
+				display: -webkit-flex;
+				-webkit-justify-content: center;
+				-webkit-align-items: center;
+				
 			}
 			.recordlist{
 				margin-top: 0.15rem;
@@ -50,6 +57,7 @@
 			}
 			.recordlist li .time{
 				flex: 1;
+				-webkit-flex: 1;
 			}
 			.recordlist li  #week{
 				color: #61523A;
@@ -61,6 +69,7 @@
 			}
 			.recordlist li .num{
 				flex: 5;
+				-webkit-flex: 5;
 				line-height: 0.44rem;
 				color: #61523A;
 				font-size: 0.16rem;

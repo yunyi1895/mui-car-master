@@ -5,12 +5,17 @@
 		<meta charset="UTF-8">
 		<title></title>
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<script src="../../js/setrem.js" type="text/javascript" charset="utf-8"></script>
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
 		<script src="../../js/vue1.0.js" type="text/javascript" charset="utf-8"></script>
 		<link href="../../css/mui.min.css" rel="stylesheet" />
 		<script src="../../js/jquery-2.1.0.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../public/public.js" type="text/javascript" charset="utf-8"></script>
 		<!--<script src="../../js/zepto_1.1.3.js" type="text/javascript" charset="utf-8"></script>-->
 		<link rel="stylesheet" type="text/css" href="../../public/public.css"/>
-		<script src="../../js/setrem.js" type="text/javascript" charset="utf-8"></script>
+		<!--<script src="../../js/setrem.js" type="text/javascript" charset="utf-8"></script>-->
 		<style type="text/css">
 			body{
 				height: 100%;
@@ -117,26 +122,34 @@
 				color: #615138;
 			}
 			.userinfo{
-				display: flex;
-				 display: -webkit-box; 
+				
+			
+			
 			}
 			.userinfo #userimage{
-				flex: 1;
-				-webkit-box-flex: 1;      /* OLD - iOS 6-, Safari 3.1-6 */
-				display: inline-block;
+				display: block;
+				float: left;
+				width: 50%;
+				height: 100%;
+				   /* OLD - iOS 6-, Safari 3.1-6 */
+				
 				
 			}
 			.userinfo #userimage img{
 				display: block;
 				margin: 0 auto;
-				margin-top: 0.15rem;
-				height: 0.16rem;
-				width: 0.16rem;
+				height: 0.25rem;
+				width: 0.25rem;
+				margin-top:0.12rem;
 			}
 			.userinfo #username{
+				display: block;
+				float: left;
+				width: 50%;
+				height: 100%;
 				color: #615138;
-				flex: 2;
-				-webkit-box-flex: 2;      /* OLD - iOS 6-, Safari 3.1-6 */
+				
+				  /* OLD - iOS 6-, Safari 3.1-6 */
 			}
 			.money{
 				text-align: center;
@@ -213,6 +226,15 @@
 				z-index: 8888;
 				display: none;
 			}
+			.inform-content{
+				
+				width: 60%;
+				float: left;
+			}
+			.inform-iconsdiv{
+				width: 40%;
+				float: left;
+			}
 			.inform ul{
 				display: block;
 				height: 100%;
@@ -233,9 +255,7 @@
 				display: flex;
 			}*/
 			.inform div{
-				flex: 1;
-				  -webkit-box-flex: 1;      /* OLD - iOS 6-, Safari 3.1-6 */
-				 -webkit-flex: 1;          /* Chrome */
+				
 			}
 			.inform .inform-icons{
 				border: 1px solid #fff;
@@ -594,13 +614,13 @@
 				<span id="userimage">
 					<img id="userhadeimg" :src="vueuserinfo.img"/>
 				</span>
-				<span id="username">
-					{{vueuserinfo.name}}
+				<span id="username" v-text='vueuserinfo.name'>
+					
 				</span>
 			</div>
 			<div class="money">
-				<span id="money">
-					{{vueuserinfo.money}}
+				<span id="money" v-text='vueuserinfo.money'>
+					00000
 				</span>
 			</div>
 			<div class="userCenter">
@@ -624,9 +644,9 @@
 		<div class="inform">
 			<ul>
 				<li>举报</li>
-				<li style="display: flex; display: -webkit-box; " v-for="it in vueinform">
+				<li style=" " v-for="it in vueinform">
 					<div class="inform-content"  >{{it.ty}}</div>
-					<div><span class="inform-icons" type=it.id @click="vuegetinform($event,$index,it.ty)" ></span></div>
+					<div class="inform-iconsdiv"><span class="inform-icons" type=it.id @click="vuegetinform($event,$index,it.ty)" ></span></div>
 				</li>
 				
 				<!--<li style="display: flex;">
@@ -719,7 +739,7 @@
 					data:{
 						showuserCenter:[
 							{tit:'邀请好友',lk:'#',ke:'share'},
-							{tit:'用户资料',lk:'../user/userinfo.html',ke:'userinfo'},
+							{tit:'用户资料',lk:'../user/userinfo.html',ke:'userinfo1'},
 							{tit:'我的积分',lk:'../user/integral.html',ke:'integral'},
 							{tit:'保险柜',lk:'../user/safe.html',ke:'safe'},
 							{tit:'客户中心',lk:'../user/service.html',ke:'userinfo'},
@@ -822,7 +842,7 @@
 								id:userid,
 							},function(data){
 							
-								if(data.code==200&&data.face!=''){
+								if(data.code==200&&CheckImgExists(data.face)){
 									//document.getElementById('bao').innerText=data.bao.safeintegral11
 									vm.vueuserinfo.img=data.face
 								}
@@ -839,6 +859,7 @@
 						this.getuserinfo()
 						this.userid=userid
 						this.vueuserinfo.name=username
+						
 					},
 					compontment:{
 						

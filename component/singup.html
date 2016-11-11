@@ -16,10 +16,16 @@
 			.content{
 				height: 100%;
 				width: 100%;
-				background: url(../image/login_01.png) repeat;
+				background: url(../image/bg.png) repeat;
 				display: flex;
+				display: -webkit-box;     
+				display: -moz-box;        
+				display: -ms-flexbox;      
+				display: -webkit-flex;
 				justify-content: center;
 				align-items: center;
+				-webkit-justify-content: center;
+				-webkit-align-items: center;
 				position: absolute;
 				left: 0;
 				top: 0;
@@ -27,15 +33,15 @@
 				right: 0;
 			}
 			.con{
-				background: #fff;
+				background: url(../image/bg.png) repeat;
 				width: 2.8rem;
-				height: 4.41rem;
+				height: 3.5rem;
 				border: 1px solid #ccc;
 				border-radius: 3px;
-				 box-shadow:0 0 10px #bbb;  
+				box-shadow:0 0 10px #bbb;  
 			}
 			.showimg{
-				height: 1.5rem;
+				height: 1.3rem;
 				width: 100%;
 				position: relative;
 			}
@@ -74,6 +80,7 @@
 				color:#625239 ;
 				text-align: center;
 				flex: 2;
+				-webkit-flex: 2;
 			}
 			.inputtext input{
 				height: 0.15rem;
@@ -81,17 +88,23 @@
 				border-radius: 2px;
 				padding: 4px;
 				flex: 4;
-			
+				-webkit-flex: 4;
 				
 			}
 			.username{
 				height: 0.375rem;
 				line-height: 0.375rem;
 				display: flex;
+				display: -webkit-box;     
+display: -moz-box;        
+display: -ms-flexbox;      
+display: -webkit-flex;
 				margin: 0 auto;
 				width: 90%;
 				justify-content: center;
 				align-items: center;
+				-webkit-justify-content: center;
+-webkit-align-items: center;
 			}
 			
 			.password{
@@ -99,10 +112,10 @@
 				line-height: 0.375rem;
 			}
 			.signin{
-				height: 1.3rem;
+				
 				width: 100%;
 				text-align: center;
-				padding-top: 0.4rem;
+				padding-top: 0.15rem;
 			}
 			.signin span{
 				height:0.29rem;

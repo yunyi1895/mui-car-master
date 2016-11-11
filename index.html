@@ -23,6 +23,8 @@
       		
       	);
       	mui.plusReady(function() {
+      		plus.screen.lockOrientation("portrait-primary"); 
+
       		var Userinfo = plus.storage.getItem("userinfo");
       		if(Userinfo){
 					//有值，说明已经登录过了，无需显示，跳转主界面；

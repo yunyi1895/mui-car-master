@@ -5,6 +5,8 @@
 		<meta charset="UTF-8">
 		<title></title>
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<script src="../../js/vue1.0.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../../js/jquery-2.1.0.js" type="text/javascript" charset="utf-8"></script>
 		<link href="../../css/mui.min.css" rel="stylesheet" />
@@ -662,16 +664,16 @@
 						<span>
 							本期开奖
 						</span>
-						<span>
-							{{issueNo}}
+						<span v-text="issueNo">
+							
 						</span>
 					</div>
 					<div class="issuetime">
 						<span>
 							开奖时间
 						</span>
-						<span>
-							{{issueTime}}
+						<span v-text="issueTime">
+							
 						</span>
 					</div>
 				</div>
@@ -704,8 +706,8 @@
 					<img v-if="item.sender=='self'" class="msg-self-img" :src="userinfo.img" alt="" />
 					<img v-else class="msg-user-img" :src="item.img" alt="" />
 					<div class="msg-content">
-						<div class="msg-content-inner">
-							{{item.content}}
+						<div class="msg-content-inner" v-text="item.content">
+							
 						</div>
 					</div>
 					<div class="msg-content-arrow"></div>
@@ -713,7 +715,7 @@
 				<div class="mui-item-clear"></div>
 			</div>
 		</div>
-	
+		
 		<!--<div id='sound-alert' class="rprogress">
 			<div class="rschedule"></div>
 			<div class="r-sigh">!</div>
@@ -722,6 +724,9 @@
 		
 			
 		</div>
+		<audio src="../../music/5888.mp3" id="runMusic">
+			不支持
+		</audio>
 		<footer>
 			<div @click="testcar" id="testsend" class="footer-left">
 				<i id='msg-image' class="mui-icon mui-icon-list" style="font-size: 28px;"></i>
@@ -779,7 +784,7 @@
 								'07':'#9b9893',
 								'08':'#ff180a',
 								'09':'#ad1c07',
-								'0':'#00ed00'
+								'10':'#00ed00'
 							},
 							carrun:[{
 								id:1,
@@ -855,16 +860,7 @@
 								mui.post('http://bjsc.bayuenet.com/index.php/admin/index/facepath',{
 								id:userid,
 								},function(data){
-									function CheckImgExists(imgurl) {
-										var ImgObj = new Image(); //判断图片是否存在
-										ImgObj.src = imgurl;
-										//没有图片，则返回-1
-										if (ImgObj.fileSize > 0 || (ImgObj.width > 0 && ImgObj.height > 0)) {
-										return true;
-										} else {
-										return false;
-										}
-									}
+									
 									
 									if(data.code==200&&CheckImgExists(data.face)){
 									
@@ -889,16 +885,24 @@
 				
 							},
 							testcar:function(){//测试车跑
+								var runMusic=document.getElementById('runMusic')
+								console.log(localStorage.getItem('Musicswitch'))
+								if(localStorage.getItem('Musicswitch')!=0){
+									runMusic.play();
+								}
+								
+								
 								var runcar=this.carrun
 								//var carlist=document.querySelectorAll('.ca')
 								var testnum=['01','02','07','09','08','06','04','0','05','03']
 								var colortype=this.colortype
 								var teststr=''
 								for(var i=0;i<testnum.length;i++){
-									teststr+='<span style="background:'+colortype[testnum[i]]+'">'+testnum[i]+'</span>'
 									if(testnum[i]=='0'){
 										testnum[i]=10
 									}
+									teststr+='<span style="background:'+colortype[testnum[i]]+'">'+testnum[i]+'</span>'
+									
 									testnum[i]=testnum[i]-0
 									var d=i+1
 									jQuery('#car'+d).addClass('run'+testnum[i])
@@ -958,7 +962,7 @@
 								this.ui.content.style.paddingBottom = this.ui.footer.style.height;
 							},
 							initWebSocket:function(){//初始化连接WebSocket
-								var  ws = new WebSocket('ws://192.168.1.111:8000');
+								var  ws = new WebSocket('ws://211.149.235.46:3999/');
 								var vm=this
 								vm.ws=ws
 							//	console.log(JSON.stringify(ws))
@@ -983,9 +987,79 @@
 					            	vm.record.push(d);
 					            	//console.log(JSON.stringify(d))
 					            }
+							},
+							settimetest:function(s,arr){
+								//console.log(jQuery('#car1').css('transform'))
+								var vm=this
+								for(var j=0;j<arr.length;j++){
+									var t=arr[j]-s
+									var setfun=(function(t,j){
+										setTimeout(function(){
+											jQuery('.car').attr('class','car')
+											
+											jQuery('.car').css({
+												'-webkit-transform':'',
+												'transform':''
+											})
+										 	jQuery('#car1').css('transform')
+											
+										function getmsg(){
+											console.log(t)
+											
+											jQuery('.lottery').html('')
+											var runcar=vm.carrun
+											var testnumn=[['01','02','07','09','08','06','04','0','05','03'],['08','02','04','03','01','06','07','0','05','09'],['04','02','03','0','08','06','01','09','05','07']]
+											var colortype=vm.colortype
+											var teststr=''
+											
+											var testnum=testnumn[j]
+											
+											for(var i=0;i<testnum.length;i++){
+												if(testnum[i]=='0'){
+													testnum[i]=10
+												}
+												teststr+='<span style="background:'+colortype[testnum[i]]+'">'+testnum[i]+'</span>'
+												
+												testnum[i]=testnum[i]-0
+												var d=i+1
+												jQuery('#car'+d).addClass('run'+testnum[i])
+												
+												runcar[i].ranking=testnum[i]
+											}
+										//	console.log(jQuery('#car1').attr('class'))
+										
+											
+											vm.carrun=runcar
+											//jQuery('.rules').slideToggle("400");
+											setTimeout(function(){
+												jQuery('.lottery').html(teststr)
+											},6000)
+											
+										}
+										getmsg()
+									},t)
+										
+									})(t,j)
+									
+									
+								}
+								
+								
+							},
+							
+							consoletest:function(){
+								
+								var d={
+									time:1000,
+									lottery:[4000,15000,28000]
+								}
+								this.settimetest(d.time,d.lottery)
+								
+								
 							}
 						},
 						ready:function(){
+							this.consoletest()
 							this.userinfo.id=localStorage.getItem('userid');
 							this.getuserimg(this.userinfo.id)
 							document.querySelector('#h').style.width = document.querySelector('#msg-text').offsetWidth + 'px';
@@ -998,34 +1072,34 @@
 					
 					
 					//初始话WebSocket
-				var  ws = new WebSocket('ws://211.149.235.46:3999/');
-			
-					
-					ws.onerror = function() {
-						mui.toast('连接发生错误');
-					};
-					ws.onopen = function(){
-						//  ws.send("111222");
-					};
-					ws.onmessage=function(data){
-						sj(data)
-					}
-				
-				function sendmsg(msg){
-					
-				}
-				var testsendd=document.getElementById('testsend')
-				testsendd.addEventListener('tap',function(){
-					var msg=document.getElementById('msg-text').value
-					console.log(msg)
-					var d='{"name":"'+123+'","speak":\"'+msg+'"}'
-					var s= '{"type":"'+'speak'+'","msg":'+d+'}'
-					console.log(d)
-					ws.send(s)
-					
-					
-					
-				},false)
+//				var  ws = new WebSocket('ws://211.149.235.46:3999/');
+//			
+//					
+//					ws.onerror = function() {
+//						mui.toast('连接发生错误');
+//					};
+//					ws.onopen = function(){
+//						//  ws.send("111222");
+//					};
+//					ws.onmessage=function(data){
+//						sj(data)
+//					}
+//				
+//				function sendmsg(msg){
+//					
+//				}
+//				var testsendd=document.getElementById('testsend')
+//				testsendd.addEventListener('tap',function(){
+//					var msg=document.getElementById('msg-text').value
+//
+//					var d='{"name":"'+123+'","speak":\"'+msg+'"}'
+//					var s= '{"type":"'+'speak'+'","msg":'+d+'}'
+//					console.log(d)
+//					ws.send(s)
+//					
+//					
+//					
+//				},false)
 			
 					
 //					var showKeyboard = function() {

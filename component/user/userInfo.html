@@ -32,21 +32,33 @@
 			.portrait{
 				height: 1.19rem;
 				width: 100%;
-				background: url(../../image/login_01.png) repeat;
+				background: url(../../image/bg.png) repeat;
 				
 				display: flex;
 				justify-content: center;
 				align-items: center;
+				display: -webkit-box;     
+				display: -moz-box;        
+				display: -ms-flexbox;      
+				display: -webkit-flex;
+				-webkit-justify-content: center;
+				-webkit-align-items: center;
+				
 				font-size: 0.16rem;
 			}
 			.portrait .setportrait{
 				height: 0.87rem;
 				width: 100%;
 				display: flex;
+				display: -webkit-box;     
+				display: -moz-box;        
+				display: -ms-flexbox;      
+				display: -webkit-flex;
 				background: #fff;
 			}
 			.portrait #portrait{
 				flex: 5;
+				-webkit-flex: 5;
 				text-align: left;
 				padding-left: 0.15rem;
 				line-height: 0.87rem;
@@ -54,9 +66,16 @@
 			}
 			.portrait #userportrait{
 				flex: 2;
+				-webkit-flex: 2;
 				display: flex;
 				justify-content: center;
 				align-items: center;
+				display: -webkit-box;     
+				display: -moz-box;        
+				display: -ms-flexbox;      
+				display: -webkit-flex;
+				-webkit-justify-content: center;
+				-webkit-align-items: center;
 			}
 			.portrait #userportrait img{
 				height: 0.65rem;
@@ -68,6 +87,7 @@
 				line-height: 0.87rem;
 				text-align: center;
 				flex: 1;
+				-webkit-flex: 1;
 				color: #ababab;
 			}
 			.seticon{
@@ -80,6 +100,10 @@
 			}
 			.infoContent li{
 				display: flex;
+				display: -webkit-box;     
+				display: -moz-box;        
+				display: -ms-flexbox;      
+				display: -webkit-flex;
 				height: 0.42rem;
 				width: 100%;
 				border-bottom: 1px solid #d9d9d9 ;
@@ -87,12 +111,14 @@
 			}
 			.infoContent li .setkey{
 				flex: 4;
+				-webkit-flex: 4;
 				padding-left:0.15rem ;
 				color: #615138;
 				font-size: 0.16rem;
 			}
 			.infoContent li .consd{
 				flex: 12;
+				-webkit-flex: 12;
 				color: #D9D9D9;
 				font-size: 0.13rem;
 				line-height: 0.42rem;
@@ -101,15 +127,24 @@
 				line-height: 0.42rem;
 				text-align: center;
 				flex: 2;
+				-webkit-flex: 2;
 			}
 			.infoContent li .muisd{
 				flex: 4;
+				-webkit-flex: 4;
 			}
 			.infoContent li .tagmusic{
 				flex: 4;
+				-webkit-flex: 4;
 				display: flex;
 				justify-content: center;
 				align-items: center;
+				display: -webkit-box;     
+				display: -moz-box;        
+				display: -ms-flexbox;      
+				display: -webkit-flex;
+				-webkit-justify-content: center;
+				-webkit-align-items: center;
 			}
 			.infoContent li input{
 				margin: 0;
@@ -140,11 +175,17 @@
 			}
 			footer{
 				height: 0.81rem;
-				background: url(../../image/login_01.png) repeat;
+				background: url(../../image/bg.png) repeat;
 				width: 100%;
 				display: flex;
 				justify-content: center;
 				align-items: center;
+				display: -webkit-box;     
+				display: -moz-box;        
+				display: -ms-flexbox;      
+				display: -webkit-flex;
+				-webkit-justify-content: center;
+				-webkit-align-items: center;
 			}
 			footer .out{
 				background: #fe9900;
@@ -244,7 +285,7 @@
 					</div>
 					<div class="tagmusic">
 						<div class="switch">
-							<div id="mySwitch" class=" mui-switch mui-active">
+							<div id="mySwitch" class=" mui-switch">
 							  <div class="mui-switch-handle"></div>
 							</div>
 						</div>
@@ -418,8 +459,10 @@
 	        
 	    document.getElementById("mySwitch").addEventListener("toggle",function(event){
 			  if(event.detail.isActive){
+			  	localStorage.setItem('Musicswitch',1)
 			    console.log("你启动了开关");
 			  }else{
+			  	localStorage.setItem('Musicswitch',0)
 			    console.log("你关闭了开关");  
 			  }
 			})    
@@ -451,11 +494,11 @@
 							
 							},'json'
 						);
-						mui.post('http://bjsc.bayuenet.com/index.php/admin/index/facepath',{
-								id:userid,
+						mui.post('http://bjsc.bayuenet.com/index.php/admin/index/facepath',{//获取 头像
+								id:vm.userid,
 							},function(data){
 								console.log(JSON.stringify(data))
-								if(data.code==200&&data.face!=''){
+								if(data.code==200&&CheckImgExists(data.face)){
 									
 									vm.userheadimg=data.face
 								}
@@ -525,7 +568,12 @@
 					this.userid=localStorage.getItem('userid')
 				
 					this.getuserinfo()
-					
+					if(localStorage.getItem('Musicswitch')==1){
+						
+						$('#mySwitch').addClass('mui-active')
+					}else{
+						$('#mySwitch').removeClass('mui-active')
+					}
 					
 					
 					

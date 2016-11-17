@@ -33,9 +33,9 @@
 			.lotterynum{
 				display: flex;
 				display: -webkit-box;     
-display: -moz-box;        
-display: -ms-flexbox;      
-display: -webkit-flex;
+				display: -moz-box;        
+				display: -ms-flexbox;      
+				display: -webkit-flex;
 				justify-content: center;
 				align-items: center;
 				-webkit-justify-content: center;
@@ -192,27 +192,15 @@ display: -webkit-flex;
 										<th class="results">结果</th>
 										<th class="state">状态</th>
 									</tr>
-									<tr>
-										<td>5841544</td>
-										<td>10.17 12:54</td>
-										<td class="showu" id="test1">Data</td>
-										<td>10.17 12:54</td>
-										<td class="showu" id="test1">Data</td>
+									
+									<tr v-for=" it in benqi">
+										<td v-text="it.issue"></td>
+										<td v-text='it.playtype'></td>
+										<td  v-text='it.guessing' class="showu" id="test1"></td>
+										<td v-text='it.result' ></td>
+										<td v-text='it.state' class="showu" id="test1"></td>
 									</tr>
-									<tr>
-										<td>5841544</td>
-										<td>10.17 12:54</td>
-										<td class="showu" id="test1">Data</td>
-										<td>10.17 12:54</td>
-										<td class="showu" id="test1">Data</td>
-									</tr>
-									<tr>
-										<td>5841544</td>
-										<td>10.17 12:54</td>
-										<td class="showu" id="test1">Data</td>
-										<td>10.17 12:54</td>
-										<td class="showu" id="test1">Data</td>
-									</tr>
+									
 								</table>
 							</div>
 						</div>
@@ -319,6 +307,49 @@ display: -webkit-flex;
 					var sliderSegmentedControl = document.getElementById('sliderSegmentedControl');
 				
 				})(mui);
+				new Vue({
+					el:'#slider',
+					data:{
+						userid:'',
+						sueNo:'',
+						benqi:[]
+					},
+					methods:{
+						getbenqixiazhu:function(){
+							var userid=21
+							var sueNo=01001
+							var vm=this
+							mui.post('http://192.168.1.111/apptest/index.php/admin/index/mingxi',{
+								id:userid,
+								issue:sueNo
+								},function(data){
+									console.log(JSON.stringify(data))
+									vm.benqi=data
+								},'json'
+							
+							)
+						},
+						
+
+					},
+					ready:function(){
+						var self = plus.webview.currentWebview();
+						this.sueNo=self.sueNo
+						//var sueNo = this.getUrlParam('sueNo');
+						
+						this.userid=localStorage.getItem('userid')
+						
+						this.getbenqixiazhu()
+					}
+					
+					
+				})
+				
+				
+				
+				
+				
+				
 			})
 		
 				

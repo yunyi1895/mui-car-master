@@ -97,7 +97,7 @@
         },
         "NativeObj":{
         	"description": "原生对象"
-        }
+        },"Camera":{}
 	},
 	"plus": {
 		"splashscreen": {
@@ -223,7 +223,8 @@
 					"image/logo@2x.png",
 					null,
 					"image/Forgotpassword.png",
-					"image/bg.png"
+					"image/bg.png",
+					"component/user/service.html"
 				],
 				"refer": [
 					"component/singup.html",
@@ -282,7 +283,9 @@
 				],
 				"refer": [
 					"component/user/passwordauthentification.html",
-					"component/user/photoauthentification.html"
+					"component/user/photoauthentification.html",
+					"component/game/OpeningRecord.html",
+					"component/game/gamerecord.html"
 				],
 				"priority": 0
 			},
@@ -344,7 +347,11 @@
 					"css/mui.imageviewer.css",
 					"css/mui.css",
 					"js/arttmpl.js",
-					"image/180x180.png"
+					"image/180x180.png",
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"css/mui.min.css",
+					"component/signin.html"
 				],
 				"refer": [],
 				"priority": 0
@@ -408,7 +415,8 @@
 					"image/10@2x.png",
 					"js/socket.io.js",
 					"public/public.js",
-					"music/5888.mp3"
+					"music/5888.mp3",
+					"image/weishangchuantouxiang@2x.png"
 				],
 				"refer": [],
 				"priority": 0
@@ -416,7 +424,14 @@
 			"component/game/OpeningRecord.html": {
 				"resources": [
 					"fonts/mui.ttf",
-					"component/game/car.html"
+					"component/game/car.html",
+					"js/setrem.js",
+					"js/vue1.0.js",
+					"js/mui.min.js",
+					"css/mui.min.css",
+					"js/jquery-2.1.0.js",
+					"image/bg.png",
+					"public/public.css"
 				],
 				"refer": [],
 				"priority": 0
@@ -424,7 +439,14 @@
 			"component/game/gamerecord.html": {
 				"resources": [
 					"component/game/car.html",
-					"fonts/mui.ttf"
+					"fonts/mui.ttf",
+					"js/setrem.js",
+					"js/vue1.0.js",
+					"js/mui.min.js",
+					"css/mui.min.css",
+					"js/jquery-2.1.0.js",
+					"image/bg.png",
+					"public/public.css"
 				],
 				"refer": [],
 				"priority": 0

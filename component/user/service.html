@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
 
@@ -6,7 +5,7 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<title></title>
-		<link href="../../css/mui.css" rel="stylesheet" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
 		<link rel="stylesheet" type="text/css" href="../../css/app.css" />
 		<link href="../../css/mui.imageviewer.css" rel="stylesheet" />
 		<style>
@@ -28,7 +27,8 @@
 				left: 0px;
 				bottom: 0px;
 				overflow: hidden;
-				padding: 0px 50px;
+				padding-right: 50px;
+				padding-left:10px ;
 				background-color: #fafafa;
 			}
 			.footer-left {
@@ -180,10 +180,10 @@
 				
 				font-size: 16px;
 				word-break: keep-all;
-				line-height: 100%;
+				line-height: 27px;
 				padding-top: 16px;
 				
-				color: rgba(0, 135, 250, 1);
+				color:#605238;
 			}
 			#msg-sound {
 				-webkit-user-select: none !important;
@@ -197,7 +197,7 @@
 				height: 140px;
 				margin-left: -70px;
 				margin-top: -70px;
-				background-image: url(../images/arecord.png);
+				background-image: url(../../images/arecord.png);
 				background-repeat: no-repeat;
 				background-position: center center;
 				background-size: 30px 30px;
@@ -295,15 +295,54 @@
 			.cancel {
 				background-color: darkred;
 			}
+			header {
+				position: fixed;
+			    z-index: 10;
+			    right: 0;
+			    left: 0;
+			    color: #000000;
+			    height: 44px;
+			    padding-right: 10px;
+			    padding-left: 10px;
+			    border-bottom: 0;
+			    background-color:#f6a635;
+			    -webkit-box-shadow: 0 0 1px rgba(0,0,0,.85);
+			     box-shadow: 0 0 1px rgba(0,0,0,.85); 
+			    -webkit-backface-visibility: hidden;
+			    backface-visibility: hidden;
+			}
+			
+			header h1 {
+				color: #fff !important;
+				font-size: 16px !important;
+				font-weight: 600 !important;
+			}
+			
+			header a {
+				color: #fff;
+				font-family: Muiicons;
+			    font-size: 24px;
+			    font-weight: 400;
+			    font-style: normal;
+			    line-height: 1;
+			    display: inline-block;
+			    text-decoration: none;
+			    -webkit-font-smoothing: antialiased;
+			   
+			    position: relative;
+			    z-index: 20;
+			    padding-top: 10px;
+			    padding-bottom: 10px;
+			}
 		</style>
 	</head>
 
 	<body contextmenu="return false;">
-		<header class="mui-bar mui-bar-nav">
+		<header class=" " style="z-index: 222222;">
 			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
-			<h1 class="mui-title">皇家客服中心
-			</h1>
+			<h1 class="mui-title">客服中心</h1>
 		</header>
+		
 		<pre id='h'></pre>
 		<script id='msg-template' type="text/template">
 			<% for(var i in record){ var item=record[i]; %>
@@ -335,21 +374,21 @@
 			</div>
 		</div>
 		<footer>
-			<div class="footer-left">
-				<i id='msg-image' class="" style="font-size: 28px;"></i>
-			</div>
+			<!--<div class="footer-left">
+				<i id='msg-image' class="mui-icon mui-icon-camera" style="font-size: 28px;"></i>
+			</div>-->
 			<div class="footer-center">
 				<textarea id='msg-text' type="text" class='input-text'></textarea>
-				<button id='msg-sound' type="button" class='input-sound' style="display: none;">按住说话</button>
+				<!--<button id='msg-sound' type="button" class='input-sound' style="display: none;">按住说话</button>-->
 			</div>
-			<label for="" class="footer-right" >
+			<label for="" class="footer-right">
 				<span id='msg-type' class="mui-icon-paperplane"></span>
 			</label>
 		</footer>
 		<div id='sound-alert' class="rprogress">
 			<div class="rschedule"></div>
 			<div class="r-sigh">!</div>
-			<div id="audio_tips" class="rsalert">手指上滑，取消发送</div>
+			<!--<div id="audio_tips" class="rsalert">手指上滑，取消发送</div>-->
 		</div>
 		<script src="../../js/mui.min.js"></script>
 		<script src="../../js/mui.imageViewer.js"></script>
@@ -394,16 +433,16 @@
 					var record = [{
 						sender: 'zs',
 						type: 'text',
-						content: 'Hi，我是皇家会所客服，请问有什么可以帮您？'
+						content: 'Hi，皇家会所中心客服！请问有什么可以帮您'
 					}];
 					var ui = {
 						body: doc.querySelector('body'),
 						footer: doc.querySelector('footer'),
 						footerRight: doc.querySelector('.footer-right'),
-						footerLeft: doc.querySelector('.footer-left'),
+						//footerLeft: doc.querySelector('.footer-left'),
 						btnMsgType: doc.querySelector('#msg-type'),
 						boxMsgText: doc.querySelector('#msg-text'),
-						boxMsgSound: doc.querySelector('#msg-sound'),
+						//boxMsgSound: doc.querySelector('#msg-sound'),
 						btnMsgImage: doc.querySelector('#msg-image'),
 						areaMsgList: doc.querySelector('#msg-list'),
 						boxSoundAlert: doc.querySelector('#sound-alert'),
@@ -413,20 +452,20 @@
 					ui.h.style.width = ui.boxMsgText.offsetWidth + 'px';
 					//alert(ui.boxMsgText.offsetWidth );
 					var footerPadding = ui.footer.offsetHeight - ui.boxMsgText.offsetHeight;
-					var msgItemTap = function(msgItem, event) {
-						var msgType = msgItem.getAttribute('msg-type');
-						var msgContent = msgItem.getAttribute('msg-content')
-						if (msgType == 'sound') {
-							player = plus.audio.createPlayer(msgContent);
-							var playState = msgItem.querySelector('.play-state');
-							playState.innerText = '正在播放...';
-							player.play(function() {
-								playState.innerText = '点击播放';
-							}, function(e) {
-								playState.innerText = '点击播放';
-							});
-						}
-					};
+//					var msgItemTap = function(msgItem, event) {
+//						var msgType = msgItem.getAttribute('msg-type');
+//						var msgContent = msgItem.getAttribute('msg-content')
+//						if (msgType == 'sound') {
+//							player = plus.audio.createPlayer(msgContent);
+//							var playState = msgItem.querySelector('.play-state');
+//							playState.innerText = '正在播放...';
+//							player.play(function() {
+//								playState.innerText = '点击播放';
+//							}, function(e) {
+//								playState.innerText = '点击播放';
+//							});
+//						}
+//					};
 					var imageViewer = new $.ImageViewer('.msg-content-image', {
 						dbl: false
 					});
@@ -441,11 +480,11 @@
 							"record": record
 						});
 						var msgItems = ui.areaMsgList.querySelectorAll('.msg-item');
-						[].forEach.call(msgItems, function(item, index) {
-							item.addEventListener('tap', function(event) {
-								msgItemTap(item, event);
-							}, false);
-						});
+//						[].forEach.call(msgItems, function(item, index) {
+//							item.addEventListener('tap', function(event) {
+//								msgItemTap(item, event);
+//							}, false);
+//						});
 						imageViewer.findAllImage();
 						ui.areaMsgList.scrollTop = ui.areaMsgList.scrollHeight + ui.areaMsgList.offsetHeight;
 					};
@@ -458,7 +497,7 @@
 						bindMsgList();
 						toRobot(msg.content);
 					};
-					var toRobot = function(info) {
+					var toRobot = function(info) {//这里以后写websocket
 						var apiUrl = 'http://www.tuling123.com/openapi/api';
 						$.getJSON(apiUrl, {
 							"key": 'acfbca724ea1b5db96d2eef88ce677dc',
@@ -476,19 +515,18 @@
 					};
 
 					function msgTextFocus() {
-						
 							ui.boxMsgText.focus();
 							setTimeout(function() {
 								ui.boxMsgText.focus();
 							}, 150);
 						}
-					//	解决长按“发送”按钮，导致键盘关闭的问题；
+						//解决长按“发送”按钮，导致键盘关闭的问题；
 					ui.footerRight.addEventListener('touchstart', function(event) {
 						if (ui.btnMsgType.classList.contains('mui-icon-paperplane')) {
 							msgTextFocus();
 							event.preventDefault();
 						}
-					});	
+					});
 					//解决长按“发送”按钮，导致键盘关闭的问题；
 					ui.footerRight.addEventListener('touchmove', function(event) {
 						if (ui.btnMsgType.classList.contains('mui-icon-paperplane')) {
@@ -496,30 +534,25 @@
 							event.preventDefault();
 						}
 					});
-//					//					ui.footerRight.addEventListener('touchcancel', function(event) {
-//					//						if (ui.btnMsgType.classList.contains('mui-icon-paperplane')) {
-//					//							msgTextFocus();
-//					//							event.preventDefault();
-//					//						}
-//					//					});
-//					//					ui.footerRight.addEventListener('touchend', function(event) {
-//					//						if (ui.btnMsgType.classList.contains('mui-icon-paperplane')) {
-//					//							msgTextFocus();
-//					//							event.preventDefault();
-//					//						}
-//					//					});
+					//					ui.footerRight.addEventListener('touchcancel', function(event) {
+					//						if (ui.btnMsgType.classList.contains('mui-icon-paperplane')) {
+					//							msgTextFocus();
+					//							event.preventDefault();
+					//						}
+					//					});
+					//					ui.footerRight.addEventListener('touchend', function(event) {
+					//						if (ui.btnMsgType.classList.contains('mui-icon-paperplane')) {
+					//							msgTextFocus();
+					//							event.preventDefault();
+					//						}
+					//					});
 					ui.footerRight.addEventListener('release', function(event) {
 						if (ui.btnMsgType.classList.contains('mui-icon-paperplane')) {
-							console.log(112)
 							//showKeyboard();
 							ui.boxMsgText.focus();
 							setTimeout(function() {
 								ui.boxMsgText.focus();
 							}, 150);
-							if( ui.boxMsgText.value==''){
-								　mui.toast("输入内容不能为空");
-								return
-							}
 							//							event.detail.gesture.preventDefault();
 							send({
 								sender: 'self',
@@ -528,26 +561,7 @@
 							});
 							ui.boxMsgText.value = '';
 							$.trigger(ui.boxMsgText, 'input', null);
-						} //else if (ui.btnMsgType.classList.contains('mui-icon-mic')) {
-//							ui.btnMsgType.classList.add('mui-icon-compose');
-//							ui.btnMsgType.classList.remove('mui-icon-mic');
-//							ui.boxMsgText.style.display = 'none';
-//							ui.boxMsgSound.style.display = 'block';
-//							ui.boxM
-//							sgText.blur();
-//							document.body.focus();
-//						} else if (ui.btnMsgType.classList.contains('mui-icon-compose')) {
-//							ui.btnMsgType.classList.add('mui-icon-mic');
-//							ui.btnMsgType.classList.remove('mui-icon-compose');
-//							ui.boxMsgSound.style.display = 'none';
-//							ui.boxMsgText.style.display = 'block';
-//							//--
-//							//showKeyboard();
-//							ui.boxMsgText.focus();
-//							setTimeout(function() {
-//								ui.boxMsgText.focus();
-//							}, 150);
-//						}
+						} 
 					}, false);
 //					ui.footerLeft.addEventListener('tap', function(event) {
 //						var btnArray = [{
@@ -629,52 +643,52 @@
 //							plus.nativeUI.toast("录音时出现异常: " + e.message);
 //						});
 //					}, false);
-					ui.body.addEventListener('drag', function(event) {
-						//console.log('drag');
-						if (Math.abs(event.detail.deltaY) > 50) {
-							if (!recordCancel) {
-								recordCancel = true;
-								if (!audio_tips.classList.contains("cancel")) {
-									audio_tips.classList.add("cancel");
-								}
-								audio_tips.innerHTML = "松开手指，取消发送";
-							}
-						} else {
-							if (recordCancel) {
-								recordCancel = false;
-								if (audio_tips.classList.contains("cancel")) {
-									audio_tips.classList.remove("cancel");
-								}
-								audio_tips.innerHTML = "手指上划，取消发送";
-							}
-						}
-					}, false);
-					ui.boxMsgSound.addEventListener('release', function(event) {
-						//console.log('release');
-						if (audio_tips.classList.contains("cancel")) {
-							audio_tips.classList.remove("cancel");
-							audio_tips.innerHTML = "手指上划，取消发送";
-						}
-						//
-						stopTimestamp = (new Date()).getTime();
-						if (stopTimestamp - startTimestamp < MIN_SOUND_TIME) {
-							audio_tips.innerHTML = "录音时间太短";
-							ui.boxSoundAlert.classList.add('rprogress-sigh');
-							recordCancel = true;
-							stopTimer=setTimeout(function(){
-								setSoundAlertVisable(false);
-							},800);
-						}else{
-							setSoundAlertVisable(false);
-						}
-						recorder.stop();
-					}, false);
-					ui.boxMsgSound.addEventListener("touchstart", function(e) {
-						//console.log("start....");
-						e.preventDefault();
-					});
+//					ui.body.addEventListener('drag', function(event) {
+//						//console.log('drag');
+//						if (Math.abs(event.detail.deltaY) > 50) {
+//							if (!recordCancel) {
+//								recordCancel = true;
+//								if (!audio_tips.classList.contains("cancel")) {
+//									audio_tips.classList.add("cancel");
+//								}
+//								audio_tips.innerHTML = "松开手指，取消发送";
+//							}
+//						} else {
+//							if (recordCancel) {
+//								recordCancel = false;
+//								if (audio_tips.classList.contains("cancel")) {
+//									audio_tips.classList.remove("cancel");
+//								}
+//								audio_tips.innerHTML = "手指上划，取消发送";
+//							}
+//						}
+//					}, false);
+//					ui.boxMsgSound.addEventListener('release', function(event) {
+//						//console.log('release');
+//						if (audio_tips.classList.contains("cancel")) {
+//							audio_tips.classList.remove("cancel");
+//							audio_tips.innerHTML = "手指上划，取消发送";
+//						}
+//						//
+//						stopTimestamp = (new Date()).getTime();
+//						if (stopTimestamp - startTimestamp < MIN_SOUND_TIME) {
+//							audio_tips.innerHTML = "录音时间太短";
+//							ui.boxSoundAlert.classList.add('rprogress-sigh');
+//							recordCancel = true;
+//							stopTimer=setTimeout(function(){
+//								setSoundAlertVisable(false);
+//							},800);
+//						}else{
+//							setSoundAlertVisable(false);
+//						}
+//						recorder.stop();
+//					}, false);
+//					ui.boxMsgSound.addEventListener("touchstart", function(e) {
+//						//console.log("start....");
+//						e.preventDefault();
+//					});
 					ui.boxMsgText.addEventListener('input', function(event) {
-						//ui.btnMsgType.classList[ui.boxMsgText.value == '' ? 'remove' : 'add']('mui-icon-paperplane');
+					//	ui.btnMsgType.classList[ui.boxMsgText.value == '' ? 'remove' : 'add']('mui-icon-paperplane');
 						ui.btnMsgType.setAttribute("for", ui.boxMsgText.value == '' ? '' : 'msg-text');
 						ui.h.innerText = ui.boxMsgText.value.replace(new RegExp('\n', 'gm'), '\n-') || '-';
 						ui.footer.style.height = (ui.h.offsetHeight + footerPadding) + 'px';

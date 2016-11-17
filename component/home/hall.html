@@ -766,10 +766,12 @@
 						showuserCentervue:function(){//展现用户中心
 							J('.showuserCenter').slideToggle("400");
 							J('#hiddenq').toggle()
+							J('.inform').hide();
 						},
 						showinform:function(){//展现举报内容
 							J('.inform').slideToggle("400");
 							J('#hiddenq').toggle()
+							J('.showuserCenter').hide();	
 						},
 						vuehidd:function(){//隐藏
 							J('#hiddenq').hide()

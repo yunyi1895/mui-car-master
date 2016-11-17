@@ -814,8 +814,13 @@
 							if(k=='share'){
 								J('#share').css({
 									'display':'flex',
+									'display':'-webkit-box',
+									'display':'-webkit-flex',
 									'justifyContent':'center',
-									'alignContent':'center'
+									'alignContent':'center',
+									'-webkit-justify-content':'center',
+									'-webkit-align-items':'center',
+									
 								})
 								J('.showuserCenter').hide();
 							}

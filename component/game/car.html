@@ -262,61 +262,61 @@
 			
 		}
 		.run1{
-			animation: carrun ease-in forwards;
+			animation: carrun ease-in 0.1s forwards;
 			-webkit-animation:carrun  ease-in forwards;
 			animation-duration:4s;
 			-webkit-animation-duration:4s; 
 		}
 		.run2{
-			animation: carrun ease-in forwards;
+			animation: carrun ease-in 0.1s forwards;
 			-webkit-animation:carrun  ease-in forwards;
 			animation-duration:4.2s;
 			-webkit-animation-duration:4.2s; 
 		}
 		.run3{
-			animation: carrun ease-in forwards;
+			animation: carrun ease-in 0.1s forwards;
 			-webkit-animation:carrun  ease-in forwards;
 			animation-duration:4.5s;
 			-webkit-animation-duration:4.5s; 
 		}
 		.run4{
-			animation: carrun ease-in forwards;
+			animation: carrun ease-in 0.1s forwards;
 			-webkit-animation:carrun  ease-in forwards;
 			animation-duration:4.8s;
 			-webkit-animation-duration:4.8s; 
 		}
 		.run5{
-			animation: carrun ease-in forwards;
+			animation: carrun ease-in 0.1s forwards;
 			-webkit-animation:carrun  ease-in forwards;
 			animation-duration:5s;
 			-webkit-animation-duration:5s; 
 		}
 		.run6{
-			animation: carrun ease-in forwards;
+			animation: carrun ease-in 0.1s forwards;
 			-webkit-animation:carrun  ease-in forwards;
 			animation-duration:5.2s;
 			-webkit-animation-duration:5.2s; 
 		}
 		.run7{
-			animation: carrun ease-in forwards;
+			animation: carrun ease-in 0.1s forwards;
 			-webkit-animation:carrun  ease-in forwards;
 			animation-duration:5.4s;
 			-webkit-animation-duration:5.4s; 
 		}
 		.run8{
-			animation: carrun ease-in forwards;
+			animation: carrun ease-in 0.1s forwards;
 			-webkit-animation:carrun  ease-in forwards;
 			animation-duration:5.6s;
 			-webkit-animation-duration:5.6s; 
 		}
 		.run9{
-			animation: carrun ease-in forwards;
+			animation: carrun ease-in 0.1s forwards;
 			-webkit-animation:carrun  ease-in forwards;
 			animation-duration:5.8s;
 			-webkit-animation-duration:5.8s; 
 		}
 		.run10{
-			animation: carrun ease-in forwards;
+			animation: carrun ease-in 0.1s forwards;
 			-webkit-animation:carrun  ease-in forwards;
 			animation-duration:6s;
 			-webkit-animation-duration:6s; 
@@ -708,8 +708,8 @@
 					
 				</div>
 			</div>
-			<div v-show="isshowCountdown" class="countdown">
-				12
+			<div v-show="isshowCountdown" class="countdown" v-text="countdown">
+				
 			</div>
 		</div>
 		<div class="operations">
@@ -721,9 +721,9 @@
 		</div>
 		<div class="chat">
 			<div class="fen">
-				<span>本期使用：<span id="issueuse">00</span></span>
-				<span>本期共用：<span id="issuetotal">00</span></span>
-				<span>目前存分：<span id="present">1100</span></span>
+				<span>本次用分：<span id="issueuse">00</span></span>
+				<span>本期用分：<span id="issuetotal">00</span></span>
+				<span>目前存分：<span id="present" v-text="dangqiancunfen"></span></span>
 			</div>
 			<pre id='h'></pre>
 		<div class="mui-content">
@@ -796,9 +796,16 @@
 						el:'#vueobj',
 						data:{
 							issueNo:123,//期号
-							issueTime:'2016:12:4',//时间
+							issueTime:'2016:12:4',//开奖时间
 							isshowCountdown:true,//显示倒计时，
-							countdown:0,//倒计时
+							countdown:'',//倒计时,
+							dangqiancunfen:0,//当前存分
+							lotteryTime:50,//小车跑的时间距离结束时间 小车总共跑了6秒
+							AccordingTime:100,//get后台开奖时间距离结束时间
+							gundanTime:150,//滚单时间距离结束时间
+							lotteryResults:[],//开奖结果 倒计时10秒的时候 不显示 
+							iscanbet:true,//可以投注
+							endtime:0,
 							colortype:{
 								'01':'#febf1c',
 								'02':'#0463fd',
@@ -869,19 +876,31 @@
 						},
 						methods:{
 							send:function(msg){
+								if(!this.iscanbet){
+									mui.toast("现在不能下单,请等待下一期")
+									return
+								}
+								
 								this.record.push(msg);//显示发送的数据
 								document.querySelector('#msg-list').scrollTop =document.querySelector('#msg-list').scrollHeight + document.querySelector('#msg-list').offsetHeight;
-								console.log(document.querySelector('#msg-list'))
+								//console.log(document.querySelector('#msg-list'))
 								var issueNo=this.issueNo
 								var userid=this.userinfo.id
+								console.log(msg.content)
 								mui.post('http://192.168.1.111/apptest/index.php/home/Statistics/vehicle',{
 								id:userid,
 								issue:issueNo,
 								type:1,
-								str:msg
+								str:msg.content
 								},function(data){
-									//sj(data)
-									
+									sj(data)
+									if(data!='-1'){
+										mui.toast("下单成功本次下单金额为"+data);
+										
+									}else{
+										console.log(121212)
+										mui.toast("下单不成功")
+									}
 									
 									},'json'
 								);
@@ -908,7 +927,7 @@
 
 
 							},
-							getuserimg:function(userid){
+							getuserimg:function(userid){//获取用户头像
 								
 								var vm=this
 								mui.post('http://bjsc.bayuenet.com/index.php/admin/index/facepath',{
@@ -929,6 +948,7 @@
 							  mui.post('http://bjsc.bayuenet.com/index.php/admin/index/usersafemoney',{
 								id:userid,
 								},function(data){
+									
 									if(data.code==200){
 										//document.getElementById('bao').innerText=data.bao.safeintegral
 										document.getElementById('present').innerText=data.tai.integral
@@ -973,7 +993,7 @@
 								},6000)
 								//console.log(JSON.stringify(this.carrun))
 							},
-							vuerelease:function(){
+							vuerelease:function(){//点击发送按钮
 								if (mui.os.ios) {
 										var webView = plus.webview.currentWebview().nativeInstanceObject();
 										webView.plusCallMethod({
@@ -1033,16 +1053,16 @@
 					            ws.onmessage=function(data){
 					            	var s=clearString(data.data)
 					            	var d={
-									sender: 'other',
-									type: 'text',
-									content:s,
-									img:'../../image/weishangchuantouxiang@2x.png'
+										sender: 'other',
+										type: 'text',
+										content:s,
+										img:'../../image/weishangchuantouxiang@2x.png'
 									}
 					            	vm.record.push(d);
 					            	//console.log(JSON.stringify(d))
 					            }
 							},
-							settimetest:function(s,arr){
+							settimetest:function(s,arr){//测试 开奖
 								//console.log(jQuery('#car1').css('transform'))
 								var vm=this
 								for(var j=0;j<arr.length;j++){
@@ -1058,7 +1078,7 @@
 										 	jQuery('#car1').css('transform')
 											
 										function getmsg(){
-											console.log(t)
+											//console.log(t)
 											
 											jQuery('.lottery').html('')
 											var runcar=vm.carrun
@@ -1076,8 +1096,8 @@
 												
 												testnum[i]=testnum[i]-0
 												var d=i+1
-												jQuery('#car'+d).addClass('run'+testnum[i])
-												
+												jQuery('#car'+testnum[i]).addClass('run'+d)
+												console.log()
 												runcar[i].ranking=testnum[i]
 											}
 										//	console.log(jQuery('#car1').attr('class'))
@@ -1088,6 +1108,7 @@
 											setTimeout(function(){
 												jQuery('.lottery').html(teststr)
 											},6000)
+											
 											
 										}
 										getmsg()
@@ -1100,7 +1121,52 @@
 								
 								
 							},
-							
+							showcarrun:function(){//显示开奖结果 小车跑
+								var vm=this
+								var runcar=vm.carrun
+										var testnum=vm.lotteryResults
+										console.log(testnum)
+										for(var i=0;i<testnum.length;i++){
+												if(testnum[i]=='0'){
+													testnum[i]=10
+												}
+												
+												testnum[i]=testnum[i]-0
+												var d=i+1
+												jQuery('#car'+testnum[i]).addClass('run'+d)
+												
+												runcar[i].ranking=testnum[i]
+											}
+									vm.carrun=runcar
+									setTimeout(function(){
+										vm.showlotteryResults(testnum)
+										vm.lotteryResults=[]
+										jQuery('.car').attr('class','car')
+										jQuery('.car').css({
+												'-webkit-transform':'',
+												'transform':''
+										})
+										jQuery('#car1').css('transform')
+									},6000)
+										
+							},
+							showlotteryResults:function(testnum){//显示 开奖结果 头上面
+								var teststr=''
+								var colortype=this.colortype
+								
+								
+								for(var i=0;i<testnum.length;i++){
+									testnum[i]='0'+testnum[i]
+									if(testnum[i]=='010'){
+										testnum[i]='10'
+										}
+
+										teststr+='<span style="background:'+colortype[testnum[i]]+'">'+testnum[i]+'</span>'
+									}
+								
+								jQuery('.lottery').html(teststr)
+								
+							},
 							consoletest:function(){
 								
 								var d={
@@ -1110,10 +1176,76 @@
 								this.settimetest(d.time,d.lottery)
 								
 								
-							}
+							},
+							CalculateCountdown:function(tiem){//显示倒计时多少秒
+								var vm=this
+								vm.isshowCountdown=true
+								var Countdown=tiem
+								var setInt=setInterval(function(){
+									
+									Countdown=Countdown-1
+									if(Countdown<=0){
+										clearTimeout(setInt)
+										vm.showcarrun()
+										vm.isshowCountdown=false
+										return false
+									}
+									vm.countdown=Countdown
+								},1000)
+								
+								
+								
+							},
+							userinter:function(){//用户进入游戏
+								//ajax 用户进入游戏时请求
+								
+								var vm=this
+								var data={
+									nper:1021,//期数
+									presentTime:84740,//当前时间
+									endTime:84841//这一期结束时间
+								}
+								vm.issueNo=data.nper//期号
+								var lotteryTime=this.lotteryTime//小车跑距离结束时间 显示开奖结果时间 
+								var AccordingTime=this.AccordingTime//从后台获取这一期开奖时间距离结束时间的差值 现在是100
+								console.log(data.endTime-data.presentTime)
+								var endtime=data.endTime-data.presentTime//当前进入时间到本期结束时间差
+								var canshur=data.endTime-data.presentTime-AccordingTime//当前时间get距离开奖时间
+								var littime=data.endTime-data.presentTime-lotteryTime//当前时间距离显示开奖时间 小车跑
+								vm.endtime=endtime
+								
+								console.log(canshur)
+								console.log(littime)
+								
+								if(canshur<0){//进入时间小于开奖时间了
+									vm.iscanbet=!vm.iscanbet
+									vm.isshowCountdown=false
+									return
+									//当前时间进入时这一期已经开奖 不能给用户输入了
+									
+								}else{
+									
+									setTimeout(function(){
+										//ajax 获取开奖结果
+										vm.lotteryResults=['01','02','07','09','08','06','04','0','05','03']//开奖数据
+									},canshur)
+									setTimeout(function(){
+										vm.userinter()
+									},(endtime+1)*1000)
+									
+									
+									this.CalculateCountdown(littime)//显示倒计时多少秒
+								}
+								
+								
+								
+								
+							},
 						},
 						ready:function(){
-							this.consoletest()
+						//	this.consoletest()
+						this.userinter()
+						this.getuserscore()
 							this.userinfo.id=localStorage.getItem('userid');
 							this.getuserimg(this.userinfo.id)
 							document.querySelector('#h').style.width = document.querySelector('#msg-text').offsetWidth + 'px';

@@ -620,7 +620,7 @@
 			</div>
 			<div class="money">
 				<span id="money" v-text='vueuserinfo.money'>
-					00000
+					
 				</span>
 			</div>
 			<div class="userCenter">
@@ -748,7 +748,7 @@
 						],
 						vueuserinfo:{//用户信息
 							name:'',
-							money:0,
+							money:0000,
 							img:'../../image/weishangchuantouxiang@2x.png'
 						},
 						vueinform:[//举报内容
@@ -785,7 +785,7 @@
 							var userid=this.userid
 							var cont=this.informarr.join(',')
 							//console.log(cont)
-							mui.post('http://bjsc.bayuenet.com/index.php/admin/index/Report',{
+							mui.post('http://demobc.bayuenet.com:9096/bjsc/index.php/admin/index/Report',{
 								content:cont,
 								id:userid
 							},function(data){
@@ -834,7 +834,7 @@
 							var userid=localStorage.getItem('userid')
 							
 							var vm=this
-							mui.post('http://bjsc.bayuenet.com/index.php/admin/index/usersafemoney',{
+							mui.post('http://demobc.bayuenet.com:9096/bjsc/index.php/admin/index/usersafemoney',{
 								id:userid,
 							},function(data){
 								
@@ -845,7 +845,7 @@
 								
 								},'json'
 							);
-							mui.post('http://bjsc.bayuenet.com/index.php/admin/index/facepath',{
+							mui.post('http://demobc.bayuenet.com:9096/bjsc/index.php/admin/index/facepath',{
 								id:userid,
 							},function(data){
 							
@@ -862,7 +862,7 @@
 					ready:function(){
 						var username=localStorage.getItem('username')
 						var userid=localStorage.getItem('userid')
-
+						onNetChange()
 						this.getuserinfo()
 						this.userid=userid
 						this.vueuserinfo.name=username

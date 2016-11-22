@@ -185,6 +185,9 @@
 						<div id="scroll1" class="mui-scroll-wrapper">
 							<div class="mui-scroll">
 								<table class="bet" border="0" cellspacing="" cellpadding="">
+									<thead>
+										
+									
 									<tr>
 										<th class="periods">期数</th>
 										<th class="play">玩法</th>
@@ -192,15 +195,10 @@
 										<th class="results">结果</th>
 										<th class="state">状态</th>
 									</tr>
-									
-									<tr v-for=" it in benqi">
-										<td v-text="it.issue"></td>
-										<td v-text='it.playtype'></td>
-										<td  v-text='it.guessing' class="showu" id="test1"></td>
-										<td v-text='it.result' ></td>
-										<td v-text='it.state' class="showu" id="test1"></td>
-									</tr>
-									
+									</thead>
+									<tbody id="benqi">
+										
+									</tbody>
 								</table>
 							</div>
 						</div>
@@ -209,36 +207,17 @@
 						<div id="scroll2" class="mui-scroll-wrapper">
 							<div class="mui-scroll">
 								<table class="thisweek week" border="0" cellspacing="" cellpadding="">
-									<tr>
+									<thead>
+										<tr>
 										<th class="date">日期</th>
 										<th class="quiz">竞猜</th>
 										<th class="results">结果</th>
-									</tr>
-									<tr>
-										<td>5841544</td>
-										<td>10.17 12:54</td>
-										<td class="showu" id="test1">Data</td>
-									</tr>
-									<tr>
-										<td>Data</td>
-										<td>Data</td>
-										<td>Data</td>
-									</tr>
-									<tr>
-										<td>Data</td>
-										<td>Data</td>
-										<td>Data</td>
-									</tr>
-									<tr>
-										<td>Data</td>
-										<td>Data</td>
-										<td>Data</td>
-									</tr>
-									<tr>
-										<td>Data</td>
-										<td>Data</td>
-										<td>Data</td>
-									</tr>
+										</tr>
+									</thead>
+									<tbody id="benzhou">
+										
+									</tbody>
+									
 								</table>
 								
 								<!--<div class="mui-loading">
@@ -253,36 +232,16 @@
 						<div id="scroll3" class="mui-scroll-wrapper">
 							<div class="mui-scroll">
 								<table class="thisweek week" border="0" cellspacing="" cellpadding="">
+									<thead>
 									<tr>
 										<th class="date">日期</th>
 										<th class="quiz">竞猜</th>
 										<th class="results">结果</th>
 									</tr>
-									<tr>
-										<td>5841544</td>
-										<td>10.17 12:54</td>
-										<td class="showu" id="test1">Data</td>
-									</tr>
-									<tr>
-										<td>Data</td>
-										<td>Data</td>
-										<td>Data</td>
-									</tr>
-									<tr>
-										<td>Data</td>
-										<td>Data</td>
-										<td>Data</td>
-									</tr>
-									<tr>
-										<td>Data</td>
-										<td>Data</td>
-										<td>Data</td>
-									</tr>
-									<tr>
-										<td>Data</td>
-										<td>Data</td>
-										<td>Data</td>
-									</tr>
+									</thead>
+									<tbody id="shangzhou">
+									
+									</tbody>
 								</table>
 								
 								<!--<div class="mui-loading">
@@ -303,46 +262,95 @@
 					$('.mui-scroll-wrapper').scroll({
 						indicators: true //是否显示滚动条
 					});
+					var self = plus.webview.currentWebview();
+					console.log(self.sueNo)
+					var sueNo='01001' //self.sueNo.toString()
+					var userid=21//localStorage.getItem('userid')
+					$.post('http://demobc.bayuenet.com:9096/bjsc/index.php/admin/index/benzhou',{
+						id:userid,
+						},function(data){
+						
+							var res=''
+							for(i in data){
+								
+								res+='<tr onclick="qwdaa(this)" class="tomix">'
+									+'<td>'+data[i].time+'</td>'
+									+'<td>'+data[i].num+'</td>'
+									+'<td>'+data[i].playtype+'</td>'
+									+'</tr>'
+							}
+							 jQuery('#benzhou').html(res)
+							
+						},'json'
+							
+					)
+					$.post('http://demobc.bayuenet.com:9096/bjsc/index.php/admin/index/xiazhou',{
+						id:userid,
+						},function(data){
+							var res=''
+							for(i in data){
+								
+								res+='<tr onclick="qwdaa(this)" class="tomix">'
+									+'<td>'+data[i].time+'</td>'
+									+'<td>'+data[i].num+'</td>'
+									+'<td>'+data[i].playtype+'</td>'
+									+'</tr>'
+							}
+							 jQuery('#shangzhou').html(res)
+							
+						},'json'
+							
+					)
 					
-					var sliderSegmentedControl = document.getElementById('sliderSegmentedControl');
-				
-				})(mui);
-				new Vue({
-					el:'#slider',
-					data:{
-						userid:'',
-						sueNo:'',
-						benqi:[]
-					},
-					methods:{
-						getbenqixiazhu:function(){
-							var userid=21
-							var sueNo=01001
-							var vm=this
-							mui.post('http://192.168.1.111/apptest/index.php/admin/index/mingxi',{
-								id:userid,
-								issue:sueNo
+					$.post('http://demobc.bayuenet.com:9096/bjsc/index.php/admin/index/mingxi',{
+								id:21,
+								issue:'01001'
 								},function(data){
-									console.log(JSON.stringify(data))
-									vm.benqi=data
+									var res=''
+									
+									data.map(function(v,i){
+										res+="<tr>"
+											+"<td>"+v.issue+"</td>"
+											+"<td>"+v.playtype+"</td>"
+											+'<td class="showu">'+v.guessing+'</td>'
+											+'<td >'+v.result+'</td>'
+											+'<td  class="showu">'+v.state+'</td>'
+										+'</tr>'
+									})
+									jQuery('#benqi').html(res)
 								},'json'
 							
-							)
-						},
-						
-
-					},
-					ready:function(){
-						var self = plus.webview.currentWebview();
-						this.sueNo=self.sueNo
-						//var sueNo = this.getUrlParam('sueNo');
-						
-						this.userid=localStorage.getItem('userid')
-						
-						this.getbenqixiazhu()
-					}
+					)
+//					jQuery.ajax({
+//						type:'post',
+//						data:{
+//								id:21,
+//								issue:01001
+//						},
+//						url:'http://demobc.bayuenet.com:9096/bjsc/index.php/admin/index/mingxi',
+//						dataType:'json',
+//						success:function(data){
+//							console.log(JSON.stringify(data))
+//						}
+//					})
 					
 					
+					
+//					document.querySelectorAll('.tomix').addEventListener('tap',function(e){
+//						console.log(e.target.ti)
+//						
+//					},false)
+					
+					
+					
+					
+				
+				})(mui);
+				jQuery(function(){
+					jQuery('.tomix').click(function(){
+						var time=jQuery(this).attr('ti')
+						console.log(time)
+					})
 				})
 				
 				
@@ -350,8 +358,31 @@
 				
 				
 				
+				
+				
+				
 			})
-		
+			function qwdaa(t){
+				var time=jQuery(t).children().first().text()
+				mui.openWindow({
+							url: 'bettingDetail.html',
+							id: 'bettingDetail',
+							preload: true,
+							show: {
+								aniShow: 'pop-in'
+							},
+							styles: {
+								popGesture: 'hide'
+							},
+							waiting: {
+								autoShow: false
+							},
+							extras: {
+								time: time
+							}
+						});
+				
+			}
 				
 		</script>
 	</body>

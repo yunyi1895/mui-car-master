@@ -710,6 +710,8 @@
 			</div>
 			<div v-show="isshowCountdown" class="countdown" v-text="countdown">
 				
+				
+				
 			</div>
 		</div>
 		<div class="operations">
@@ -764,8 +766,8 @@
 		</footer>
 		<div class="rules">
 			<ul>
-				<li><a>规则</a></li>
-				<li><a>清屏</a></li>
+				<li><a href="rules.html">规则</a></li>
+				<li @click="qingping"><a>清屏</a></li>
 			</ul>
 		</div>
 		</div>
@@ -800,7 +802,7 @@
 							isshowCountdown:true,//显示倒计时，
 							countdown:'',//倒计时,
 							dangqiancunfen:0,//当前存分
-							lotteryTime:50,//小车跑的时间距离结束时间 小车总共跑了6秒
+							lotteryTime:50,//小车跑的时间距离结束时间 小车总共跑了6秒 到本期结束为止都不能下单
 							AccordingTime:100,//get后台开奖时间距离结束时间
 							gundanTime:150,//滚单时间距离结束时间
 							lotteryResults:[],//开奖结果 倒计时10秒的时候 不显示 
@@ -832,22 +834,22 @@
 								ranking:''
 							},{
 								id:5,
-								ranking:0
+								ranking:''
 							},{
 								id:6,
-								ranking:0
+								ranking:''
 							},{
 								id:7,
-								ranking:0
+								ranking:''
 							},{
 								id:8,
-								ranking:0
+								ranking:''
 							},{
 								id:9,
-								ranking:0
+								ranking:''
 							},{
 								id:10,
-								ranking:0
+								ranking:''
 							}],
 							record:[{//初始化聊天室
 								sender: 'zs',
@@ -875,6 +877,16 @@
 							}
 						},
 						methods:{
+							qingping:function(){//清屏
+								jQuery('.rules').hide()
+								this.record=[{//初始化聊天室
+								sender: 'zs',
+								type: 'text',
+								content: '欢迎进入北京赛车，您可以通过发送消息进行下单',
+								img:'../../image/180x180.png'
+							}]
+								
+							},
 							send:function(msg){
 								if(!this.iscanbet){
 									mui.toast("现在不能下单,请等待下一期")
@@ -887,7 +899,7 @@
 								var issueNo=this.issueNo
 								var userid=this.userinfo.id
 								console.log(msg.content)
-								mui.post('http://192.168.1.111/apptest/index.php/home/Statistics/vehicle',{
+								mui.post('http://demobc.bayuenet.com:9096/bjsc/index.php/home/Statistics/vehicle',{
 								id:userid,
 								issue:issueNo,
 								type:1,
@@ -899,7 +911,7 @@
 										
 									}else{
 										console.log(121212)
-										mui.toast("下单不成功")
+										mui.toast("下单不成功,下单分数大于了您的存分")
 									}
 									
 									},'json'
@@ -930,7 +942,7 @@
 							getuserimg:function(userid){//获取用户头像
 								
 								var vm=this
-								mui.post('http://bjsc.bayuenet.com/index.php/admin/index/facepath',{
+								mui.post('http://demobc.bayuenet.com:9096/bjsc/index.php/admin/index/facepath',{
 								id:userid,
 								},function(data){
 									
@@ -945,7 +957,7 @@
 							},
 							getuserscore:function(userid){//获取用户存分
 							
-							  mui.post('http://bjsc.bayuenet.com/index.php/admin/index/usersafemoney',{
+							  mui.post('http://demobc.bayuenet.com:9096/bjsc/index.php/admin/index/usersafemoney',{
 								id:userid,
 								},function(data){
 									
@@ -1123,6 +1135,7 @@
 							},
 							showcarrun:function(){//显示开奖结果 小车跑
 								var vm=this
+								
 								var runcar=vm.carrun
 										var testnum=vm.lotteryResults
 										console.log(testnum)
@@ -1182,8 +1195,13 @@
 								vm.isshowCountdown=true
 								var Countdown=tiem
 								var setInt=setInterval(function(){
-									
 									Countdown=Countdown-1
+									if(Countdown<=10){
+										vm.iscanbet=false
+										//vm.isshowCountdown=false
+										
+									}
+									
 									if(Countdown<=0){
 										clearTimeout(setInt)
 										vm.showcarrun()
@@ -1196,55 +1214,134 @@
 								
 								
 							},
-							userinter:function(){//用户进入游戏
+							userinter:function(obj){//用户进入游戏
 								//ajax 用户进入游戏时请求
 								
 								var vm=this
 								var data={
-									nper:1021,//期数
-									presentTime:84740,//当前时间
-									endTime:84841//这一期结束时间
+//									nper:1021,//期数
+//									presentTime:84025,//当前时间
+//									endTime:84090//这一期结束时间
 								}
+								data.nper=obj.qihao
+								data.presentTime=obj.time
+								data.endTime=obj.endtime
+								sj(data)
 								vm.issueNo=data.nper//期号
 								var lotteryTime=this.lotteryTime//小车跑距离结束时间 显示开奖结果时间 
-								var AccordingTime=this.AccordingTime//从后台获取这一期开奖时间距离结束时间的差值 现在是100
+								var AccordingTime=this.AccordingTime//从后台获取这一期开奖时间距离结束时间的差值 现在是100 现在不要了
 								console.log(data.endTime-data.presentTime)
 								var endtime=data.endTime-data.presentTime//当前进入时间到本期结束时间差
 								var canshur=data.endTime-data.presentTime-AccordingTime//当前时间get距离开奖时间
-								var littime=data.endTime-data.presentTime-lotteryTime//当前时间距离显示开奖时间 小车跑
+								var littime=data.endTime-data.presentTime-lotteryTime//当前时间距离显示开奖时间 小车跑 现在是50
 								vm.endtime=endtime
 								
 								console.log(canshur)
 								console.log(littime)
 								
-								if(canshur<0){//进入时间小于开奖时间了
-									vm.iscanbet=!vm.iscanbet
+								if(littime<10){//进入时间小于小车跑的时间了 小车跑10s在之前不能下单
+									vm.iscanbet=false
 									vm.isshowCountdown=false
+									var endTiemsetint=setInterval(function(){
+										vm.endtime=vm.endtime-1
+										console.log(vm.endtime)
+										if(vm.endtime<=0){
+											
+											clearInterval(endTiemsetint)
+											setTimeout(function(){
+												console.log("请求下一期")
+												vm.initenter()
+											},1000)
+											
+											return
+										}
+										
+									},1000)
 									return
 									//当前时间进入时这一期已经开奖 不能给用户输入了
 									
 								}else{
 									
+									
+									vm.iscanbet=true
 									setTimeout(function(){
 										//ajax 获取开奖结果
-										vm.lotteryResults=['01','02','07','09','08','06','04','0','05','03']//开奖数据
+										mui.post('http://demobc.bayuenet.com:9096/bjsc/index.php/admin/box/order',{
+											
+											},function(data){
+												var da=data.split(' ')
+												//console.log(da)
+												vm.lotteryResults=da
+												//sj(data)
+											},'json'
+										);
+										
+										//vm.lotteryResults=['01','02','07','09','08','06','04','10','05','03']//开奖数据
 									},canshur)
+									
+									var endTiemsetint2=setInterval(function(){
+										vm.endtime=vm.endtime-1
+									//	console.log(vm.endtime)
+										if(vm.endtime<=0){
+											clearInterval(endTiemsetint2)
+											return
+										}
+										
+									},1000)
+									
 									setTimeout(function(){
-										vm.userinter()
+										vm.initenter()
+										console.log("请求下一期")
+										return
 									},(endtime+1)*1000)
 									
 									
 									this.CalculateCountdown(littime)//显示倒计时多少秒
+									
 								}
 								
-								
-								
-								
 							},
+							initenter:function(){
+								var vm=this
+									mui.post('http://demobc.bayuenet.com:9096/bjsc/index.php/admin/index/gametime',{
+											
+											},function(data){
+												sj(data)
+												if(data.code==-200||data.qihao==null){
+													mui.toast('游戏未开始')
+													mui.openWindow({
+													url: '../home/hall.html',
+													id: 'hall',
+													preload: true,
+													show: {
+														aniShow: 'pop-in'
+													},
+													styles: {
+														popGesture: 'hide'
+													},
+													waiting: {
+														autoShow: false
+													}
+												});
+													
+													return
+												}else{
+													vm.userinter(data)
+												}
+												
+												//var da=data.split(' ')
+												//console.log(da)
+												//vm.lotteryResults=da
+												
+											},'json'
+										);
+								}
 						},
 						ready:function(){
 						//	this.consoletest()
-						this.userinter()
+						this.initenter()
+					//	onNetChange()
+					//	this.userinter()
 						this.getuserscore()
 							this.userinfo.id=localStorage.getItem('userid');
 							this.getuserimg(this.userinfo.id)

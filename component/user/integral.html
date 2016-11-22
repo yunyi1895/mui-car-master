@@ -5,7 +5,8 @@
 		<meta charset="UTF-8">
 		<title></title>
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
-		
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<!--<script src="../../js/jquery-2.1.0.js" type="text/javascript" charset="utf-8"></script>-->
 		<link href="../../css/mui.min.css" rel="stylesheet" />
 		<link rel="stylesheet" type="text/css" href="../../public/public.css"/>
@@ -151,7 +152,7 @@
 			mui.plusReady(function(){
 				var userid=localStorage.getItem('userid')
 			//	console.log(userid)
-					mui.post('http://bjsc.bayuenet.com/index.php/admin/index/usersafemoney',{
+					mui.post('http://demobc.bayuenet.com:9096/bjsc/index.php/admin/index/usersafemoney',{
 								id:userid,
 							},function(data){
 								if(data.code==200){

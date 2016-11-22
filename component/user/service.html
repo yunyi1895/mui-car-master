@@ -497,7 +497,7 @@
 						bindMsgList();
 						toRobot(msg.content);
 					};
-					var toRobot = function(info) {//这里以后写websocket
+					var toRobot = function(info) {//这里以后写websocket里面的send和message
 						var apiUrl = 'http://www.tuling123.com/openapi/api';
 						$.getJSON(apiUrl, {
 							"key": 'acfbca724ea1b5db96d2eef88ce677dc',
@@ -513,7 +513,36 @@
 							bindMsgList();
 						});
 					};
-
+					var initWebSocket=function(){
+						  ws = new WebSocket('ws://211.149.235.46:3999/');//192.168.1.111/apptest/index.php/home/Statistics/vehicle
+								
+								
+							//	console.log(JSON.stringify(ws))
+								ws.onerror = function() {
+						            //连接失败
+						            mui.toast('连接发生错误');
+						        };
+								ws.onopen = function(){
+								//	console.log(111)
+					                  // Web Socket 已连接上，使用 send() 方法发送数据
+					                  ws.send("111222");
+					                  //alert("数据发送中...");
+					               };
+					            ws.onmessage=function(data){
+					            	var s=clearString(data.data)
+					            	var d={
+										sender: 'other',
+										type: 'text',
+										content:s,
+										img:'../../image/weishangchuantouxiang@2x.png'
+									}
+					            	vm.record.push(d);
+					            	//console.log(JSON.stringify(d))
+					            }
+					}
+					
+					
+					
 					function msgTextFocus() {
 							ui.boxMsgText.focus();
 							setTimeout(function() {

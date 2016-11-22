@@ -243,12 +243,14 @@
 			"js/socket.io.js",
 			"public/public.js",
 			"music/5888.mp3",
-			"image/weishangchuantouxiang@2x.png"
+			"image/weishangchuantouxiang@2x.png",
+			"component/game/rules.html"
 		],
 		"refer": [
 			"component/game/OpeningRecord.html",
 			"component/game/gamerecord.html",
-			"component/home/hall.html"
+			"component/home/hall.html",
+			"component/game/rules.html"
 		]
 	},
 	"component/game/OpeningRecord.html": {
@@ -280,7 +282,8 @@
 			"public/public.css"
 		],
 		"refer": [
-			"component/game/car.html"
+			"component/game/car.html",
+			"component/game/bettingDetail.html"
 		]
 	},
 	"component/user/passwordauthentification.html": {
@@ -318,6 +321,26 @@
 		],
 		"refer": [
 			"component/home/hall.html"
+		]
+	},
+	"component/game/rules.html": {
+		"resources": [
+			"component/game/car.html"
+		],
+		"refer": [
+			"component/game/car.html"
+		]
+	},
+	"component/game/bettingDetail.html": {
+		"resources": [
+			"js/setrem.js",
+			"js/vue1.0.js",
+			"js/mui.min.js",
+			"fonts/mui.ttf",
+			"css/mui.min.css",
+			"js/jquery-2.1.0.js",
+			"image/bg.png",
+			"public/public.css"
 		]
 	}
 }

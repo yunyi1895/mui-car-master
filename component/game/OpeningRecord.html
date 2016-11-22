@@ -6,7 +6,7 @@
 		<title></title>
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<script src="../../js/vue1.0.js" type="text/javascript" charset="utf-8"></script>
-		<script src="../../js/jquery-2.1.0.js" type="text/javascript" charset="utf-8"></script>
+		
 		<link href="../../css/mui.min.css" rel="stylesheet" />
 		<link rel="stylesheet" type="text/css" href="../../public/public.css"/>
 		<script src="../../js/setrem.js" type="text/javascript" charset="utf-8"></script>
@@ -132,6 +132,7 @@
 	</head>
 
 	<body>
+		<div id="vueobj">
 		<header class="mui-bar ">
 				<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
 				<h1 class="mui-title">开局记录</h1>
@@ -140,11 +141,11 @@
 			
 			<div class="lotteryxin">
 				<div class="information">
-					<span>期号584144</span>
-					<span>开奖时间：2016.10.54 08:45</span>
+					<span>期号:<span v-text="fistkaijiang.issue"></span></span>
+					<span>开奖时间：<span v-text="fistkaijiang.date"></span></span>
 				</div>
 				<div id="shownum" class="num">
-					
+					<span v-for="u in fistkaijiang.number" :style="{background:colortype[u]}" v-text="u"></span>
 				</div>
 			</div>
 			
@@ -170,30 +171,14 @@
 										<th class="time">时间</th>
 										<th class="num">开奖号码</th>
 									</tr>
-									<tr>
-										<td>5841544</td>
-										<td>10.17 12:54</td>
-										<td class="showu" id="test1">Data</td>
-									</tr>
-									<tr>
-										<td>Data</td>
-										<td>Data</td>
-										<td>Data</td>
-									</tr>
-									<tr>
-										<td>Data</td>
-										<td>Data</td>
-										<td>Data</td>
-									</tr>
-									<tr>
-										<td>Data</td>
-										<td>Data</td>
-										<td>Data</td>
-									</tr>
-									<tr>
-										<td>Data</td>
-										<td>Data</td>
-										<td>Data</td>
+									
+									<tr v-for="item in kaijiang">
+										<td v-text="item.issue"></td>
+										<td v-text="item.date"></td>
+										<td class="showu">
+											<span v-for="u in item.number" :style="{color:colortype[u]}" v-text="u"></span>
+											
+										</td>
 									</tr>
 								</table>
 							</div>
@@ -208,30 +193,11 @@
 										<th class="crown">冠亚</th>
 										<th class="spiritessence">龙虎</th>
 									</tr>
-									<tr>
-										<td>5841544</td>
-										<td>10.17 12:54</td>
-										<td class="showu" id="test1">Data</td>
-									</tr>
-									<tr>
-										<td>Data</td>
-										<td>Data</td>
-										<td>Data</td>
-									</tr>
-									<tr>
-										<td>Data</td>
-										<td>Data</td>
-										<td>Data</td>
-									</tr>
-									<tr>
-										<td>Data</td>
-										<td>Data</td>
-										<td>Data</td>
-									</tr>
-									<tr>
-										<td>Data</td>
-										<td>Data</td>
-										<td>Data</td>
+								
+									<tr v-for="item in longhu">
+										<td v-text="item.issue"></td>
+										<td v-text="item.crown"></td>
+										<td v-text="item.sande" class="showu" ></td>
 									</tr>
 								</table>
 								
@@ -246,46 +212,132 @@
 				
 				</div>
 			</div>
+			</div>
 		<script src="../../js/mui.min.js"></script>
 		<script type="text/javascript">
 			mui.init()
 			mui.plusReady(function(){
 				(function($) {
+					$('.mui-scroll-wrapper').scroll({
+						indicators: true //是否显示滚动条
+					});
+				})(mui);
 				var colortype={
-					'01':'#febf1c',
-					'02':'#0463fd',
-					'03':'#5e5d59',
-					'04':'#fd7b0b',
-					'05':'#1cd3fb',
-					'06':'#4008ff',
-					'07':'#9b9893',
-					'08':'#ff180a',
-					'09':'#ad1c07',
-					'10':'#00ed00'
+							'01':'#febf1c',
+							'02':'#0463fd',
+							'03':'#5e5d59',
+							'04':'#fd7b0b',
+							'05':'#1cd3fb',
+							'06':'#4008ff',
+							'07':'#9b9893',
+							'08':'#ff180a',
+							'09':'#ad1c07',
+							'10':'#00ed00'
 				}
-				var testnum=['01','02','07','09','08','06','04','10','05','03']
-				var teststr=''
-				var tablestr=''
-				for(var i=0;i<testnum.length;i++){
-					teststr+='<span style="background:'+colortype[testnum[i]]+'">'+testnum[i]+'</span>'
-					tablestr+='<span style="color:'+colortype[testnum[i]]+'">'+testnum[i]+'</span>'
-				}
-				document.getElementById('shownum').innerHTML=teststr
-				document.getElementById('test1').innerHTML=tablestr
 				
 				
+				//teststr+='<span style="background:'+colortype[testnum[i]]+'">'+testnum[i]+'</span>'
+//				mui.post('http://demobc.bayuenet.com:9096/bjsc/index.php/admin/box/result',{//开奖结果
+//														
+//							},function(data){
+//								console.log(JSON.stringify(data))
+//								var fistdata=data[0]
+//								var firstres=''
+//								for(it in fistdata)
+//								
+//							},'json'
+//							);
+						
+								//teststr+='<span style="background:'+colortype[testnum[i]]+'">'+testnum[i]+'</span>'
+//				mui.post('http://demobc.bayuenet.com:9096/bjsc/index.php/admin/box/result',{//开奖结果
+//														
+//							},function(data){
+//								console.log(JSON.stringify(data))
+//								var fistdata=data[0].number
+//								document.getElementById('firstqihao').innerHTML=data[0].issue
+//								document.getElementById('firstjieguo').innerHTML=data[0].date
+//								var firstres=''
+//								fistdata.map(function(v,i){
+//									firstres+='<span style="background:'+colortype[v]+'">'+v+'</span>'
+//									
+//								})
+//								console.log(firstres)
+//								var res=''
+//									for(var i=0;i<data.length;i++){
+//										
+//										res+="<tr>"
+//											+"<td ></td>"
+//											+"<td ></td>"
+//											+"<td>"
+//												+"<span>""</span>"
+//												
+//											+"</td>"
+//										+"</tr>"
+//										
+//									}
+//								
+//								})
+//								
+//								
+//								document.getElementById('shownum').innerHTML=firstres
+//								
+//							},'json'
+//							);
 				
-				$('.mui-scroll-wrapper').scroll({
-					indicators: true //是否显示滚动条
-				});
 				
-				
-				
-
-				var sliderSegmentedControl = document.getElementById('sliderSegmentedControl');
-			
-			})(mui);
 			})
+				
+			new Vue({
+					el:'#vueobj',
+					data:{
+						kaijiang:[],
+						changlong:[],
+						fistkaijiang:{},
+						longhu:[],
+						colortype:{
+							'01':'#febf1c',
+							'02':'#0463fd',
+							'03':'#5e5d59',
+							'04':'#fd7b0b',
+							'05':'#1cd3fb',
+							'06':'#4008ff',
+							'07':'#9b9893',
+							'08':'#ff180a',
+							'09':'#ad1c07',
+							'10':'#00ed00'
+						},
+						
+					},
+					methods:{
+						getkaijiangjieguo:function(){
+							var vm=this
+							mui.post('http://demobc.bayuenet.com:9096/bjsc/index.php/admin/box/result',{//开奖结果
+														
+							},function(data){
+								vm.fistkaijiang=data[0]
+								vm.kaijiang=data
+								
+							},'json'
+							);
+						},
+						getguanyachanglong:function(){
+							var vm=this
+							mui.post('http://demobc.bayuenet.com:9096/bjsc/index.php/admin/box/guanya',{//开奖结果
+														
+							},function(data){
+
+								vm.longhu=data
+								
+							},'json'
+							);
+						}
+					},
+					ready:function(){
+						this.getkaijiangjieguo()
+						this.getguanyachanglong()
+					}
+				})
+			
 			
 				
 		</script>

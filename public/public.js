@@ -74,3 +74,23 @@ function CheckImgExists(imgurl) {
 		return false;
 	}
 }
+
+function onNetChange() {　　 //获取当前网络类型
+	　　
+	var nt = plus.networkinfo.getCurrentType();　　
+	switch(nt) {　　　　
+		case plus.networkinfo.CONNECTION_ETHERNET:
+			　　　　
+		case plus.networkinfo.CONNECTION_WIFI:
+			　　　　　　　　　　　break;　　　　
+		case plus.networkinfo.CONNECTION_CELL2G:
+			　　　　
+		case plus.networkinfo.CONNECTION_CELL3G:
+			　　　　
+		case plus.networkinfo.CONNECTION_CELL4G:
+			　　　　　　　　　　　break;　　　　
+		default:
+			　　　　　　mui.toast("当前没有网络");　　　　　　
+			break;　　
+	}
+}

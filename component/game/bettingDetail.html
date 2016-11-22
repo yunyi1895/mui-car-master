@@ -5,7 +5,9 @@
 		<meta charset="UTF-8">
 		<title></title>
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
-		<script src="../../js/vue1.0.js" type="text/javascript" charset="utf-8"></script>
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		
 		<script src="../../js/jquery-2.1.0.js" type="text/javascript" charset="utf-8"></script>
 		<link href="../../css/mui.min.css" rel="stylesheet" />
 		<link rel="stylesheet" type="text/css" href="../../public/public.css" />
@@ -196,6 +198,7 @@
 		<div id="scroll1" class="">
 			<div class="mui-scroll">
 				<table class="bet" border="0" cellspacing="" cellpadding="">
+					<thead>
 					<tr>
 						<th class="periods">期数</th>
 						<th class="play">玩法</th>
@@ -203,34 +206,47 @@
 						<th class="results">结果</th>
 						<th class="state">状态</th>
 					</tr>
-					<tr>
-						<td>5841544</td>
-						<td>10.17 12:54</td>
-						<td class="showu" id="test1">Data</td>
-						<td>10.17 12:54</td>
-						<td class="showu" id="test1">Data</td>
-					</tr>
-					<tr>
-						<td>5841544</td>
-						<td>10.17 12:54</td>
-						<td class="showu" id="test1">Data</td>
-						<td>10.17 12:54</td>
-						<td class="showu" id="test1">Data</td>
-					</tr>
-					<tr>
-						<td>5841544</td>
-						<td>10.17 12:54</td>
-						<td class="showu" id="test1">Data</td>
-						<td>10.17 12:54</td>
-						<td class="showu" id="test1">Data</td>
-					</tr>
-				</table>
+					</thead>
+					<tbody id="tzmx">
+				
+					</tbody>
+				</tbody>
 			</div>
 		</div>
 
 		<script src="../../js/mui.min.js"></script>
 		<script type="text/javascript">
 			mui.init()
+			mui.plusReady(function(){
+				var self = plus.webview.currentWebview();
+				var time=self.time
+				var userid=21//localStorage.getItem('userid')
+				
+				$.post('http://demobc.bayuenet.com:9096/bjsc/index.php/admin/index/usermingxi',{
+								id:userid,
+								time:time
+								},function(data){
+									
+									var res=''
+									data.map(function(v,i){
+										res+='<tr>'
+											+'<td >'+v.issue+'</td>'
+											+'<td >'+v.playtype+'</td>'
+											+'<td class="showu" >'+v.guessing+'</td>'
+											+'<td >'+v.result+'</td>'
+											+'<td class="showu" >'+v.state+'</td>'
+										+'</tr>'
+									})
+									
+									jQuery('#tzmx').html(res)
+								},'json'
+							
+							)
+				
+				
+			})
+			
+			
 //				(function($) {
 //					$('.mui-scroll-wrapper').scroll({
 //						indicators: true //是否显示滚动条

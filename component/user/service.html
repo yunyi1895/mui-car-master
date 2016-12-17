@@ -514,33 +514,36 @@
 						});
 					};
 					var initWebSocket=function(){
-						  ws = new WebSocket('ws://211.149.235.46:3999/');//192.168.1.111/apptest/index.php/home/Statistics/vehicle
+						console.log(21212)
+						  ws = new WebSocket('ws://211.149.249.196:9505/');//192.168.1.111/apptest/index.php/home/Statistics/vehicle
 								
 								
 							//	console.log(JSON.stringify(ws))
 								ws.onerror = function() {
 						            //连接失败
+						            console.log(222)
 						            mui.toast('连接发生错误');
 						        };
 								ws.onopen = function(){
+									ws.send('{"from":14,"user_type":1,"to":15,"user_id":1,"msg":"100|\u9f99|234","pic":"http:\/\/www.baidu.com","type":2,"user_name":"\u6d4b\u8bd5\u673a\u5668\u4eba"}')
 								//	console.log(111)
 					                  // Web Socket 已连接上，使用 send() 方法发送数据
-					                  ws.send("111222");
+					                 // ws.send("111222");
 					                  //alert("数据发送中...");
 					               };
 					            ws.onmessage=function(data){
-					            	var s=clearString(data.data)
-					            	var d={
-										sender: 'other',
-										type: 'text',
-										content:s,
-										img:'../../image/weishangchuantouxiang@2x.png'
-									}
-					            	vm.record.push(d);
-					            	//console.log(JSON.stringify(d))
+//					            	var s=clearString(data.data)
+//					            	var d={
+//										sender: 'other',
+//										type: 'text',
+//										content:s,
+//										img:'../../image/weishangchuantouxiang@2x.png'
+//									}
+//					            	vm.record.push(d);
+					            	console.log(JSON.stringify(data))
 					            }
 					}
-					
+					initWebSocket()
 					
 					
 					function msgTextFocus() {

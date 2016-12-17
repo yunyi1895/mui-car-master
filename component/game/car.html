@@ -718,13 +718,13 @@
 			<div class="operation" ><a @click="golink('OpeningRecord')">开局记录</a></div>
 			<div class="operation"><a @click="golink('gamerecord')">游戏记录</a></div>
 			<div class="operation">滚单撤单</div>
-			<div class="operation">我要撤单</div>
+			<div @click="evacuateAll" class="operation">我要撤单</div>
 			
 		</div>
 		<div class="chat">
 			<div class="fen">
-				<span>本次用分：<span id="issueuse">00</span></span>
-				<span>本期用分：<span id="issuetotal">00</span></span>
+				<span>本次用分：<span id="issueuse" v-text="benciyongfen">00</span></span>
+				<span>本期用分：<span id="issuetotal" v-text="benqiyongfen">00</span></span>
 				<span>目前存分：<span id="present" v-text="dangqiancunfen"></span></span>
 			</div>
 			<pre id='h'></pre>
@@ -732,8 +732,12 @@
 			<div id='msg-list'>
 				<div v-for="item in record"  class="msg-item" v-bind:class="{ 'msg-item-self': item.sender=='self'}" >
 					<!--<i class="msg-user mui-icon mui-icon-person" v-if="item.sender=='self'" ></i>-->
+					
 					<img v-if="item.sender=='self'" class="msg-self-img" :src="userinfo.img" alt="" />
 					<img v-else class="msg-user-img" :src="item.img" alt="" />
+					<span class="nickname" v-if="item.sender!='self'" v-text="item.nickname" style="float: left;display: inline-block;color: #ccc;text-align: center;">
+						
+					</span>
 					<div class="msg-content">
 						<div class="msg-content-inner" v-text="item.content">
 							
@@ -753,7 +757,7 @@
 			不支持
 		</audio>
 		<footer>
-			<div @click="testcar" id="testsend" class="footer-left">
+			<div @click="testcar"  id="testsend" class="footer-left">
 				<i id='msg-image' class="mui-icon mui-icon-list" style="font-size: 28px;"></i>
 			</div>
 			<div class="footer-center">
@@ -788,20 +792,32 @@
 						release: true //默认为false，不监听
 					}
 				});
-				template.config('escape', false);	
+				template.config('escape', false);
+				 function preload() { //
+								mui.preload({
+									url:'./OpeningRecord.html',
+									styles: {
+										
+									}
+								});
+								
+							}
 				//mui.plusReady=function(fn){fn();};
 				mui.plusReady(function() {
+					preload()
 					plus.webview.currentWebview().setStyle({
 						softinputMode: "adjustResize"
 					});
 					var vmovj=new Vue({
 						el:'#vueobj',
 						data:{
-							issueNo:123,//期号
-							issueTime:'2016:12:4',//开奖时间
+							issueNo:0,//期号
+							issueTime:'0',//开奖时间
 							isshowCountdown:true,//显示倒计时，
 							countdown:'',//倒计时,
 							dangqiancunfen:0,//当前存分
+							benciyongfen:0,//本次用分
+							benqiyongfen:0,//本期用分
 							lotteryTime:50,//小车跑的时间距离结束时间 小车总共跑了6秒 到本期结束为止都不能下单
 							AccordingTime:100,//get后台开奖时间距离结束时间
 							gundanTime:150,//滚单时间距离结束时间
@@ -873,10 +889,37 @@
 							ws:{},
 							userinfo:{
 								id:'',
-								img:'../../image/weishangchuantouxiang@2x.png'
+								img:'../../image/weishangchuantouxiang@2x.png',
+								nickname:''
 							}
 						},
 						methods:{
+							evacuateAll:function(){  //本期全部撤单
+								var vm=this
+								var issueNo=this.issueNo
+								
+								var userid=this.userinfo.id
+								mui.confirm("确认全部撤单？","撤单",function(s){
+									if(s.index=='1'){
+									mui.post('http://demobc.bayuenet.com:9096/bjsc/index.php/home/Statistics/cencel_order',{
+										user_id:userid,
+										num:issueNo
+										
+										},function(data){
+											console.log(JSON.stringify(data))
+											if(data.code==200){
+												mui.toast('撤单成功')
+												vm.benqiyongfen=0
+										vm.benciyongfen=0
+										vm.getuserscore()
+											}
+											
+											},'json'
+										);
+									}
+								})
+					
+							},
 							qingping:function(){//清屏
 								jQuery('.rules').hide()
 								this.record=[{//初始化聊天室
@@ -892,32 +935,42 @@
 									mui.toast("现在不能下单,请等待下一期")
 									return
 								}
-								
+//22222
+								var vm=this
 								this.record.push(msg);//显示发送的数据
+								var sendmsg={
+									user_id:vm.userinfo.id,
+									msg:msg.content,
+									pic:vm.userinfo.img,
+									nickname:vm.userinfo.nickname
+								}
+								this.ws.send(JSON.stringify(sendmsg))
 								document.querySelector('#msg-list').scrollTop =document.querySelector('#msg-list').scrollHeight + document.querySelector('#msg-list').offsetHeight;
-								//console.log(document.querySelector('#msg-list'))
+								//console.log(document.querySelector('#msg-list').scrollTop)
 								var issueNo=this.issueNo
+								//22222
 								var userid=this.userinfo.id
-								console.log(msg.content)
-								mui.post('http://demobc.bayuenet.com:9096/bjsc/index.php/home/Statistics/vehicle',{
-								id:userid,
-								issue:issueNo,
-								type:1,
-								str:msg.content
-								},function(data){
-									sj(data)
-									if(data!='-1'){
-										mui.toast("下单成功本次下单金额为"+data);
-										
-									}else{
-										console.log(121212)
-										mui.toast("下单不成功,下单分数大于了您的存分")
-									}
-									
-									},'json'
-								);
+								console.log(userid+'|'+issueNo)
+								//test 曹阳
 								
 								
+//								mui.post('http://demobc.bayuenet.com:9096/bjsc/index.php/home/Statistics/vehicle',{
+//								id:userid,
+//								issue:issueNo,
+//								type:'1',
+//								str:msg.content
+//								},function(data){
+//									console.log(JSON.stringify(data))
+//									if(data.score!='-1'){
+//										vm.benqiyongfen=data.total_score
+//										vm.benciyongfen=data.score
+//										vm.getuserscore()
+//									}
+//									
+//									},'json'
+//								);
+								
+								//test 曹阳
 								
 							//	console.log(JSON.stringify(data))
 								//this.ws.send(JSON.stringify(data));
@@ -945,25 +998,23 @@
 								mui.post('http://demobc.bayuenet.com:9096/bjsc/index.php/admin/index/facepath',{
 								id:userid,
 								},function(data){
-									
-									
-									if(data.code==200&&CheckImgExists(data.face)){
-									
-										vm.userinfo.img=data.face
+									if(data.code==200){
+										vm.userinfo.img= 'http://demobc.bayuenet.com:9096/bjsc'+data.face
 									}
 									
 									},'json'
 								);
 							},
-							getuserscore:function(userid){//获取用户存分
-							
+							getuserscore:function(){//获取用户存分
+								var vm=this
+								var userid=localStorage.getItem('userid');
 							  mui.post('http://demobc.bayuenet.com:9096/bjsc/index.php/admin/index/usersafemoney',{
 								id:userid,
 								},function(data){
-									
+								//	console.log(JSON.stringify(data))
 									if(data.code==200){
-										//document.getElementById('bao').innerText=data.bao.safeintegral
-										document.getElementById('present').innerText=data.tai.integral
+										
+										vm.dangqiancunfen=data.tai.integral
 									}
 									
 								},'json'
@@ -971,38 +1022,39 @@
 				
 							},
 							testcar:function(){//测试车跑
-								var runMusic=document.getElementById('runMusic')
-								console.log(localStorage.getItem('Musicswitch'))
-								if(localStorage.getItem('Musicswitch')!=0){
-									runMusic.play();
-								}
-								
-								
-								var runcar=this.carrun
-								//var carlist=document.querySelectorAll('.ca')
-								var testnum=['01','02','07','09','08','06','04','0','05','03']
-								var colortype=this.colortype
-								var teststr=''
-								for(var i=0;i<testnum.length;i++){
-									if(testnum[i]=='0'){
-										testnum[i]=10
-									}
-									teststr+='<span style="background:'+colortype[testnum[i]]+'">'+testnum[i]+'</span>'
-									
-									testnum[i]=testnum[i]-0
-									var d=i+1
-									jQuery('#car'+d).addClass('run'+testnum[i])
-									
-									runcar[i].ranking=testnum[i]
-								}
-							//	console.log(jQuery('#car1').attr('class'))
-							
-								
-								this.carrun=runcar
+								console.log(111)
+//								var runMusic=document.getElementById('runMusic')
+//								console.log(localStorage.getItem('Musicswitch'))
+//								if(localStorage.getItem('Musicswitch')!=0){
+//									runMusic.play();
+//								}
+//								
+//								
+//								var runcar=this.carrun
+//								//var carlist=document.querySelectorAll('.ca')
+//								var testnum=['01','02','07','09','08','06','04','0','05','03']
+//								var colortype=this.colortype
+//								var teststr=''
+//								for(var i=0;i<testnum.length;i++){
+//									if(testnum[i]=='0'){
+//										testnum[i]=10
+//									}
+//									teststr+='<span style="background:'+colortype[testnum[i]]+'">'+testnum[i]+'</span>'
+//									
+//									testnum[i]=testnum[i]-0
+//									var d=i+1
+//									jQuery('#car'+d).addClass('run'+testnum[i])
+//									
+//									runcar[i].ranking=testnum[i]
+//								}
+//							//	console.log(jQuery('#car1').attr('class'))
+//							
+//								
+//								this.carrun=runcar
 								jQuery('.rules').slideToggle("400");
-								setTimeout(function(){
-									jQuery('.lottery').html(teststr)
-								},6000)
+//								setTimeout(function(){
+//									jQuery('.lottery').html(teststr)
+//								},6000)
 								//console.log(JSON.stringify(this.carrun))
 							},
 							vuerelease:function(){//点击发送按钮
@@ -1048,91 +1100,98 @@
 								this.ui.content.style.paddingBottom = this.ui.footer.style.height;
 							},
 							initWebSocket:function(){//初始化连接WebSocket
-								var  ws = new WebSocket('ws://211.149.235.46:3999/');//192.168.1.111/apptest/index.php/home/Statistics/vehicle
+								var  ws = new WebSocket('ws://211.149.249.196:9501');//192.168.1.111/apptest/index.php/home/Statistics/vehicle
 								var vm=this
 								vm.ws=ws
 							//	console.log(JSON.stringify(ws))
 								ws.onerror = function() {
 						            //连接失败
-						            mui.toast('连接发生错误');
+						            mui.toast('未连接服务器，请稍后');
 						        };
 								ws.onopen = function(){
 								//	console.log(111)
 					                  // Web Socket 已连接上，使用 send() 方法发送数据
-					                  ws.send("111222");
+					                 // ws.send("111222");
 					                  //alert("数据发送中...");
 					               };
 					            ws.onmessage=function(data){
+					            	console.log(JSON.stringify(data))
 					            	var s=clearString(data.data)
+					            	console.log(s)
+					            	var contenr=s.substring(s.indexOf('msg""')+5,s.lastIndexOf('""pic') )
+					            	var img=s.substring(s.indexOf('pic""')+5,s.lastIndexOf('""nickname') )
+					            	console.log(img)
 					            	var d={
 										sender: 'other',
 										type: 'text',
-										content:s,
-										img:'../../image/weishangchuantouxiang@2x.png'
+										content:contenr,
+										img:img,
+										nickname:'cmf'
 									}
 					            	vm.record.push(d);
+					            	document.querySelector('#msg-list').scrollTop =document.querySelector('#msg-list').scrollHeight + document.querySelector('#msg-list').offsetHeight;
 					            	//console.log(JSON.stringify(d))
 					            }
 							},
-							settimetest:function(s,arr){//测试 开奖
-								//console.log(jQuery('#car1').css('transform'))
-								var vm=this
-								for(var j=0;j<arr.length;j++){
-									var t=arr[j]-s
-									var setfun=(function(t,j){
-										setTimeout(function(){
-											jQuery('.car').attr('class','car')
-											
-											jQuery('.car').css({
-												'-webkit-transform':'',
-												'transform':''
-											})
-										 	jQuery('#car1').css('transform')
-											
-										function getmsg(){
-											//console.log(t)
-											
-											jQuery('.lottery').html('')
-											var runcar=vm.carrun
-											var testnumn=[['01','02','07','09','08','06','04','0','05','03'],['08','02','04','03','01','06','07','0','05','09'],['04','02','03','0','08','06','01','09','05','07']]
-											var colortype=vm.colortype
-											var teststr=''
-											
-											var testnum=testnumn[j]
-											
-											for(var i=0;i<testnum.length;i++){
-												if(testnum[i]=='0'){
-													testnum[i]=10
-												}
-												teststr+='<span style="background:'+colortype[testnum[i]]+'">'+testnum[i]+'</span>'
-												
-												testnum[i]=testnum[i]-0
-												var d=i+1
-												jQuery('#car'+testnum[i]).addClass('run'+d)
-												console.log()
-												runcar[i].ranking=testnum[i]
-											}
-										//	console.log(jQuery('#car1').attr('class'))
-										
-											
-											vm.carrun=runcar
-											//jQuery('.rules').slideToggle("400");
-											setTimeout(function(){
-												jQuery('.lottery').html(teststr)
-											},6000)
-											
-											
-										}
-										getmsg()
-									},t)
-										
-									})(t,j)
-									
-									
-								}
-								
-								
-							},
+//							settimetest:function(s,arr){//测试 开奖
+//								//console.log(jQuery('#car1').css('transform'))
+//								var vm=this
+//								for(var j=0;j<arr.length;j++){
+//									var t=arr[j]-s
+//									var setfun=(function(t,j){
+//										setTimeout(function(){
+//											jQuery('.car').attr('class','car')
+//											
+//											jQuery('.car').css({
+//												'-webkit-transform':'',
+//												'transform':''
+//											})
+//										 	jQuery('#car1').css('transform')
+//											
+//										function getmsg(){
+//											//console.log(t)
+//											
+//											jQuery('.lottery').html('')
+//											var runcar=vm.carrun
+//											var testnumn=[['01','02','07','09','08','06','04','0','05','03'],['08','02','04','03','01','06','07','0','05','09'],['04','02','03','0','08','06','01','09','05','07']]
+//											var colortype=vm.colortype
+//											var teststr=''
+//											
+//											var testnum=testnumn[j]
+//											
+//											for(var i=0;i<testnum.length;i++){
+//												if(testnum[i]=='0'){
+//													testnum[i]=10
+//												}
+//												teststr+='<span style="background:'+colortype[testnum[i]]+'">'+testnum[i]+'</span>'
+//												
+//												testnum[i]=testnum[i]-0
+//												var d=i+1
+//												jQuery('#car'+testnum[i]).addClass('run'+d)
+//												console.log()
+//												runcar[i].ranking=testnum[i]
+//											}
+//										//	console.log(jQuery('#car1').attr('class'))
+//										
+//											
+//											vm.carrun=runcar
+//											//jQuery('.rules').slideToggle("400");
+//											setTimeout(function(){
+//												jQuery('.lottery').html(teststr)
+//											},6000)
+//											
+//											
+//										}
+//										getmsg()
+//									},t)
+//										
+//									})(t,j)
+//									
+//									
+//								}
+//								
+//								
+//							},
 							showcarrun:function(){//显示开奖结果 小车跑
 								var vm=this
 								
@@ -1180,16 +1239,16 @@
 								jQuery('.lottery').html(teststr)
 								
 							},
-							consoletest:function(){
-								
-								var d={
-									time:1000,
-									lottery:[4000,15000,28000]
-								}
-								this.settimetest(d.time,d.lottery)
-								
-								
-							},
+//							consoletest:function(){
+//								
+//								var d={
+//									time:1000,
+//									lottery:[4000,15000,28000]
+//								}
+//								this.settimetest(d.time,d.lottery)
+//								
+//								
+//							},
 							CalculateCountdown:function(tiem){//显示倒计时多少秒
 								var vm=this
 								vm.isshowCountdown=true
@@ -1226,8 +1285,9 @@
 								data.nper=obj.qihao
 								data.presentTime=obj.time
 								data.endTime=obj.endtime
+								//22222
 								sj(data)
-								vm.issueNo=data.nper//期号
+								vm.issueNo=data.nper//期号  后面要加 开奖时间
 								var lotteryTime=this.lotteryTime//小车跑距离结束时间 显示开奖结果时间 
 								var AccordingTime=this.AccordingTime//从后台获取这一期开奖时间距离结束时间的差值 现在是100 现在不要了
 								console.log(data.endTime-data.presentTime)
@@ -1244,7 +1304,9 @@
 									vm.isshowCountdown=false
 									var endTiemsetint=setInterval(function(){
 										vm.endtime=vm.endtime-1
+										mui.toast('离开始游戏还有'+vm.endtime+'秒')
 										console.log(vm.endtime)
+										
 										if(vm.endtime<=0){
 											
 											clearInterval(endTiemsetint)
@@ -1265,18 +1327,19 @@
 									
 									vm.iscanbet=true
 									setTimeout(function(){
-										//ajax 获取开奖结果
-										mui.post('http://demobc.bayuenet.com:9096/bjsc/index.php/admin/box/order',{
-											
-											},function(data){
-												var da=data.split(' ')
-												//console.log(da)
-												vm.lotteryResults=da
-												//sj(data)
-											},'json'
-										);
+										//ajax 获取开奖结果222222
+//										mui.post('http://demobc.bayuenet.com:9096/bjsc/index.php/admin/box/order',{
+//											
+//											},function(data){
+//												console.log(data)
+//												var da=data.split(' ')
+//												//console.log(da)
+//												vm.lotteryResults=da
+//												//sj(data)
+//											},'json'
+//										);
 										
-										//vm.lotteryResults=['01','02','07','09','08','06','04','10','05','03']//开奖数据
+										vm.lotteryResults=['05','02','07','09','08','06','04','10','01','03']//开奖数据
 									},canshur)
 									
 									var endTiemsetint2=setInterval(function(){
@@ -1306,7 +1369,8 @@
 									mui.post('http://demobc.bayuenet.com:9096/bjsc/index.php/admin/index/gametime',{
 											
 											},function(data){
-												sj(data)
+											
+												console.log(JSON.stringify(data))
 												if(data.code==-200||data.qihao==null){
 													mui.toast('游戏未开始')
 													mui.openWindow({
@@ -1338,12 +1402,15 @@
 								}
 						},
 						ready:function(){
+							this.getuserscore()
 						//	this.consoletest()
 						this.initenter()
 					//	onNetChange()
+					this.initWebSocket()
 					//	this.userinter()
-						this.getuserscore()
+						
 							this.userinfo.id=localStorage.getItem('userid');
+							this.userinfo.nickname=localStorage.getItem('username');
 							this.getuserimg(this.userinfo.id)
 							document.querySelector('#h').style.width = document.querySelector('#msg-text').offsetWidth + 'px';
 							window.addEventListener('resize', function() {

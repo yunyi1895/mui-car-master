@@ -8,6 +8,7 @@
 		<link href="../../css/mui.min.css" rel="stylesheet" />
 		<link rel="stylesheet" type="text/css" href="../../public/public.css"/>
 		<script src="../../js/jquery-2.1.0.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/vue1.0.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../../public/public.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../../js/setrem.js" type="text/javascript" charset="utf-8"></script>
 		<style type="text/css">
@@ -361,13 +362,15 @@
 				}
 		        
 		    function uploadss(){ //上传图片
-			
+				
 			     var wt=plus.nativeUI.showWaiting();
 			     var url = 'http://demobc.bayuenet.com:9096/bjsc/index.php/admin/index/upload';
 			            var dataType ='json';
-			            //发送数据  
+			            //发送数据 
+			            console.log(f1)
 			            var data = { 
-			                Uploads:f1       //base64数据        
+			                Uploads:f1,//base64数据
+			                id:localStorage.getItem('userid')
 			            };    
 			            $.post(url, data, success, dataType);                          
 			}
@@ -483,7 +486,7 @@
 				methods:{
 					getuserinfo:function(){
 						var vm=this
-						console.log(vm.userid)
+
 						mui.post('http://demobc.bayuenet.com:9096/bjsc/index.php/admin/index/SelectUserInfo',{
 								id:vm.userid,
 							},function(data){
@@ -496,9 +499,9 @@
 								id:vm.userid,
 							},function(data){
 								console.log(JSON.stringify(data))
-								if(data.code==200&&CheckImgExists(data.face)){
+								if(data.code==200){
 									
-									vm.userheadimg=data.face
+									vm.userheadimg= 'http://demobc.bayuenet.com:9096/bjsc'+data.face
 								}
 								
 								},'json'
@@ -548,10 +551,13 @@
 						var backButtonPress = 0;
 						var isout=mui.confirm('确认退出皇家会所？',function(s){
 							if(s.index){
+								if(localStorage.getItem('isrememberpassword')=='false'){
 								localStorage.removeItem('username')
 								localStorage.removeItem('userid')
+								
+								}
 								plus.runtime.quit();
-								return
+								return 
 							}else{
 								return
 							}

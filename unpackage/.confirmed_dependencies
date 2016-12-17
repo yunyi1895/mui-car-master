@@ -317,7 +317,16 @@
 	},
 	"component/user/userinfo.html": {
 		"resources": [
-			"component/home/hall.html"
+			"component/home/hall.html",
+			"js/setrem.js",
+			"js/vue1.0.js",
+			"js/mui.min.js",
+			"public/public.js",
+			"js/jquery-2.1.0.js",
+			"fonts/mui.ttf",
+			"css/mui.min.css",
+			"image/bg.png",
+			"public/public.css"
 		],
 		"refer": [
 			"component/home/hall.html"

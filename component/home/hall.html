@@ -722,9 +722,14 @@
 					mui.back = function(event) {
 						backButtonPress++;
 						if (backButtonPress > 1) {
-							localStorage.removeItem('username')
-							localStorage.removeItem('userid')
+							if(localStorage.getItem('isrememberpassword')=='false'){
+								localStorage.removeItem('username')
+								localStorage.removeItem('userid')
+								
+							}
 							plus.runtime.quit();
+							return 
+							
 						} else {
 							plus.nativeUI.toast('再按一次退出皇家会所');
 						}
@@ -742,7 +747,7 @@
 							{tit:'用户资料',lk:'../user/userinfo.html',ke:'userinfo1'},
 							{tit:'我的积分',lk:'../user/integral.html',ke:'integral'},
 							{tit:'保险柜',lk:'../user/safe.html',ke:'safe'},
-							{tit:'客户中心',lk:'../user/service.html',ke:'userinfo'},
+							{tit:'客户中心',lk:'#',ke:'server'},
 							{tit:'投诉',lk:'../user/complaints.html',ke:'complaints'},
 							{tit:'FAQ',lk:'../user/FAQ.html',ke:'FAQ'},
 						],
@@ -809,8 +814,9 @@
 							
 							
 						},
+						
 						vuegourl:function(l,k){
-							//console.log(k)
+
 							if(k=='share'){
 								J('#share').css({
 									'display':'flex',
@@ -823,6 +829,16 @@
 									
 								})
 								J('.showuserCenter').hide();
+							}else if(k=='server'){
+								var isout=mui.confirm('确认打开手机qq？',function(s){
+									if(s.index){
+										window.location.href="mqqwpa://im/chat?chat_type=wpa&uin=952433145&version=1&src_type=web&web_src=bayuenet.com"
+										J('.showuserCenter').hide();
+										return
+									}else{
+										return
+									}
+								})
 							}
 							
 						},
@@ -848,10 +864,10 @@
 							mui.post('http://demobc.bayuenet.com:9096/bjsc/index.php/admin/index/facepath',{
 								id:userid,
 							},function(data){
-							
-								if(data.code==200&&CheckImgExists(data.face)){
+								
+								if(data.code==200){
 									//document.getElementById('bao').innerText=data.bao.safeintegral11
-									vm.vueuserinfo.img=data.face
+									vm.vueuserinfo.img= 'http://demobc.bayuenet.com:9096/bjsc'+data.face
 								}
 								
 								},'json'

@@ -56,7 +56,7 @@ function sj(obj) {
 }
 
 function clearString(s) {
-	var pattern = new RegExp("[`~!@#$^&*()=|{}':;',\\[\\].<>/?~！@#￥……&*（）&;|{}【】‘；：”“'。，、？]")
+	var pattern = new RegExp("[`~!@#$^&*()=|{}':;',.<>?~！@#￥……&*（）&;|{}【】‘；：”“'。，、？]")
 	var rs = "";
 	for(var i = 0; i < s.length; i++) {
 		rs = rs + s.substr(i, 1).replace(pattern, '');

@@ -182,9 +182,10 @@
 				var checked=document.getElementById('checked')
 				var checkboxn=document.getElementById('checkboxn')
 				var phototouk=document.getElementById('phototouk')
-				mui.post('http://bjsc.bayuenet.com/index.php/admin/index/usersafemoney',{
+				mui.post('http://demobc.bayuenet.com:9096/bjsc/index.php/admin/index/usersafemoney',{
 								id:userid,
 							},function(data){
+								console.log(JSON.stringify(data))
 								if(data.code==200){
 									document.getElementById('baoxian').innerText=data.bao.safeintegral
 									document.getElementById('taimian').innerText=data.tai.integral
@@ -230,7 +231,7 @@
 								autoShow: false
 							},
 							extras:{
-								v:val
+								v:val.toString()
 							}
 						
 						})
@@ -260,6 +261,9 @@
 							},
 							waiting: {
 								autoShow: false
+							},
+							extras: {
+								money: sueNo
 							}
 							
 						

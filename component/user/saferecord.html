@@ -94,126 +94,7 @@
 		</header>
 		<div class="recordlist">
 			<ul id="recordlistul">
-				<li>
-					<div class="cont">
-						<div class="time">
-							<div id="week">
-								周一
-							</div>
-							<div id="whattime">
-								11:20
-							</div>
-						</div>
-						<div class="num">
-							+55416
-						</div>
-					</div>
-				</li>
-				<li>
-					<div class="cont">
-						<div class="time">
-							<div id="week">
-								周一
-							</div>
-							<div id="whattime">
-								11:20
-							</div>
-						</div>
-						<div class="num">
-							+55416
-						</div>
-					</div>
-				</li>
-				<li>
-					<div class="cont">
-						<div class="time">
-							<div id="week">
-								周一
-							</div>
-							<div id="whattime">
-								11:20
-							</div>
-						</div>
-						<div class="num">
-							+55416
-						</div>
-					</div>
-				</li>
-				<li>
-					<div class="cont">
-						<div class="time">
-							<div id="week">
-								周一
-							</div>
-							<div id="whattime">
-								11:20
-							</div>
-						</div>
-						<div class="num">
-							+55416
-						</div>
-					</div>
-				</li>
-				<li>
-					<div class="cont">
-						<div class="time">
-							<div id="week">
-								周一
-							</div>
-							<div id="whattime">
-								11:20
-							</div>
-						</div>
-						<div class="num">
-							+55416
-						</div>
-					</div>
-				</li>
-				<li>
-					<div class="cont">
-						<div class="time">
-							<div id="week">
-								周一
-							</div>
-							<div id="whattime">
-								11:20
-							</div>
-						</div>
-						<div class="num">
-							+55416
-						</div>
-					</div>
-				</li>
-				<li>
-					<div class="cont">
-						<div class="time">
-							<div id="week">
-								周一
-							</div>
-							<div id="whattime">
-								11:20
-							</div>
-						</div>
-						<div class="num">
-							+55416
-						</div>
-					</div>
-				</li>
-				<li>
-					<div class="cont">
-						<div class="time">
-							<div id="week">
-								周一
-							</div>
-							<div id="whattime">
-								11:20
-							</div>
-						</div>
-						<div class="num">
-							+55416
-						</div>
-					</div>
-				</li>
+				
 			</ul>
 		</div>
 		<div class="chakan">
@@ -226,7 +107,7 @@
 				var userid=localStorage.getItem('userid')
 				var recordlistul=document.getElementById('recordlistul')
 				//console.log(userid)
-					mui.post('http://bjsc.bayuenet.com/index.php/admin/index/usersafe',{
+					mui.post('http://demobc.bayuenet.com:9096/bjsc/index.php/admin/index/usersafe',{
 								id:userid,
 							},function(data){
 								if(data.code==200){

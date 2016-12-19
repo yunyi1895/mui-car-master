@@ -266,7 +266,7 @@
 					console.log(self.sueNo)
 					var sueNo='01001' //self.sueNo.toString()
 					var userid=21//localStorage.getItem('userid')
-					$.post('http://demobc.bayuenet.com:9096/bjsc/index.php/admin/index/benzhou',{
+					$.post('http://bjsc.bayuenet.com/index.php/admin/index/benzhou',{
 						id:userid,
 						},function(data){
 						
@@ -284,7 +284,7 @@
 						},'json'
 							
 					)
-					$.post('http://demobc.bayuenet.com:9096/bjsc/index.php/admin/index/xiazhou',{
+					$.post('http://bjsc.bayuenet.com/index.php/admin/index/xiazhou',{
 						id:userid,
 						},function(data){
 							var res=''
@@ -302,7 +302,7 @@
 							
 					)
 					
-					$.post('http://demobc.bayuenet.com:9096/bjsc/index.php/admin/index/mingxi',{
+					$.post('http://bjsc.bayuenet.com/index.php/admin/index/mingxi',{
 								id:21,
 								issue:'01001'
 								},function(data){
@@ -327,7 +327,7 @@
 //								id:21,
 //								issue:01001
 //						},
-//						url:'http://demobc.bayuenet.com:9096/bjsc/index.php/admin/index/mingxi',
+//						url:'http://bjsc.bayuenet.com/index.php/admin/index/mingxi',
 //						dataType:'json',
 //						success:function(data){
 //							console.log(JSON.stringify(data))

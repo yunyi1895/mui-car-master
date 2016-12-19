@@ -58,6 +58,7 @@
 				color:#625239 ;
 				text-align: center;
 				flex: 1;
+				-webkit-flex: 1;
 			}
 			.inputtext input{
 				height: 0.15rem;
@@ -65,7 +66,7 @@
 				border-radius: 2px;
 				padding: 4px;
 				flex: 4;
-			
+				-webkit-flex: 4;
 				
 			}
 			.username,.password,.forgotpassword{
@@ -84,8 +85,8 @@
 				-webkit-align-items: center;
 			}
 			.forgotpassword>div{
-				flex: 5;
-				-webkit-flex: 5;
+				flex: 6;
+				-webkit-flex: 6;
 			}
 			.forgotpassword>a{
 				flex: 3;
@@ -154,7 +155,9 @@
 				top:0.98rem;
 				
 			}
-			
+			.remobe #remobepassword{
+				padding-top: 0.01rem;
+			}
 		</style>
 	</head>
 	
@@ -177,8 +180,11 @@
 						<input type="password" name="" id="passwordn" value="" placeholder="请输入密码" />
 					</div>
 					<div class="forgotpassword">
-						<div><input id="remobepassword" type="checkbox" name="" id="" value="" />记住密码</div>
-						<a  href="user/service.html">忘记密码<span></span></a>
+						<div class="remobe"><input id="remobepassword" type="checkbox" name="remobepassword" id="" value="" />
+						
+						<label for="remobepassword">记住密码</label>
+						</div>
+						<a  href="mqqwpa://im/chat?chat_type=wpa&uin=952433145&version=1&src_type=web&web_src=bayuenet.com">忘记密码<span></span></a>
 						
 					</div>
 				</div>
@@ -209,11 +215,13 @@
 				var rememberpassword=localStorage.getItem('isrememberpassword')
 				if(rememberpassword=='true'){
 					var name=localStorage.getItem('username')
-					
+					var zhanghao=localStorage.getItem('zhanghao')
 					var passwordn=localStorage.getItem('password')
+					ajaxlogin(zhanghao,passwordn)
 					document.getElementById('remobepassword').checked=true
-					document.getElementById('userinfo').value=name
+					document.getElementById('userinfo').value=zhanghao
 					document.getElementById('passwordn').value=passwordn
+					
 				}
 				
 				
@@ -236,7 +244,59 @@
 				　　　　　　break;
 				　　}
 				}
-				
+				function ajaxlogin(userinfoval,passwordval){
+					var usermode=plus.device.uuid
+						mui.post('http://bjsc.bayuenet.com/index.php/admin/user/log_in',{
+							username:userinfoval,
+							password:passwordval,
+							usermode:usermode
+						},function(data){
+							console.log(JSON.stringify(data))
+							if(data.code==400){
+								dialoginfo('用户名错误')
+								return
+							}
+							if(data.code==-200){
+								dialoginfo('密码错误')
+								return
+							}
+							if(data.code==-300){
+								dialoginfo('您不能重复登录，请确认是否在其他设备登录')
+								return
+							}
+							if(data.code==200){
+							var username=data.userinfo.username
+							var userid=data.userinfo.userid
+							var zhanghao=data.userinfo.zhanghao
+							var isrememberpassword=document.getElementById('remobepassword').checked
+							localStorage.setItem('username',username)
+							localStorage.setItem('isrememberpassword',isrememberpassword.toString())
+							localStorage.setItem('userid',userid)
+							localStorage.setItem('zhanghao',zhanghao)
+							localStorage.setItem('password',passwordval)
+								mui.openWindow({
+									url: './home/hall.html',
+									id: 'hall',
+									preload: true,
+									show: {
+										aniShow: 'pop-in'
+									},
+									styles: {
+										popGesture: 'hide'
+									},
+									waiting: {
+										autoShow:true,//自动显示等待框，默认为true
+      									title:'欢迎进入皇家会所...',//等待对话框上显示的提示内容
+									}
+								});
+							
+							}
+							
+							//console.log(JSON.stringify(data));
+							
+						},'json'
+					);
+				}
 				
 				var signinButton = doc.getElementById('signin');
 				var signupButton = doc.getElementById('signup');
@@ -281,7 +341,7 @@
 					var passwordval = doc.getElementById('passwordn').value.toString();
 					localStorage.removeItem('username')
 					localStorage.removeItem('userid')
-					
+					ajaxlogin(userinfoval,passwordval)
 				//	console.log(localStorage.getItem('username'))
 //					if(!isChineseChar(userinfoval)){
 //						dialoginfo('用户名只能为2到6位中文字符')
@@ -292,53 +352,12 @@
 //						return
 //					}
 					
-					//http://demobc.bayuenet.com:9096/bjsc/index.php/admin/user/login
+					//http://bjsc.bayuenet.com/index.php/admin/user/login
 					//http://192.168.1.111/apptest/index.php/admin/user/log_in
-					mui.post('http://demobc.bayuenet.com:9096/bjsc/index.php/admin/user/log_in',{
-							username:userinfoval,
-							password:passwordval
-						},function(data){
-							console.log(JSON.stringify(data))
-							if(data.code==400){
-								dialoginfo('用户名错误')
-								return
-							}
-							if(data.code==-200){
-								dialoginfo('密码错误')
-								return
-							}
-							
-							if(data.code==200){
-							var username=data.userinfo.username
-							var userid=data.userinfo.userid
-							var isrememberpassword=document.getElementById('remobepassword').checked
-							localStorage.setItem('username',username)
-							localStorage.setItem('isrememberpassword',isrememberpassword.toString())
-							localStorage.setItem('userid',userid)
-							localStorage.setItem('password',passwordval)
-								mui.openWindow({
-									url: './home/hall.html',
-									id: 'hall',
-									preload: true,
-									show: {
-										aniShow: 'pop-in'
-									},
-									styles: {
-										popGesture: 'hide'
-									},
-									waiting: {
-										autoShow:true,//自动显示等待框，默认为true
-      									title:'欢迎进入皇家会所...',//等待对话框上显示的提示内容
-									}
-								});
-							
-							}
-							
-							//console.log(JSON.stringify(data));
-							
-						},'json'
-					);
+				
 				},false)
+				
+				
 				signupButton.addEventListener('tap', function(event) {
 					
 						mui.openWindow({

@@ -154,7 +154,7 @@ display: -webkit-flex;
 				<div class="inputtext">
 					<div class="username">
 						<span>   账 号    </span>
-						<input  type="text" name="" id="userinfo" value="" placeholder="请输入登录名" />
+						<input  type="text" name="" id="userinfo" value="" placeholder="请输入账号" />
 					</div>
 					<div class="username">
 						<span> 设置密码</span>
@@ -162,11 +162,11 @@ display: -webkit-flex;
 					</div>
 					<div class="username">
 						<span> 确认密码</span>
-						<input type="text" name="" id="password2" value="" placeholder="请输入密码" />
+						<input type="password" name="" id="password2" value="" placeholder="请输入密码" />
 					</div>
 					<div class="username">
 						<span> 邀 请 码</span>
-						<input type="text" name="" id="invitation" value="" placeholder="请输入密码" />
+						<input type="password" name="" id="invitation" value="" placeholder="请输入密码" />
 					</div>
 				</div>
 				<div class="signin">
@@ -200,17 +200,17 @@ display: -webkit-flex;
 				 doc.getElementById('userinfo').addEventListener('blur',function(e){
 				 	var val=this.value
 				 	if(val==''){
-				 		mui.alert('用户名不能为空')
+				 		mui.alert('账号不能为空')
 				 		this.focus()
 				 		return
 				 	}
-				 	mui.post('http://demobc.bayuenet.com:9096/bjsc/index.php/admin/user/Detect_username',{
+				 	mui.post('http://bjsc.bayuenet.com/index.php/admin/user/Detect_username',{
 							username:val,
 							
 						},function(data){
 							console.log(JSON.stringify(data))
 							if(data.code==200){
-								mui.alert('用户名已经注册')
+								mui.alert('账号已经注册')
 								doc.getElementById('userinfo').focus()
 								return
 							}
@@ -228,6 +228,9 @@ display: -webkit-flex;
 				
 				
 				signupButton.addEventListener('tap', function(event) {
+					
+				
+				
 				
 					var userinfoval = doc.getElementById('userinfo').value;
 					var password1val = doc.getElementById('password1').value;
@@ -241,10 +244,10 @@ display: -webkit-flex;
 //						dialoginfo('密码只能输入6-12个字母、数字、下划线')
 //						return
 //					}
-//					if(password1val!=password2val){
-//						dialoginfo('请输入相同的密码')
-//						return
-//					}
+					if(password1val!=password2val){
+						dialoginfo('请输入相同的密码')
+						return
+					}
 //					mui.ajax('http://runjs.cn/action/echo/',{
 //						data:{
 //							username:'userinfoval',
@@ -266,7 +269,7 @@ display: -webkit-flex;
 //					});
 //					
 				
-					mui.post('http://demobc.bayuenet.com:9096/bjsc/index.php/admin/User/login',{
+					mui.post('http://bjsc.bayuenet.com/index.php/admin/User/login',{
 							username:userinfoval,
 							password:password1val
 						},function(data){
@@ -276,6 +279,7 @@ display: -webkit-flex;
 								return
 							}
 							var username=data.userinfo.username
+							
 							var userid=data.userinfo.id
 							localStorage.setItem('username',username)
 							localStorage.setItem('userid',userid)

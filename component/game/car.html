@@ -455,11 +455,6 @@
 			
 			.msg-item .msg-content {
 				display: inline-block;
-				border-radius: 5px;
-				border: solid 1px #d3d3d3;
-				background-color: #e6cfad;
-				color: #333;
-				padding: 8px;
 				vertical-align: top;
 				font-size: 15px;
 				position: relative;
@@ -469,7 +464,18 @@
 				float: left;
 			}
 			.msg-item .msg-content .msg-content-inner {
+				background-color: #e6cfad;
+				color: #333;
+				border: solid 1px #d3d3d3;
+				padding: 4px;
 				overflow-x: hidden;
+				border-radius: 5px;
+			}
+			.msg-item .msg-content .nickname{
+				display: block;
+				color: #ccc;
+				text-align: center;
+				font-size: 12px;
 			}
 			.msg-item .msg-content .msg-content-arrow {
 				position: absolute;
@@ -709,9 +715,6 @@
 				</div>
 			</div>
 			<div v-show="isshowCountdown" class="countdown" v-text="countdown">
-				
-				
-				
 			</div>
 		</div>
 		<div class="operations">
@@ -719,7 +722,6 @@
 			<div class="operation"><a @click="golink('gamerecord')">游戏记录</a></div>
 			<div class="operation">滚单撤单</div>
 			<div @click="evacuateAll" class="operation">我要撤单</div>
-			
 		</div>
 		<div class="chat">
 			<div class="fen">
@@ -735,10 +737,11 @@
 					
 					<img v-if="item.sender=='self'" class="msg-self-img" :src="userinfo.img" alt="" />
 					<img v-else class="msg-user-img" :src="item.img" alt="" />
-					<span class="nickname" v-if="item.sender!='self'" v-text="item.nickname" style="float: left;display: inline-block;color: #ccc;text-align: center;">
-						
-					</span>
+					
 					<div class="msg-content">
+						<span class="nickname" v-if="item.sender!='self'" v-text="item.nickname" >
+						
+						</span>
 						<div class="msg-content-inner" v-text="item.content">
 							
 						</div>
@@ -748,11 +751,7 @@
 				<div class="mui-item-clear"></div>
 			</div>
 		</div>
-		
-	
-		
-			
-		</div>
+	</div>
 		<audio src="../../music/5888.mp3" id="runMusic">
 			不支持
 		</audio>
@@ -901,7 +900,7 @@
 								var userid=this.userinfo.id
 								mui.confirm("确认全部撤单？","撤单",function(s){
 									if(s.index=='1'){
-									mui.post('http://demobc.bayuenet.com:9096/bjsc/index.php/home/Statistics/cencel_order',{
+									mui.post('http://bjsc.bayuenet.com/index.php/home/Statistics/cencel_order',{
 										user_id:userid,
 										num:issueNo
 										
@@ -932,9 +931,9 @@
 							},
 							send:function(msg){
 								if(!this.iscanbet){
-									mui.toast("现在不能下单,请等待下一期")
-									return
-								}
+											mui.toast("现在不能下单,但可以充值提现")
+											
+									}
 //22222
 								var vm=this
 								this.record.push(msg);//显示发送的数据
@@ -942,19 +941,22 @@
 									user_id:vm.userinfo.id,
 									msg:msg.content,
 									pic:vm.userinfo.img,
-									nickname:vm.userinfo.nickname
+									nickname:vm.userinfo.nickname,
+									type:3
 								}
 								this.ws.send(JSON.stringify(sendmsg))
+								this.sendfen(msg.content)
+								
 								document.querySelector('#msg-list').scrollTop =document.querySelector('#msg-list').scrollHeight + document.querySelector('#msg-list').offsetHeight;
 								//console.log(document.querySelector('#msg-list').scrollTop)
 								var issueNo=this.issueNo
 								//22222
 								var userid=this.userinfo.id
-								console.log(userid+'|'+issueNo)
+								//console.log(userid+'|'+issueNo)
 								//test 曹阳
 								
 								
-//								mui.post('http://demobc.bayuenet.com:9096/bjsc/index.php/home/Statistics/vehicle',{
+//								mui.post('http://bjsc.bayuenet.com/index.php/home/Statistics/vehicle',{
 //								id:userid,
 //								issue:issueNo,
 //								type:'1',
@@ -976,6 +978,68 @@
 								//this.ws.send(JSON.stringify(data));
 								//bindMsgList();
 							},
+							sendfen:function(msg){
+
+								var up=['上分','充值','冲值','增加','冲','上','充','加']
+								var down=['下分','提现','回支付宝','回微信 ','下','提','回']
+								var upnum
+								var vm=this
+								var one=true
+								var done=true
+								up.map(function(v,i){
+									var s=msg.indexOf(v)
+									if(s>-1&&one){
+										vm.upnum(msg,v,1)
+										one=false
+										return
+									}else{
+										
+									}
+								})
+								down.map(function(v,i){
+									var s=msg.indexOf(v)
+									if(s>-1&&done){
+										vm.upnum(msg,v,2)
+										done=false
+										return
+									}
+								})
+								
+							},
+							upnum:function(msg,v,t){ //充值提现
+								
+								var vm=this
+								var num=msg.replace(v,'')
+								console.log(vm.userinfo.nickname)
+								if(!isNaN(num)){
+									console.log(num)
+									  mui.post('http://bjsc.bayuenet.com/index.php/admin/index/startgameapi',{
+										uid:vm.userinfo.id,
+										nickname:vm.userinfo.nickname,
+										amout:num,
+										type:t,
+										from:1
+										},function(data){
+										//	mui.toast(data.msg)
+											vm.sendws(data.msg)
+										},'json'
+									);
+								}
+								
+							},
+							sendws:function(msg){ //充值或者提现以后发生ws
+								var vm=this
+								//console.log(vm.userinfo.nickname)
+								 mui.post('http://211.149.249.196/saiche/robot/index.php?action=to',{
+										user_id:0,
+										msg:msg,
+										
+										username:vm.userinfo.nickname
+										},function(data){
+										
+										},'json'
+									);
+							},
 							golink:function(url){//跳转页面
 								var sueNo=this.issueNo//期号
 					//			window.location.href = url+'.html?sueNo='+sueNo
@@ -995,11 +1059,11 @@
 							getuserimg:function(userid){//获取用户头像
 								
 								var vm=this
-								mui.post('http://demobc.bayuenet.com:9096/bjsc/index.php/admin/index/facepath',{
+								mui.post('http://bjsc.bayuenet.com/index.php/admin/index/facepath',{
 								id:userid,
 								},function(data){
 									if(data.code==200){
-										vm.userinfo.img= 'http://demobc.bayuenet.com:9096/bjsc'+data.face
+										vm.userinfo.img= 'http://bjsc.bayuenet.com'+data.face
 									}
 									
 									},'json'
@@ -1008,7 +1072,7 @@
 							getuserscore:function(){//获取用户存分
 								var vm=this
 								var userid=localStorage.getItem('userid');
-							  mui.post('http://demobc.bayuenet.com:9096/bjsc/index.php/admin/index/usersafemoney',{
+							  mui.post('http://bjsc.bayuenet.com/index.php/admin/index/usersafemoney',{
 								id:userid,
 								},function(data){
 								//	console.log(JSON.stringify(data))
@@ -1115,18 +1179,28 @@
 					                  //alert("数据发送中...");
 					               };
 					            ws.onmessage=function(data){
-					            	console.log(JSON.stringify(data))
+
 					            	var s=clearString(data.data)
-					            	console.log(s)
-					            	var contenr=s.substring(s.indexOf('msg""')+5,s.lastIndexOf('""pic') )
-					            	var img=s.substring(s.indexOf('pic""')+5,s.lastIndexOf('""nickname') )
-					            	console.log(img)
+					            //	console.log(s)
+					            	var msgobj=JSON.parse(s)
+					            	
+					            	
+					            	var contenr= msgobj.msg //s.substring(s.indexOf('msg""')+5,s.lastIndexOf('""pic') )
+					            	
+					            	var img=msgobj.pic //s.substring(s.indexOf('pic""')+5,s.lastIndexOf('""nickname') )
+					            	var nickname=msgobj.nickname
+					            	var type=msgobj.type
+					            	
 					            	var d={
 										sender: 'other',
 										type: 'text',
 										content:contenr,
 										img:img,
-										nickname:'cmf'
+										nickname:nickname
+									}
+					            	if(!vm.iscanbet&&nickname!=''){
+									
+										return
 									}
 					            	vm.record.push(d);
 					            	document.querySelector('#msg-list').scrollTop =document.querySelector('#msg-list').scrollHeight + document.querySelector('#msg-list').offsetHeight;
@@ -1288,6 +1362,8 @@
 								//22222
 								sj(data)
 								vm.issueNo=data.nper//期号  后面要加 开奖时间
+							//	console.log((data.endTime*1000).format('yyyy-MM-dd h:m:s'))
+								
 								var lotteryTime=this.lotteryTime//小车跑距离结束时间 显示开奖结果时间 
 								var AccordingTime=this.AccordingTime//从后台获取这一期开奖时间距离结束时间的差值 现在是100 现在不要了
 								console.log(data.endTime-data.presentTime)
@@ -1304,7 +1380,7 @@
 									vm.isshowCountdown=false
 									var endTiemsetint=setInterval(function(){
 										vm.endtime=vm.endtime-1
-										mui.toast('离开始游戏还有'+vm.endtime+'秒')
+										//mui.toast('离开始游戏还有'+vm.endtime+'秒')
 										console.log(vm.endtime)
 										
 										if(vm.endtime<=0){
@@ -1328,7 +1404,7 @@
 									vm.iscanbet=true
 									setTimeout(function(){
 										//ajax 获取开奖结果222222
-//										mui.post('http://demobc.bayuenet.com:9096/bjsc/index.php/admin/box/order',{
+//										mui.post('http://bjsc.bayuenet.com/index.php/admin/box/order',{
 //											
 //											},function(data){
 //												console.log(data)
@@ -1366,7 +1442,7 @@
 							},
 							initenter:function(){
 								var vm=this
-									mui.post('http://demobc.bayuenet.com:9096/bjsc/index.php/admin/index/gametime',{
+									mui.post('http://bjsc.bayuenet.com/index.php/admin/index/gametime',{
 											
 											},function(data){
 											
@@ -1402,7 +1478,14 @@
 								}
 						},
 						ready:function(){
-							this.getuserscore()
+							var vm=this
+							vm.getuserscore()
+							var Intervalgetuserscore=setInterval(function(){
+
+								vm.getuserscore()
+							},10000)
+							
+							
 						//	this.consoletest()
 						this.initenter()
 					//	onNetChange()
@@ -1420,183 +1503,7 @@
 						}
 					})
 					
-					
-					//初始话WebSocket
-//				var  ws = new WebSocket('ws://211.149.235.46:3999/');
-//			
-//					
-//					ws.onerror = function() {
-//						mui.toast('连接发生错误');
-//					};
-//					ws.onopen = function(){
-//						//  ws.send("111222");
-//					};
-//					ws.onmessage=function(data){
-//						sj(data)
-//					}
-//				
-//				function sendmsg(msg){
-//					
-//				}
-//				var testsendd=document.getElementById('testsend')
-//				testsendd.addEventListener('tap',function(){
-//					var msg=document.getElementById('msg-text').value
-//
-//					var d='{"name":"'+123+'","speak":\"'+msg+'"}'
-//					var s= '{"type":"'+'speak'+'","msg":'+d+'}'
-//					console.log(d)
-//					ws.send(s)
-//					
-//					
-//					
-//				},false)
-			
-					
-//					var showKeyboard = function() {
-//						if (mui.os.ios) {
-//							var webView = plus.webview.currentWebview().nativeInstanceObject();
-//							webView.plusCallMethod({
-//								"setKeyboardDisplayRequiresUserAction": false
-//							});
-//						} else {
-//							var Context = plus.android.importClass("android.content.Context");
-//							var InputMethodManager = plus.android.importClass("android.view.inputmethod.InputMethodManager");
-//							var main = plus.android.runtimeMainActivity();
-//							var imm = main.getSystemService(Context.INPUT_METHOD_SERVICE);
-//							imm.toggleSoftInput(0, InputMethodManager.SHOW_FORCED);
-//							//var view = ((ViewGroup)main.findViewById(android.R.id.content)).getChildAt(0);
-//							imm.showSoftInput(main.getWindow().getDecorView(), InputMethodManager.SHOW_IMPLICIT);
-//							//alert("ll");
-//						}
-//					};
-//					var record = [{//初始化聊天室
-//						sender: 'zs',
-//						type: 'text',
-//						content: '欢迎进入北京赛车，您可以通过发送消息进行下单'
-//					}];
-//					var ui = {
-//						body: document.querySelector('body'),
-//						footer: document.querySelector('footer'),
-//						footerRight: document.querySelector('.footer-right'),
-//						footerLeft: document.querySelector('.footer-left'),
-//						btnMsgType: document.querySelector('#msg-type'),
-//						boxMsgText: document.querySelector('#msg-text'),
-//					
-//						btnMsgImage: document.querySelector('#msg-image'),
-//						areaMsgList: document.querySelector('#msg-list'),
-//						
-//						h: document.querySelector('#h'),
-//						content: document.querySelector('.mui-content')
-//					};
-//					ui.h.style.width = ui.boxMsgText.offsetWidth + 'px';
-					//alert(ui.boxMsgText.offsetWidth );
-				//	var footerPadding = ui.footer.offsetHeight - ui.boxMsgText.offsetHeight;
 
-//					var bindMsgList = function() {
-//						//绑定数据:
-//						/*tp.bind({
-//							template: 'msg-template',
-//							element: 'msg-list',
-//							
-//							model: record
-//						});*/
-//						
-//						
-//						ui.areaMsgList.innerHTML = template('msg-template', {
-//							"record": record
-//						});
-//						var msgItems = ui.areaMsgList.querySelectorAll('.msg-item');
-//						
-////						imageViewer.findAllImage();
-//						ui.areaMsgList.scrollTop = ui.areaMsgList.scrollHeight + ui.areaMsgList.offsetHeight;
-//					};
-					//bindMsgList();
-					
-//					var send = function(msg) {//发送数据请求
-//						
-//						record.push(msg);//显示发送的数据
-//					//	bindMsgList();
-//						toRobot(msg.content);
-//					};
-//					var toRobot = function(info) {
-//						var apiUrl = 'http://www.tuling123.com/openapi/api';
-//						mui.getJSON(apiUrl, {
-//							"key": 'acfbca724ea1b5db96d2eef88ce677dc',
-//							"info": info,
-//							"userid": plus.device.uuid
-//						}, function(data) {
-//							//alert(JSON.stringify(data));
-//							record.push({
-//								sender: 'zs',
-//								type: 'text',
-//								content: data.text
-//							});
-//						//	bindMsgList();
-//						});
-//					};
-
-
-
-//					ui.footerRight.addEventListener('release', function(event) {
-//						if (ui.btnMsgType.classList.contains('mui-icon-paperplane')) {
-////							
-////							//showKeyboard();
-////							ui.boxMsgText.focus();
-////							setTimeout(function() {
-////								ui.boxMsgText.focus();
-////							}, 150);
-////							if( ui.boxMsgText.value==''){
-////								　mui.toast("输入内容不能为空");
-////								return
-////							}
-////							//							event.detail.gesture.preventDefault();
-////							send({
-////								sender: 'self',
-////								type: 'text',
-////								content: ui.boxMsgText.value.replace(new RegExp('\n', 'gm'), '<br/>')
-////							});
-////							ui.boxMsgText.value = '';
-////							mui.trigger(ui.boxMsgText, 'input', null);
-//						} 
-//
-//					}, false);
-//
-//					var recordCancel = false;
-//					var recorder = null;
-//					var audio_tips = document.getElementById("audio_tips");
-//					var startTimestamp = null;
-//					var stopTimestamp = null;
-//					var stopTimer = null;
-//
-//				
-//
-//					ui.boxMsgText.addEventListener('input', function(event) {//输入框高度计算
-//						//ui.btnMsgType.classList[ui.boxMsgText.value == '' ? 'remove' : 'add']('mui-icon-paperplane');
-////						ui.btnMsgType.setAttribute("for", ui.boxMsgText.value == '' ? '' : 'msg-text');
-////						ui.h.innerText = ui.boxMsgText.value.replace(new RegExp('\n', 'gm'), '\n-') || '-';
-////						console.log(2222222)
-////						ui.footer.style.height = (ui.h.offsetHeight + footerPadding) + 'px';
-////						ui.content.style.paddingBottom = ui.footer.style.height;
-//					});
-//					var focus = false;
-//					ui.boxMsgText.addEventListener('tap', function(event) {
-//						ui.boxMsgText.focus();
-//						setTimeout(function() {
-//							ui.boxMsgText.focus();
-//						}, 0);
-//						focus = true;
-//						setTimeout(function () {
-//							focus = false;
-//						},1000);
-//						event.detail.gesture.preventDefault();
-//					}, false);
-//					//点击消息列表，关闭键盘
-//					ui.areaMsgList.addEventListener('click',function (event) {
-//						if(!focus){
-//							ui.boxMsgText.blur();
-//						}
-//					})
-//					
 				});
 	
 		</script>

@@ -3,9 +3,9 @@ function isPasswd(s) {
 	if(!patrn.exec(s)) return false
 	return true
 }
-//校验用户名：2-6中文
+//校验用户名：1-5中文
 function isChineseChar(str) {
-	var reg = /[\u4E00-\u9FA5\uF900-\uFA2D]{2,6}/;
+	var reg = /[\u4E00-\u9FA5\uF900-\uFA2D]{1,5}/;
 	return reg.test(str);
 }
 
@@ -17,6 +17,15 @@ function isMobile(phone) {
 	// 根据号码段的不同和前缀不同可适当修改
 	var reValue = /^(0|86|17951)?(13[0-9]|15[012356789]|18[0-9]|14[57]|17[0-9])[0-9]{8}$/;
 	if(!reValue.test(phone)) {
+		return false;
+	} else {
+		return true;
+	}
+}
+function ischina(str) {
+	// 根据号码段的不同和前缀不同可适当修改
+	var reValue = /^[\u4e00-\u9fa5]{0,}$/;
+	if(!reValue.test(str)) {
 		return false;
 	} else {
 		return true;
@@ -56,7 +65,7 @@ function sj(obj) {
 }
 
 function clearString(s) {
-	var pattern = new RegExp("[`~!@#$^&*()=|{}':;',.<>?~！@#￥……&*（）&;|{}【】‘；：”“'。，、？]")
+	var pattern = new RegExp("[\]")
 	var rs = "";
 	for(var i = 0; i < s.length; i++) {
 		rs = rs + s.substr(i, 1).replace(pattern, '');
@@ -93,4 +102,25 @@ function onNetChange() {　　 //获取当前网络类型
 			　　　　　　mui.toast("当前没有网络");　　　　　　
 			break;　　
 	}
+}
+Date.prototype.format = function(format) {
+       var date = {
+              "M+": this.getMonth() + 1,
+              "d+": this.getDate(),
+              "h+": this.getHours(),
+              "m+": this.getMinutes(),
+              "s+": this.getSeconds(),
+              "q+": Math.floor((this.getMonth() + 3) / 3),
+              "S+": this.getMilliseconds()
+       };
+       if (/(y+)/i.test(format)) {
+              format = format.replace(RegExp.$1, (this.getFullYear() + '').substr(4 - RegExp.$1.length));
+       }
+       for (var k in date) {
+              if (new RegExp("(" + k + ")").test(format)) {
+                     format = format.replace(RegExp.$1, RegExp.$1.length == 1
+                            ? date[k] : ("00" + date[k]).substr(("" + date[k]).length));
+              }
+       }
+       return format;
 }

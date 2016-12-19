@@ -93,7 +93,7 @@
 				color: #ABABAB;
 			}
 			.infoContent{
-				height: 3.05rem;
+				height: 3.4rem;
 				width: 100%;
 				
 			}
@@ -236,6 +236,15 @@
 					<a href="setpassword.html" class=" mui-icon mui-icon-arrowright seticon"></a>
 				</li>
 				<li>
+					<div class="setkey">昵称</div>
+					<div class="consd">
+						
+						<input v-if="userinfo.nickname==''" type="" name="" id=""  v-model="setuserinfoobj.nickname"  placeholder="添加手机号，仅填一次，不可修改"/>
+						<span v-if="userinfo.nickname!=''">{{userinfo.nickname}}</span>
+					</div>
+					
+				</li>
+				<li>
 					<div class="setkey">手机号</div>
 					<div class="consd">
 						
@@ -364,7 +373,7 @@
 		    function uploadss(){ //上传图片
 				
 			     var wt=plus.nativeUI.showWaiting();
-			     var url = 'http://demobc.bayuenet.com:9096/bjsc/index.php/admin/index/upload';
+			     var url = 'http://bjsc.bayuenet.com/index.php/admin/index/upload';
 			            var dataType ='json';
 			            //发送数据 
 			            console.log(f1)
@@ -487,7 +496,7 @@
 					getuserinfo:function(){
 						var vm=this
 
-						mui.post('http://demobc.bayuenet.com:9096/bjsc/index.php/admin/index/SelectUserInfo',{
+						mui.post('http://bjsc.bayuenet.com/index.php/admin/index/SelectUserInfo',{
 								id:vm.userid,
 							},function(data){
 								vm.userinfo=data.userinfo
@@ -495,13 +504,13 @@
 							
 							},'json'
 						);
-						mui.post('http://demobc.bayuenet.com:9096/bjsc/index.php/admin/index/facepath',{//获取 头像
+						mui.post('http://bjsc.bayuenet.com/index.php/admin/index/facepath',{//获取 头像
 								id:vm.userid,
 							},function(data){
 								console.log(JSON.stringify(data))
 								if(data.code==200){
 									
-									vm.userheadimg= 'http://demobc.bayuenet.com:9096/bjsc'+data.face
+									vm.userheadimg= 'http://bjsc.bayuenet.com'+data.face
 								}
 								
 								},'json'
@@ -538,7 +547,7 @@
 						userinfo.id=this.userid
 						console.log(JSON.stringify(userinfo))
 						var vm=this
-						mui.post('http://demobc.bayuenet.com:9096/bjsc/index.php/admin/index/UpdateInfo',userinfo,function(data){
+						mui.post('http://bjsc.bayuenet.com/index.php/admin/index/UpdateInfo',userinfo,function(data){
 								//vm.userinfo=data.userinfo
 								vm.getuserinfo()
 								//console.log(JSON.stringify(data))
@@ -549,14 +558,23 @@
 					out:function(){
 						
 						var backButtonPress = 0;
-						var isout=mui.confirm('确认退出皇家会所？',function(s){
+						var isout=mui.confirm('确认退出皇家会所（需要重新输入账号密码）？',function(s){
 							if(s.index){
-								if(localStorage.getItem('isrememberpassword')=='false'){
+								//if(localStorage.getItem('isrememberpassword')=='false'){
+								
+								plus.runtime.quit();
+								var uid=localStorage.getItem('userid')
+								console.log(uid)
+								mui.post('http://bjsc.bayuenet.com/index.php/admin/user/logout',{
+										uid:uid,
+									},function(data){
+										mui.toast('退出成功')
+									
+									},'json'
+								);
 								localStorage.removeItem('username')
 								localStorage.removeItem('userid')
-								
-								}
-								plus.runtime.quit();
+								localStorage.removeItem('isrememberpassword')
 								return 
 							}else{
 								return

@@ -156,7 +156,7 @@
 			
 			mui.plusReady(function(){
 				var userid=localStorage.getItem('userid')
-				mui.post('http://demobc.bayuenet.com:9096/bjsc/index.php/admin/index/usersafemoney',{
+				mui.post('http://bjsc.bayuenet.com/index.php/admin/index/usersafemoney',{
 								id:userid,
 							},function(data){
 								if(data.code==200){
@@ -193,6 +193,32 @@
 						mui.alert('数据不能大于台面上的积分')
 						return
 					}
+					var userid=localStorage.getItem('userid')
+					mui.post('http://bjsc.bayuenet.com/index.php/admin/index/injifen',{
+								id:userid,
+								money:val
+							},function(data){
+								mui.toast(data.info)
+								mui.post('http://bjsc.bayuenet.com/index.php/admin/index/usersafemoney',{
+								id:userid,
+								},function(data){
+											if(data.code==200){
+												document.getElementById('baoxian').innerText=data.bao.safeintegral
+												document.getElementById('taimian').innerText=data.tai.integral
+											}
+										
+									},'json'
+								);
+//								if(data.code==200){
+//									
+////									document.getElementById('baoxian').innerText=data.bao.safeintegral
+////									document.getElementById('taimian').innerText=data.tai.integral
+//								}
+							
+						},'json'
+					);
+					
+					
 					
 					
 				},false)

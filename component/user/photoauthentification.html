@@ -165,7 +165,7 @@
 					},1000)
 				
 					
-					mui.post('http://demobc.bayuenet.com:9096/bjsc/index.php/admin/index/Sendmessage',{
+					mui.post('http://bjsc.bayuenet.com/index.php/admin/index/Sendmessage',{
 						id:userid,
 						Tel:val
 					},function(data){
@@ -187,7 +187,7 @@
 					
 					var youyzmstr=youyzmobj.value
 				
-					mui.post('http://demobc.bayuenet.com:9096/bjsc/index.php/admin/index/codesms',{
+					mui.post('http://bjsc.bayuenet.com/index.php/admin/index/codesms',{
 								id:userid,
 								Code:youyzmstr,
 								money:val

@@ -141,7 +141,7 @@
 			mui.plusReady(function(){
 				var userid=localStorage.getItem('userid')
 			//	console.log(userid)
-					mui.post('http://demobc.bayuenet.com:9096/bjsc/index.php/admin/index/usersafemoney',{
+					mui.post('http://bjsc.bayuenet.com/index.php/admin/index/usersafemoney',{
 								id:userid,
 							},function(data){
 								if(data.code==200){

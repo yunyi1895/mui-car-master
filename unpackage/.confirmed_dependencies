@@ -98,7 +98,8 @@
 			"component/user/photoauthentification.html",
 			"component/user/userinfo.html",
 			"component/game/OpeningRecord.html",
-			"component/game/gamerecord.html"
+			"component/game/gamerecord.html",
+			"component/user/setpassword.html"
 		]
 	},
 	"component/user/safe.html": {

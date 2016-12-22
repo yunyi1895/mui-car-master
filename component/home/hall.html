@@ -609,12 +609,12 @@
               	时间：2016-10-24
               	描述：1
               -->
-		<footer>
+		<footer  @click="showuserCentervue" >
 			<div class="userinfo">
 				<span id="userimage">
 					<img id="userhadeimg" :src="vueuserinfo.img"/>
 				</span>
-				<span id="username" v-text='vueuserinfo.name'>
+				<span id="username" v-text="vueuserinfo.name+'('+userid+')'">
 					
 				</span>
 			</div>
@@ -625,7 +625,7 @@
 			</div>
 			<div class="userCenter">
 				
-				<div @click="showuserCentervue" id="userCenterBtn" class="userCenterBtn">
+				<div id="userCenterBtn" class="userCenterBtn">
 					用户中心
 				</div>
 			</div>
@@ -762,6 +762,7 @@
 						vueuserinfo:{//用户信息
 							name:'',
 							money:0000,
+							id:'',
 							img:'../../image/weishangchuantouxiang@2x.png'
 						},
 						vueinform:[//举报内容
@@ -933,7 +934,7 @@
 						this.userid=userid
 						this.vueuserinfo.name=username
 						
-						if(username=='null'){
+						if(username=='null'||username==''){
 							this.setnickname()
 						}
 						

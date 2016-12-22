@@ -697,7 +697,7 @@
 						</span>
 					</div>
 					<div class="issuetime">
-						<span>
+						<span >
 							开奖时间
 						</span>
 						<span v-text="issueTime">
@@ -720,7 +720,7 @@
 		<div class="operations">
 			<div class="operation" ><a @click="golink('OpeningRecord')">开局记录</a></div>
 			<div class="operation"><a @click="golink('gamerecord')">游戏记录</a></div>
-			<div class="operation">滚单撤单</div>
+			
 			<div @click="evacuateAll" class="operation">我要撤单</div>
 		</div>
 		<div class="chat">
@@ -954,23 +954,24 @@
 								var userid=this.userinfo.id
 								//console.log(userid+'|'+issueNo)
 								//test 曹阳
+								var canbet=vm.iscanbet?1:0  //是否可以下单
 								
-								
-//								mui.post('http://bjsc.bayuenet.com/index.php/home/Statistics/vehicle',{
-//								id:userid,
-//								issue:issueNo,
-//								type:'1',
-//								str:msg.content
-//								},function(data){
-//									console.log(JSON.stringify(data))
+								mui.post('http://bjsc.bayuenet.com/index.php/admin/index/getganmeapi',{
+								uid:userid,
+								qh:issueNo,
+								nickname:vm.userinfo.nickname,
+								content:msg.content,
+								isok:canbet
+								},function(data){
+									console.log(JSON.stringify(data))
 //									if(data.score!='-1'){
 //										vm.benqiyongfen=data.total_score
 //										vm.benciyongfen=data.score
 //										vm.getuserscore()
 //									}
-//									
-//									},'json'
-//								);
+									
+									},'json'
+								);
 								
 								//test 曹阳
 								
@@ -1362,8 +1363,8 @@
 								//22222
 								sj(data)
 								vm.issueNo=data.nper//期号  后面要加 开奖时间
-							//	console.log((data.endTime*1000).format('yyyy-MM-dd h:m:s'))
 								
+								vm.issueTime=new Date((data.endTime-50)*1000).format('h:m:s')
 								var lotteryTime=this.lotteryTime//小车跑距离结束时间 显示开奖结果时间 
 								var AccordingTime=this.AccordingTime//从后台获取这一期开奖时间距离结束时间的差值 现在是100 现在不要了
 								console.log(data.endTime-data.presentTime)
@@ -1404,18 +1405,18 @@
 									vm.iscanbet=true
 									setTimeout(function(){
 										//ajax 获取开奖结果222222
-//										mui.post('http://bjsc.bayuenet.com/index.php/admin/box/order',{
-//											
-//											},function(data){
-//												console.log(data)
-//												var da=data.split(' ')
-//												//console.log(da)
-//												vm.lotteryResults=da
-//												//sj(data)
-//											},'json'
-//										);
+										mui.post('http://bjsc.bayuenet.com/index.php/admin/box/order',{
+											
+											},function(data){
+												console.log(data)
+												var da=data.split(' ')
+												//console.log(da)
+												vm.lotteryResults=da
+												//sj(data)
+											},'json'
+										);
 										
-										vm.lotteryResults=['05','02','07','09','08','06','04','10','01','03']//开奖数据
+									//	vm.lotteryResults=['05','02','07','09','08','06','04','10','01','03']//开奖数据
 									},canshur)
 									
 									var endTiemsetint2=setInterval(function(){
@@ -1481,7 +1482,6 @@
 							var vm=this
 							vm.getuserscore()
 							var Intervalgetuserscore=setInterval(function(){
-
 								vm.getuserscore()
 							},10000)
 							

@@ -158,7 +158,7 @@ display: -webkit-flex;
 					</div>
 					<div class="username">
 						<span> 设置密码</span>
-						<input type="text" name="" id="password1" value="" placeholder="请输入密码" />
+						<input type="password" name="" id="password1" value="" placeholder="请输入密码" />
 					</div>
 					<div class="username">
 						<span> 确认密码</span>
@@ -166,7 +166,7 @@ display: -webkit-flex;
 					</div>
 					<div class="username">
 						<span> 邀 请 码</span>
-						<input type="password" name="" id="invitation" value="" placeholder="请输入密码" />
+						<input type="text" name="" id="invitation" value="" placeholder="请输入密码" />
 					</div>
 				</div>
 				<div class="signin">
@@ -248,30 +248,13 @@ display: -webkit-flex;
 						dialoginfo('请输入相同的密码')
 						return
 					}
-//					mui.ajax('http://runjs.cn/action/echo/',{
-//						data:{
-//							username:'userinfoval',
-//							password:'password1val'
-//						},
-//						dataType:'json',//服务器返回json格式数
-//						type:'post',//HTTP请求类型
-//						//timeout:10000,//超时时间设置为10秒；
-//					//	headers:{'Content-Type':'application/json'},	              
-//						success:function(data){
-//							console.log(22)
-//							console.log(data)
-//						},
-//						error:function(xhr,type,errorThrown){
-//							//异常处理；
-//							console.log(11222)
-//							console.log(JSON.stringify(xhr));
-//						}
-//					});
-//					
+
 				
+					var usermode=plus.device.uuid
 					mui.post('http://bjsc.bayuenet.com/index.php/admin/User/login',{
 							username:userinfoval,
-							password:password1val
+							password:password1val,
+							usermode:usermode
 						},function(data){
 							console.log(JSON.stringify(data))
 							if(data.code==-200){
@@ -279,10 +262,13 @@ display: -webkit-flex;
 								return
 							}
 							var username=data.userinfo.username
-							
+							var zhanghao=data.userinfo.zhanghao
 							var userid=data.userinfo.id
-							localStorage.setItem('username',username)
+							localStorage.setItem('zhanghao',zhanghao)
 							localStorage.setItem('userid',userid)
+							localStorage.setItem('username',username)
+							localStorage.setItem('password',password1val)
+							localStorage.setItem('isrememberpassword','true')
 							mui.openWindow({
 								url: './home/hall.html',
 								id: 'hall',

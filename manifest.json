@@ -285,7 +285,8 @@
 					"component/user/passwordauthentification.html",
 					"component/user/photoauthentification.html",
 					"component/game/OpeningRecord.html",
-					"component/game/gamerecord.html"
+					"component/game/gamerecord.html",
+					"component/user/setpassword.html"
 				],
 				"priority": 0
 			},

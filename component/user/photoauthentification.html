@@ -169,9 +169,13 @@
 						id:userid,
 						Tel:val
 					},function(data){
-						
-						yzm=data.yzm
-					
+						console.log(JSON.stringify(data))
+						if(data.code==200){
+							yzm=data.yzm
+							mui.toast("发送成功")
+						}else{
+							mui.toast("发送失败")
+						}
 					},'json')
 					
 					
@@ -186,19 +190,23 @@
 					var val = localStorage.getItem('money')
 					
 					var youyzmstr=youyzmobj.value
-				
+					if(youyzmstr!=yzm){
+						mui.toast('验证码不正确')
+						return false;
+					}
 					mui.post('http://bjsc.bayuenet.com/index.php/admin/index/codesms',{
 								id:userid,
-								Code:youyzmstr,
 								money:val
 							},function(data){
-								localStorage.remoItem('money')
+								console.log(JSON.stringify(data))
+								
 								youyzmobj.value=''
 								if(data.code==-200){
 									mui.alert('验证码不正确')
 									return
 								}else if(data.code==200){
 									mui.toast('提取成功')
+									localStorage.removeItem('money')
 									mui.openWindow({
 										url:'safe.html',
 			    						id:'safe',

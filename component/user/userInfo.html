@@ -214,10 +214,10 @@
 		<header class="mui-bar ">
 			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
 			<h1 class="mui-title">用户资料</h1>
-			<a @click="setuserinfo" id="subinfo" class="">完成</a>
+			<a @click="out"  id="subinfo" class="">退出游戏</a>
 		</header>
 		<div class="portrait">
-			<div class="setportrait">
+			<div id="headImage" class="setportrait">
 				<div id="portrait">
 					头像
 				</div>
@@ -225,20 +225,19 @@
 					<img id="mainImage" :src="userheadimg">
 				</div>
 				
-				<a id="headImage" class=" mui-icon mui-icon-arrowright seticon"></a>
+				<a  class=" mui-icon mui-icon-arrowright seticon"></a>
 			</div>
 		</div>
 		<div class="infoContent">
 			<ul>
-				<li>
+				<li @click="setpassword">
 					<div class="setkey">修改密码</div>
 					<div class="consd"></div>
-					<a href="setpassword.html" class=" mui-icon mui-icon-arrowright seticon"></a>
+					<a class=" mui-icon mui-icon-arrowright seticon"></a>
 				</li>
 				<li>
 					<div class="setkey">昵称</div>
 					<div class="consd">
-						
 						<input v-if="userinfo.nickname==''" type="" name="" id=""  v-model="setuserinfoobj.nickname"  placeholder="添加手机号，仅填一次，不可修改"/>
 						<span v-if="userinfo.nickname!=''">{{userinfo.nickname}}</span>
 					</div>
@@ -309,8 +308,8 @@
 			</ul>
 		</div>
 		<footer>
-			<div @click="out" class="out">
-				退出登录
+			<div @click="setuserinfo"  class="out">
+				完成
 			</div>
 			
 		</footer>
@@ -528,6 +527,23 @@
 						}
 						//console.log(JSON.stringify(vm.setuserinfoobj))
 					},
+					setpassword:function(){
+						mui.openWindow({
+								url: './setpassword.html',
+								id: 'setpassword',
+								preload: true,
+								show: {
+									aniShow: 'pop-in'
+								},
+								styles: {
+									popGesture: 'hide'
+								},
+								waiting: {
+									autoShow: false
+								},
+								
+						});
+					},
 					setuserinfo:function(){
 					//	console.log(JSON.stringify(this.setuserinfoobj))
 //						if(!isMobile(this.setuserinfoobj.Tel)){
@@ -550,6 +566,8 @@
 						mui.post('http://bjsc.bayuenet.com/index.php/admin/index/UpdateInfo',userinfo,function(data){
 								//vm.userinfo=data.userinfo
 								vm.getuserinfo()
+								mui.back()
+								
 								//console.log(JSON.stringify(data))
 							},'json'
 						);
